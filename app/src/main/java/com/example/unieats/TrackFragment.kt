@@ -5,10 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.navigation.findNavController
-import com.example.unieats.databinding.FragmentHomeBinding
-import com.example.unieats.databinding.FragmentTitleBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -17,10 +13,10 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [TitleFragment.newInstance] factory method to
+ * Use the [TrackFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class TitleFragment : Fragment() {
+class TrackFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -37,14 +33,8 @@ class TitleFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = DataBindingUtil.inflate<FragmentTitleBinding>(inflater,
-            R.layout.fragment_title, container, false)
-
-        binding.loginButton.setOnClickListener {view: View->
-            view.findNavController().navigate(R.id.action_titleFragment_to_loginFragment)
-        }
-
-        return binding.root
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_track, container, false)
     }
 
     companion object {
@@ -54,12 +44,12 @@ class TitleFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment TitleFragment.
+         * @return A new instance of fragment TrackFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            TitleFragment().apply {
+            TrackFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

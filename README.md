@@ -1,2 +1,3 @@
 # unieats
-By: William Kang, Denis Hu, Rong Tao Luo, Tony An, Frank Yang, Frank Chen
+
+gradle 3.6.3 todo: update to 4.0.0

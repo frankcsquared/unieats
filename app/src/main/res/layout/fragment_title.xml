@@ -1,78 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.android.navigation.TitleFragment">
-
+    tools:context=".TitleFragment">
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/titleConstraint"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg">
+        >
 
         <TextView
-            android:id="@+id/title_one"
-            android:layout_width="159dp"
-            android:layout_height="138dp"
-            android:layout_marginStart="85dp"
-            android:layout_marginTop="90dp"
-            android:fontFamily="@font/roboto"
-            android:lineSpacingMultiplier="0.862"
-            android:text="@string/app_name_caps"
-            android:textColor="@color/white"
-            android:textSize="@dimen/title_large"
+            android:id="@+id/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="92dp"
+            android:text="Uni\nEats"
+            android:textSize="36sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.241"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/title_desc"
+        <Button
+            android:id="@+id/loginButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="86dp"
-            android:layout_marginTop="15dp"
-            android:fontFamily="@font/roboto"
-            android:text="@string/title_desc"
-            android:textAlignment="textStart"
-            android:textColor="@color/white"
-            android:textSize="14.5sp"
+            android:layout_marginTop="228dp"
+            android:text="Log in"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title_one" />
+            app:layout_constraintTop_toBottomOf="@+id/titleText" />
 
         <Button
-            android:id="@+id/login_button"
-            android:layout_width="330dp"
-            android:layout_height="52dp"
-            android:layout_marginTop="35dp"
-            android:background="@drawable/rounded_corners"
-            android:fontFamily="@font/roboto_medium"
-            android:text="@string/login"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textColor="@color/login_red"
-            android:textSize="@dimen/frontpage_action"
+            android:id="@+id/signupButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign up"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title_desc" />
-
-        <Button
-            android:id="@+id/singup_button"
-            android:layout_width="330dp"
-            android:layout_height="52dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/rounded_corners"
-            android:fontFamily="@font/roboto_medium"
-            android:text="@string/singup"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="@dimen/frontpage_action"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_button" />
-
+            app:layout_constraintTop_toBottomOf="@+id/loginButton"
+            app:layout_constraintVertical_bias="0.116" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>

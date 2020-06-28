@@ -6,7 +6,7 @@
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
-    <string name="login">Login</string>
+    <string name="login_large">Login</string>
     <string name="signup">Sign Up</string>
     <string name="welcome">"Welcome!"</string>
     <string name="invalid_username">Not a valid username</string>
@@ -20,4 +20,8 @@
     <string name="titleFragment">Uni Eats</string>
     <string name="app_name_caps">UNI EATS</string>
     <string name="title_desc">The easiest way to track your food.\n Built by students, for students.</string>
+    <string name="log_in">Log In</string>
+    <string name="back">back</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
 </resources>

@@ -39,30 +39,37 @@
             android:layout_width="370dp"
             android:layout_height="41dp"
             android:layout_marginTop="36dp"
+            android:autofillHints=""
             android:background="@drawable/login_bg"
             android:hint="@string/username"
             android:inputType="textPersonName"
+            android:paddingStart="@dimen/input_padding"
+            android:paddingEnd="@dimen/none"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title_one"
-            android:autofillHints="" />
+            app:layout_constraintTop_toBottomOf="@+id/title_one">
+
+            <requestFocus />
+        </EditText>
 
         <EditText
             android:id="@+id/passwordText"
             android:layout_width="370dp"
             android:layout_height="41dp"
             android:layout_marginTop="16dp"
+            android:autofillHints=""
             android:background="@drawable/login_bg"
             android:hint="@string/password"
             android:inputType="textPassword"
+            android:paddingStart="@dimen/input_padding"
+            android:paddingEnd="@dimen/none"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/usernameText"
-            android:autofillHints="" />
+            app:layout_constraintTop_toBottomOf="@+id/usernameText" />
 
         <Button
             android:id="@+id/login_button"

@@ -6,4 +6,6 @@
     <dimen name="frontpage_action">16sp</dimen>
     <dimen name="back_icon_startconst">21dp</dimen>
     <dimen name="back_icon_upperconst">31dp</dimen>
+    <dimen name="input_padding">18dp</dimen>
+    <dimen name="none">0dp</dimen>
 </resources>

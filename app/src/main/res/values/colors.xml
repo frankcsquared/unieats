@@ -5,4 +5,7 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="white">#FFFFFF</color>
     <color name="login_red">#F33232</color>
+    <color name="transparent">#00F44336</color>
+    <color name="primary_red">#DC3535</color>
+    <color name="darker_red">#D93636</color>
 </resources>

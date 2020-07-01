@@ -40,7 +40,7 @@ class LoginFragment : Fragment() {
             R.layout.fragment_login, container, false)
 
         binding.loginButton.setOnClickListener {view: View->
-            view.findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+            //view.findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
         }
 
         return binding.root

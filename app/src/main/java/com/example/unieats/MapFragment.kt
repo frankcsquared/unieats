@@ -41,7 +41,7 @@ class MapFragment : Fragment() {
             R.layout.fragment_map, container, false)
 
         binding.mcButton.setOnClickListener {view: View->
-            view.findNavController().navigate(R.id.action_mapFragment_to_trackFragment)
+            //view.findNavController().navigate(R.id.action_mapFragment_to_trackFragment)
         }
 
         return binding.root

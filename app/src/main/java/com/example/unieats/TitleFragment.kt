@@ -41,7 +41,7 @@ class TitleFragment : Fragment() {
             R.layout.fragment_title, container, false)
 
         binding.loginButton.setOnClickListener {view: View->
-            view.findNavController().navigate(R.id.action_titleFragment_to_loginFragment)
+            //view.findNavController().navigate(R.id.action_titleFragment_to_loginFragment)
         }
 
         return binding.root

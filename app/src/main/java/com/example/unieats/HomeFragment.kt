@@ -41,7 +41,7 @@ class HomeFragment : Fragment() {
             R.layout.fragment_home, container, false)
 
         binding.trackButton.setOnClickListener {view: View->
-            view.findNavController().navigate(R.id.action_homeFragment_to_mapFragment)
+            //view.findNavController().navigate(R.id.action_homeFragment_to_mapFragment)
         }
 
         return binding.root

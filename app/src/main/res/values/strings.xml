@@ -24,4 +24,6 @@
     <string name="back">back</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="action_sign_in_short">Sign in</string>
 </resources>

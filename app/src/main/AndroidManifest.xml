@@ -23,6 +23,9 @@
         <activity
             android:name=".MainActivity">
         </activity>
+        <activity
+            android:name=".MapsActivity">
+        </activity>
     </application>
 
 </manifest>

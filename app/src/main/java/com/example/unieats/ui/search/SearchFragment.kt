@@ -51,7 +51,12 @@ class SearchFragment : Fragment() {
                  */
 
                 for (childSnapshot in dataSnapshot.children) {
-                    Log.e("EEE", childSnapshot.child("name").getValue(String::class.java))
+
+                    childSnapshot.child("name").getValue(String::class.java)?.let {
+                        Log.e("EEE",
+                            it
+                        )
+                    }
                     myList.add(childSnapshot.child("name").getValue(String::class.java))
                     Log.e("MYLIST", myList.size.toString())
                     users = myList.toTypedArray()

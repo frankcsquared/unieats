@@ -42,6 +42,24 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         val lapiazza = LatLng(43.2637, -79.9171)
         mMap.addMarker(MarkerOptions().position(lapiazza).title("La Piazza"))
+
+        val bistro = LatLng(43.2643, -79.9165)
+        mMap.addMarker(MarkerOptions().position(bistro).title("Bistro"))
+
+        val bridges = LatLng(43.2603, -79.9208)
+        mMap.addMarker(MarkerOptions().position(bridges).title("Bridges Cafe"))
+
+        val bymac = LatLng(43.2654, -79.9153)
+        mMap.addMarker(MarkerOptions().position(bymac).title("Bymac"))
+
+        val cafeone = LatLng(43.2613, -79.9163)
+        mMap.addMarker(MarkerOptions().position(cafeone).title("Cafe One"))
+
+        val caffeine = LatLng(43.2622, -79.9202)
+        mMap.addMarker(MarkerOptions().position(caffeine).title("CaFFeINe the Elements"))
+
+        val ecafe = LatLng(43.2586, -79.9196)
+        mMap.addMarker(MarkerOptions().position(ecafe).title("E-Cafe"))
     }
 
 }

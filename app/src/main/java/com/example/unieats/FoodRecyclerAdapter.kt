@@ -9,6 +9,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.unieats.models.Food
 import kotlinx.android.synthetic.main.layout_food_list_item.view.*
 
+
 class FoodRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var items: List<Food> = ArrayList()
@@ -57,4 +58,7 @@ class FoodRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 .into(foodImage)
         }
     }
+
+
 }
+

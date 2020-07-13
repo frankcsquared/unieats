@@ -34,8 +34,8 @@ class TrackFragment : Fragment() {
     }
 
     private fun addDataSet () {
-        val data = DataSource.createDataSet()
-        foodAdapter.submitList(data)
+       // val data = DataSource.createDataSet()
+        //foodAdapter.submitList(data)
     }
 
     private fun initRecyclerView () {

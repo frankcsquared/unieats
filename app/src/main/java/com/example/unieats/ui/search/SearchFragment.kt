@@ -51,7 +51,6 @@ class SearchFragment : Fragment() {
                  */
 
                 for (childSnapshot in dataSnapshot.children) {
-
                     childSnapshot.child("name").getValue(String::class.java)?.let {
                         Log.e("EEE",
                             it

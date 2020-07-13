@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.log.LogFragment">
   
-      <Button
+    <Button
         android:id="@+id/log_button"
         android:layout_width="200dp"
         android:layout_height="50dp"

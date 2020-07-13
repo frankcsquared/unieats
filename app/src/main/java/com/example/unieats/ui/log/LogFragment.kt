@@ -17,17 +17,19 @@ import com.example.unieats.databinding.FragmentLogBinding
 class LogFragment : Fragment() {
 
     private lateinit var logViewModel: LogViewModel
+    private lateinit var binding: FragmentLogBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = DataBindingUtil.inflate<FragmentLogBinding>(
+
+        binding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_log, container, false
         )
 
-        binding.log_button.setonClickListener {
+        binding.logButton.setOnClickListener {
             activity?.let{
                 val intent = Intent (it, MapsActivity::class.java)
                 it.startActivity(intent)

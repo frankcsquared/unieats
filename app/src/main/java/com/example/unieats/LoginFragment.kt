@@ -2,14 +2,15 @@ package com.example.unieats
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.unieats.databinding.FragmentLoginBinding
-import com.example.unieats.ui.login.LoginActivity
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -43,8 +44,8 @@ class LoginFragment : Fragment() {
             R.layout.fragment_login, container, false
         )
 
-        binding.loginButton.setOnClickListener {/*view: View->
-            view.findNavController().navigate(R.id.action_loginFragment_to_homeFragment)*/
+        binding.loginButton.setOnClickListener {view: View->
+            view.findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
             activity?.let{
                 val intent = Intent (it, MainActivity::class.java)
                 it.startActivity(intent)

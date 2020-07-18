@@ -14,6 +14,7 @@ import androidx.navigation.findNavController
 import com.example.unieats.MainActivity
 import com.example.unieats.R
 import com.example.unieats.databinding.FragmentLoginBinding
+import com.example.unieats.models.History
 import com.example.unieats.models.User
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -34,6 +35,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [LoginFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+
 class LoginFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -60,22 +62,31 @@ class LoginFragment : Fragment() {
         val passwordText = root.findViewById<EditText>(R.id.passwordText)
         val errorMsg = root.findViewById<TextView>(R.id.errorMsg)
         //generates array of users from database -> when logging in, queries for matching username, then checks pwd
-        Log.e("ME HERE", "ASD")
 
 
         //get us the data
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (childSnapshot in dataSnapshot.children) {
-                    val username = childSnapshot.child("username").getValue(String::class.java)
-                    val password = childSnapshot.child("password").getValue(String::class.java)
-                    if(username != null && password != null) {
-                        users.add(User(username, password))
+
+                    val asd = childSnapshot.getValue(User::class.java)
+
+                    val select = childSnapshot.getValue(User::class.java)
+
+
+                    if (select != null) {
+                        if(select.username != null && select.password != null) {
+                            users.add(select)
+                        }
                     }
+
+
                 }
 
 
             }
+
+
             override fun onCancelled(error: DatabaseError) {
                 // Failed to read value
                 //Toast.makeText(this@SearchFragment, "error error", Toast.LENGTH_LONG).show()
@@ -87,14 +98,18 @@ class LoginFragment : Fragment() {
                 //Log.e("LOGIN USERS")
                 var foundUser = false
                 for (i in 0 until users.size){
-                    Log.e("FOUND USER", users[i].username)
-                    Log.e("FOUND pwd", users[i].password)
+                    Log.i("FOUND USER", users[i].username)
+                    Log.i("FOUND pwd", users[i].password)
                     if(usernameText.text.toString() == users[i].username && passwordText.text.toString() == users[i].password){
-                        Log.e("FOUND USER", users[i].username)
+
                         foundUser = true
+
+                        MainActivity.selectedUser = users[i]
+
                         errorMsg.visibility = View.INVISIBLE
                         val intent = Intent (it, MainActivity::class.java)
                         it.startActivity(intent)
+                        break;
                     }
                 }
 

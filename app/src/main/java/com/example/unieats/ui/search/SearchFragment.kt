@@ -14,6 +14,7 @@ import android.widget.ListView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
+import com.example.unieats.MainActivity
 import com.example.unieats.R
 import com.example.unieats.models.Food
 import com.google.firebase.database.DataSnapshot
@@ -94,6 +95,7 @@ class SearchFragment : Fragment() {
                 }
                 Log.e("USERS", foods.size.toString())
                 Log.e("EEE", "END OF LINE")
+                Log.e("TEST MEKASHFKJALHGKJHG", MainActivity.selectedUser.first_name)
 
                 val listView = root.findViewById<ListView>(R.id.foodList)
                 val arrayAdapter: ArrayAdapter<*>

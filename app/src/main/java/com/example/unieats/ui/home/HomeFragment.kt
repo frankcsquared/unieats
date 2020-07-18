@@ -44,6 +44,7 @@ class HomeFragment : Fragment() {
         val ref = FirebaseDatabase.getInstance().reference.child("Food")
         val ref2 = FirebaseDatabase.getInstance().reference.child("Users")
         var myIntList: MutableList<Double?> = mutableListOf<Double?>() // calories
+        var myCalList: MutableList<Double?> = mutableListOf<Double?>() // cals for the day
         var cals: Array<Double?> = myIntList.toTypedArray();
 
         // Read from the database

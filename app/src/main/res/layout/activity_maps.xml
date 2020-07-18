@@ -9,6 +9,18 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent">
 
+        <Button
+            android:id="@+id/restaurant_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nothing selected"
+            android:background="@android:color/holo_purple"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.476"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
         <fragment
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:map="http://schemas.android.com/apk/res-auto"
@@ -22,10 +34,12 @@
             android:id="@+id/imageButton2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/back_icon_startconst"
+            android:layout_marginTop="@dimen/back_icon_upperconst"
             android:background="@color/transparent"
-            app:srcCompat="@drawable/ic_exit_icon"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="25dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_exit_icon" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

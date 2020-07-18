@@ -18,6 +18,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
     private lateinit var mMap: GoogleMap
     private lateinit var imgBtn: ImageButton
+    private lateinit var restaurantBtn: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +43,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     override fun onMapReady(googleMap: GoogleMap) {
 
         imgBtn = findViewById(R.id.imageButton2)
+        restaurantBtn = findViewById(R.id.restaurant_button)
 
         mMap = googleMap
 
@@ -80,9 +82,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     }
 
     override fun onMarkerClick(marker: Marker): Boolean {
-        Toast.makeText(this,
-            marker.tag.toString(),
-            Toast.LENGTH_SHORT).show();
+
+        restaurantBtn.text = marker.title
+
         return false
     }
 

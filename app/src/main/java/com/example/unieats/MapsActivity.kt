@@ -1,15 +1,17 @@
 package com.example.unieats
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private lateinit var mMap: GoogleMap
 
@@ -60,6 +62,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         val ecafe = LatLng(43.2586, -79.9196)
         mMap.addMarker(MarkerOptions().position(ecafe).title("E-Cafe"))
+
+        mMap.setOnMarkerClickListener(this)
+    }
+
+    override fun onMarkerClick(marker: Marker): Boolean {
+        Toast.makeText(this,
+            marker.title,
+            Toast.LENGTH_SHORT).show();
+        return false
     }
 
 }
+

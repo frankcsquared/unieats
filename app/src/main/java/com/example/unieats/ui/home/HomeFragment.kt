@@ -44,7 +44,7 @@ class HomeFragment : Fragment() {
         val ref = FirebaseDatabase.getInstance().reference.child("Food")
         val ref2 = FirebaseDatabase.getInstance().reference.child("Users")
         var myIntList: MutableList<Double?> = mutableListOf<Double?>() // calories
-        var myCalList: MutableList<Double?> = mutableListOf<Double?>() // cals for the day
+        var cals: Array<Double?> = myIntList.toTypedArray();
 
         // Read from the database
         ref.addValueEventListener(object : ValueEventListener {
@@ -53,6 +53,8 @@ class HomeFragment : Fragment() {
                 // whenever data at this location is updated.
                 for (childSnapshot in dataSnapshot.children) {
                     myIntList.add(childSnapshot.child("calories").getValue(Double::class.java))
+
+                    cals = myIntList.toTypedArray()
                 }
 
                 // create graph

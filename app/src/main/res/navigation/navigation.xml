@@ -15,15 +15,6 @@
             app:destination="@id/loginFragment" />
     </fragment>
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.example.unieats.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_homeFragment_to_mapFragment"
-            app:destination="@id/mapFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/mapFragment"
         android:name="com.example.unieats.MapFragment"
         android:label="fragment_map"
@@ -42,8 +33,5 @@
         android:name="com.example.unieats.LoginFragment"
         android:label="fragment_login1"
         tools:layout="@layout/fragment_login" >
-        <action
-            android:id="@+id/action_loginFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

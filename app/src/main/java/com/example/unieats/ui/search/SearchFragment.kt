@@ -53,11 +53,7 @@ class SearchFragment : Fragment() {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 for (childSnapshot in dataSnapshot.children) {
-                    childSnapshot.child("name").getValue(String::class.java)?.let {
-                        Log.e("EEE",
-                            it
-                        )
-                    }
+                    //childSnapshot.child("name").getValue(String::class.java)
                     myList.add(childSnapshot.child("name").getValue(String::class.java))
                     Log.e("MYLIST", myList.size.toString())
                     foods = myList.toTypedArray()

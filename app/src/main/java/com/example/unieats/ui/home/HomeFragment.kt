@@ -40,7 +40,7 @@ class HomeFragment : Fragment() {
         val ref = FirebaseDatabase.getInstance().reference.child("Food")
         var myIntList: MutableList<Double?> = mutableListOf<Double?>() // calories
         var cals: Array<Double?> = myIntList.toTypedArray();
-        Log.e("IM HERE", "FRAG HERE")
+
 
         // Read from the database
         ref.addValueEventListener(object : ValueEventListener {
@@ -49,9 +49,9 @@ class HomeFragment : Fragment() {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 for (childSnapshot in dataSnapshot.children) {
-                    Log.e("CALS EEEE", childSnapshot.child("calories").getValue(Double::class.java).toString())
+
                     myIntList.add(childSnapshot.child("calories").getValue(Double::class.java))
-                    Log.e("CALS SIze: ", myIntList.size.toString())
+
                     cals = myIntList.toTypedArray()
                 }
 

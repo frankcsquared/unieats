@@ -12,6 +12,8 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener
+import com.google.android.gms.maps.model.Marker
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
@@ -44,7 +46,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
         mMap = googleMap
 
-        // Add a marker on Centro and move the camera
+        // Add markers and move the camera to Centro
         val centro = LatLng(43.2624, -79.9201)
         mMap.addMarker(MarkerOptions().position(centro).title("Centro"))
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(centro, 15.0f))

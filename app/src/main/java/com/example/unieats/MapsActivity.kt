@@ -13,6 +13,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener
+import kotlin.math.log
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
@@ -77,6 +78,23 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
         imgBtn.setOnClickListener {
             finish()
+        }
+
+        restaurantBtn.setOnClickListener {
+            if (!restaurantBtn.text.equals("Nothing selected")) {
+                Toast.makeText(
+                    applicationContext,
+                    restaurantBtn.text,
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            else {
+                Toast.makeText(
+                    applicationContext,
+                    "choose a location!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
 
     }

@@ -1,6 +1,8 @@
 package com.example.unieats
 
 import android.os.Bundle
+import android.widget.Button
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -14,6 +16,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private lateinit var mMap: GoogleMap
+    private lateinit var imgBtn: ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +39,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
      */
 
     override fun onMapReady(googleMap: GoogleMap) {
+
+        imgBtn = findViewById(R.id.imageButton2)
+
         mMap = googleMap
 
         // Add a marker on Centro and move the camera
@@ -65,6 +71,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         mMap.addMarker(MarkerOptions().position(ecafe).title("E-Cafe"))
 
         mMap.setOnMarkerClickListener(this)
+
+        imgBtn.setOnClickListener {
+            finish()
+        }
+
     }
 
     override fun onMarkerClick(marker: Marker): Boolean {

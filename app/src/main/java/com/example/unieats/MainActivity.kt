@@ -1,9 +1,11 @@
 package com.example.unieats
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
@@ -12,6 +14,7 @@ import com.example.unieats.models.History
 import com.example.unieats.models.User
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.stream.Collectors.toMap
+
 
 class MainActivity : AppCompatActivity() {
 

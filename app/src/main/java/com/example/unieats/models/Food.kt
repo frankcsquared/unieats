@@ -5,6 +5,3 @@ package com.example.unieats.models;
         var image: String,
         var calories: Int )
 
-    {
-
-    }

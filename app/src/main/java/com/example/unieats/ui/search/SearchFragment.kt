@@ -37,8 +37,9 @@ class SearchFragment : Fragment() {
     ): View? {
         searchViewModel =
             ViewModelProviders.of(this).get(SearchViewModel::class.java)
+
         val root = inflater.inflate(R.layout.fragment_search, container, false)
-        Log.e("IM HEERE", "FRAG HERE")
+        Log.e("IM HERE", "FRAG HERE")
         val ref = FirebaseDatabase.getInstance().reference.child("Food")
         var myList: MutableList<String?> = mutableListOf<String?>() // title
         var myIntList: MutableList<Int?> = mutableListOf<Int?>() // calories
@@ -52,11 +53,7 @@ class SearchFragment : Fragment() {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 for (childSnapshot in dataSnapshot.children) {
-                    childSnapshot.child("name").getValue(String::class.java)?.let {
-                        Log.e("EEE",
-                            it
-                        )
-                    }
+                    //childSnapshot.child("name").getValue(String::class.java)
                     myList.add(childSnapshot.child("name").getValue(String::class.java))
                     Log.e("MYLIST", myList.size.toString())
                     foods = myList.toTypedArray()
@@ -135,7 +132,6 @@ class SearchFragment : Fragment() {
             }
         })
     //geniusman https://stackoverflow.com/questions/44139841/how-to-retrieve-an-array-data-inside-an-array-from-firebase-database-android
-
 
         return root
     }

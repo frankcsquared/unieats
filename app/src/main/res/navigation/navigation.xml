@@ -14,13 +14,16 @@
             android:id="@+id/action_titleFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+  
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.unieats.ui.login.LoginFragment"
         android:label="fragment_login1"
         tools:layout="@layout/fragment_login" >
+      
         <action
             android:id="@+id/action_loginFragment_to_titleFragment"
             app:destination="@id/titleFragment" />
     </fragment>
+  
 </navigation>

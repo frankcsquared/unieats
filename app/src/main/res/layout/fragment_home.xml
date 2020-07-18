@@ -6,31 +6,46 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation = "vertical"
         >
+
+        <com.jjoe64.graphview.GraphView
+            android:id="@+id/graph"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/homeText"
+            app:layout_constraintTop_toBottomOf="@id/homeText"
+            app:layout_constraintVertical_bias="0.01"
+            app:seriesColor="#ee0000"
+            app:seriesData="0=5;2=5;3=0;4=2"
+            app:seriesType="line" />
 
         <TextView
             android:id="@+id/homeText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="it's the home"
+            android:text="Home"
             android:textSize="36sp"
-            app:layout_constraintBottom_toTopOf="@+id/trackButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.444" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/trackButton"
+        <ToggleButton
+            android:id="@+id/toggleButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="464dp"
-            android:text="Track"
+            android:text="Calories"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/graph"
+            app:layout_constraintTop_toBottomOf="@id/graph"
+            app:layout_constraintVertical_bias="0.01" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -48,7 +48,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         mMap.addMarker(MarkerOptions().position(lapiazza).title("La Piazza"))
 
         val bistro = LatLng(43.2643, -79.9165)
-        mMap.addMarker(MarkerOptions().position(bistro).title("Bistro"))
+        makePin (bistro, 0, "bistro")
 
         val bridges = LatLng(43.2603, -79.9208)
         mMap.addMarker(MarkerOptions().position(bridges).title("Bridges Cafe"))
@@ -70,9 +70,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
     override fun onMarkerClick(marker: Marker): Boolean {
         Toast.makeText(this,
-            marker.title,
+            marker.tag.toString(),
             Toast.LENGTH_SHORT).show();
         return false
+    }
+
+    private fun makePin (location:LatLng, id:Int, title:String) {
+        val marker:Marker = mMap.addMarker(MarkerOptions().position(location).title(title))
+        marker.tag = id
     }
 
 }

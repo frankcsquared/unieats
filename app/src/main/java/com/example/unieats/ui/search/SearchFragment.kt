@@ -137,27 +137,6 @@ class SearchFragment : Fragment() {
         })
     //geniusman https://stackoverflow.com/questions/44139841/how-to-retrieve-an-array-data-inside-an-array-from-firebase-database-android
 
-<<<<<<< Updated upstream
-=======
-        //LISTVIEW SHOWING STUFF
-
-        // use arrayadapter and define an array6
-        val arrayAdapter: ArrayAdapter<*>
-        /*val users = arrayOf(
-            "abc", "bob dylan"
-        )
-
-         */
-
-        //Log.e("CHECK MYLIST", users.size.toString())
-        //Log.e("CHECK MYLIST", users[0])
-        // access the listView from xml file
-        val mListView = root.findViewById<ListView>(R.id.userlist)
-        arrayAdapter = ArrayAdapter(this.requireContext(),
-            android.R.layout.simple_list_item_1, users)
-        mListView!!.adapter = arrayAdapter
->>>>>>> Stashed changes
-
         return root
     }
 

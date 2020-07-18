@@ -8,11 +8,12 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener
 import com.google.android.gms.maps.model.Marker
 
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMarkerClickListener {
+class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private lateinit var mMap: GoogleMap
 
@@ -65,14 +66,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMarkerClickListe
         mMap.addMarker(MarkerOptions().position(ecafe).title("E-Cafe"))
 
         mMap.setOnMarkerClickListener(this)
-
     }
 
     override fun onMarkerClick(marker: Marker): Boolean {
         Toast.makeText(this,
             marker.title,
-            Toast.LENGTH_SHORT).show()
+            Toast.LENGTH_SHORT).show();
         return false
     }
 
 }
+

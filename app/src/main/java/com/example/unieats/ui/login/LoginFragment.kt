@@ -68,7 +68,7 @@ class LoginFragment : Fragment() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (childSnapshot in dataSnapshot.children) {
                     val username = childSnapshot.child("username").getValue(String::class.java)
-                    val password = childSnapshot.child("username").getValue(String::class.java)
+                    val password = childSnapshot.child("password").getValue(String::class.java)
                     if(username != null && password != null) {
                         users.add(User(username, password))
                     }

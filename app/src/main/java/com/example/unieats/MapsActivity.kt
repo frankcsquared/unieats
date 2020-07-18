@@ -1,20 +1,23 @@
 package com.example.unieats
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private lateinit var mMap: GoogleMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_maps)
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
@@ -44,7 +47,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.addMarker(MarkerOptions().position(lapiazza).title("La Piazza"))
 
         val bistro = LatLng(43.2643, -79.9165)
-        mMap.addMarker(MarkerOptions().position(bistro).title("Bistro"))
+        makePin (bistro, 0, "bistro")
 
         val bridges = LatLng(43.2603, -79.9208)
         mMap.addMarker(MarkerOptions().position(bridges).title("Bridges Cafe"))
@@ -60,6 +63,21 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         val ecafe = LatLng(43.2586, -79.9196)
         mMap.addMarker(MarkerOptions().position(ecafe).title("E-Cafe"))
+
+        mMap.setOnMarkerClickListener(this)
+    }
+
+    override fun onMarkerClick(marker: Marker): Boolean {
+        Toast.makeText(this,
+            marker.tag.toString(),
+            Toast.LENGTH_SHORT).show();
+        return false
+    }
+
+    private fun makePin (location:LatLng, id:Int, title:String) {
+        val marker:Marker = mMap.addMarker(MarkerOptions().position(location).title(title))
+        marker.tag = id
     }
 
 }
+

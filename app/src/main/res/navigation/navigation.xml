@@ -14,24 +14,16 @@
             android:id="@+id/action_titleFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/mapFragment"
-        android:name="com.example.unieats.MapFragment"
-        android:label="fragment_map"
-        tools:layout="@layout/fragment_map" >
-        <action
-            android:id="@+id/action_mapFragment_to_trackFragment"
-            app:destination="@id/trackFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/trackFragment"
-        android:name="com.example.unieats.TrackFragment"
-        android:label="fragment_track"
-        tools:layout="@layout/fragment_track" />
+  
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.unieats.LoginFragment"
+        android:name="com.example.unieats.ui.login.LoginFragment"
         android:label="fragment_login1"
         tools:layout="@layout/fragment_login" >
+      
+        <action
+            android:id="@+id/action_loginFragment_to_titleFragment"
+            app:destination="@id/titleFragment" />
     </fragment>
+  
 </navigation>

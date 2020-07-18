@@ -15,7 +15,11 @@
         android:id="@+id/navigation_search"
         android:name="com.example.unieats.ui.search.SearchFragment"
         android:label="@string/title_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_navigation_search_to_foodFragment"
+            app:destination="@id/foodFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_log"
@@ -34,5 +38,10 @@
         android:name="com.example.unieats.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/foodFragment"
+        android:name="com.example.unieats.ui.search.FoodFragment"
+        android:label="food_fragment"
+        tools:layout="@layout/food_fragment" />
 
 </navigation>

@@ -8,6 +8,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -35,7 +36,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        // Add a marker on Centro and move the camera
+        // Add markers and move the camera to Centro
         val centro = LatLng(43.2624, -79.9201)
         mMap.addMarker(MarkerOptions().position(centro).title("Centro"))
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(centro, 15.0f))
@@ -60,6 +61,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         val ecafe = LatLng(43.2586, -79.9196)
         mMap.addMarker(MarkerOptions().position(ecafe).title("E-Cafe"))
+
     }
 
 }

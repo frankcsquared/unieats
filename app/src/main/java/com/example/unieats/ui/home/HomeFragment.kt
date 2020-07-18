@@ -40,6 +40,8 @@ class HomeFragment : Fragment() {
         val switch = view.findViewById(R.id.switch1) as Switch
         val calsText = view.findViewById(R.id.calsText) as TextView
 
+
+
         //Initialize database and read
         val ref = FirebaseDatabase.getInstance().reference.child("Food")
         val ref2 = FirebaseDatabase.getInstance().reference.child("Users")
@@ -85,7 +87,7 @@ class HomeFragment : Fragment() {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 for (childSnapshot in dataSnapshot.children) {
-                    myCalList.add(childSnapshot.child("history").child("cals").getValue(Double::class.java))
+                   // myCalList.add(childSnapshot.child("history").child("cals").getValue(Double::class.java))
                 }
             }
             override fun onCancelled(error: DatabaseError) {

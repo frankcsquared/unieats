@@ -9,10 +9,21 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.unieats.models.Food
+import com.example.unieats.models.History
+import com.example.unieats.models.User
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.util.stream.Collectors.toMap
 
 
 class MainActivity : AppCompatActivity() {
+
+    companion object {
+        var history = History(0,0)
+        var histMap = mapOf<String, History>("" to history)
+        var selectedUser = User("","","", histMap, "", "")
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

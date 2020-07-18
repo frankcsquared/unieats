@@ -38,6 +38,7 @@
         android:name="com.example.unieats.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
+
     <fragment
         android:id="@+id/foodFragment"
         android:name="com.example.unieats.ui.search.FoodFragment"

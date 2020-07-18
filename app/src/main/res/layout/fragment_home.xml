@@ -14,6 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_weight="1"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -21,8 +22,7 @@
             app:layout_constraintTop_toBottomOf="@id/homeText"
             app:layout_constraintVertical_bias="0.01"
             app:seriesColor="#ee0000"
-            app:seriesData="0=5;2=5;3=0;4=2"
-            app:seriesType="line" />
+            app:seriesType="bar" />
 
         <TextView
             android:id="@+id/homeText"
@@ -35,17 +35,66 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ToggleButton
-            android:id="@+id/toggleButton"
+        <Switch
+            android:id="@+id/switch1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Calories"
+            android:text="Switch display"
+            app:layout_constraintStart_toStartOf="@id/graph"
+            app:layout_constraintTop_toBottomOf="@id/graph"
+            app:layout_constraintVertical_bias="0.02"
+            tools:layout_editor_absoluteX="200dp"
+            tools:layout_editor_absoluteY="317dp" />
+
+        <TextView
+            android:id="@+id/calsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1200/2000"
+            android:textSize="60sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/homeText"
+            app:layout_constraintVertical_bias="0.021" />
+
+        <TableRow
+            android:id="@+id/line1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#444"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/homeText"
+            app:layout_constraintVertical_bias="0.0"></TableRow>
+
+        <TableRow
+            android:id="@+id/line2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#444"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@id/graph"
-            app:layout_constraintTop_toBottomOf="@id/graph"
-            app:layout_constraintVertical_bias="0.01" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/switch1"
+            app:layout_constraintVertical_bias="0.0"></TableRow>
+
+        <TextView
+            android:id="@+id/favText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Favourites"
+            android:textSize="36sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line2"
+            app:layout_constraintVertical_bias="0.022" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

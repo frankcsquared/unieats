@@ -27,4 +27,5 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="calorieToggleButton">Calories</string>
+    <string name="calsText">1200/200</string>
 </resources>

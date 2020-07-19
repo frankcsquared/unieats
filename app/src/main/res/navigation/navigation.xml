@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_titleFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_titleFragment_to_nameFragment"
+            app:destination="@id/nameFragment" />
     </fragment>
   
     <fragment
@@ -25,5 +28,9 @@
             android:id="@+id/action_loginFragment_to_titleFragment"
             app:destination="@id/titleFragment" />
     </fragment>
-  
+    <fragment
+        android:id="@+id/nameFragment"
+        android:name="com.example.unieats.ui.registration.NameFragment"
+        android:label="NameFragment" />
+
 </navigation>

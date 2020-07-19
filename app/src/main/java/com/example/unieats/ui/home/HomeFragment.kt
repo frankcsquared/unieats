@@ -48,8 +48,8 @@ class HomeFragment : Fragment() {
         //val ref = FirebaseDatabase.getInstance().reference.child("Food")
         //val ref2 = FirebaseDatabase.getInstance().reference.child("Users")
         var myIntList: MutableList<Double?> = mutableListOf<Double?>() // calories
-<<<<<<< Updated upstream
-        var myCalList: MutableList<Double?> = mutableListOf<Double?>() // cals for the day
+
+        /*var myCalList: MutableList<Double?> = mutableListOf<Double?>() // cals for the day
         var cals: Array<Double?> = myIntList.toTypedArray();
 
         // Read from the database
@@ -97,8 +97,8 @@ class HomeFragment : Fragment() {
                 //Failed to read value
                 //Toast.makeText(this@SearchFragment, "error error", Toast.LENGTH_LONG).show()
             }
-        })
-=======
+        })*/
+
         var myDateList: MutableList<Int?> = mutableListOf<Int?>() // date
         //var cals: Array<Double?> = myIntList.toTypedArray();
 
@@ -127,7 +127,6 @@ class HomeFragment : Fragment() {
 
         // Add series above to graph
         graph.addSeries(series);
->>>>>>> Stashed changes
 
         //Toggle display based on switch state
         switch.setOnClickListener {

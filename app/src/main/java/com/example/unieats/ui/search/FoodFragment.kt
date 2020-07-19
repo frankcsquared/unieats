@@ -66,7 +66,7 @@ class FoodFragment : Fragment() {
             val formatted = current.format(formatter)
             Log.e(formatted, formatted)
             ref.push().setValue(History(formatted.toInt(),clickedFood.calories,10)).addOnCompleteListener{
-                Toast.makeText(requireContext(), "Food logged successfully", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "Food logged successfully", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -77,7 +77,7 @@ class FoodFragment : Fragment() {
             val formatted = current.format(formatter)
             Log.e(formatted, formatted)
             ref.push().setValue(History(formatted.toInt(),-1*clickedFood.calories,10)).addOnCompleteListener{
-                Toast.makeText(requireContext(), "Food removed successfully", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "Food removed successfully", Toast.LENGTH_SHORT).show()
             }
 
 

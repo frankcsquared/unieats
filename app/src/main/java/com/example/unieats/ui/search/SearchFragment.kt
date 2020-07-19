@@ -15,12 +15,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import com.example.unieats.MainActivity
+import com.example.unieats.MainActivity.Companion.locationId
 import com.example.unieats.R
 import com.example.unieats.models.Food
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlin.math.log
 
 
 class SearchFragment : Fragment() {
@@ -36,6 +38,14 @@ class SearchFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        if (locationId != null) {
+            Log.e("LOCATION", locationId.toString())
+        }
+        else {
+            Log.e("RIP", "cock")
+        }
+
         searchViewModel =
             ViewModelProviders.of(this).get(SearchViewModel::class.java)
 

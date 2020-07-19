@@ -1,6 +1,8 @@
 package com.example.unieats
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
@@ -21,6 +23,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMarkerClickListe
     private lateinit var mMap: GoogleMap
     private lateinit var imgBtn: ImageButton
     private lateinit var restaurantBtn: Button
+    private var selectedId: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,13 +94,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMarkerClickListe
         }
 
         restaurantBtn.setOnClickListener {
+
             if (restaurantBtn.text != "Nothing selected") {
-                Toast.makeText(
-                    applicationContext,
-                    restaurantBtn.text,
-                    Toast.LENGTH_SHORT
-                ).show()
+                val intent = Intent (this, MainActivity::class.java)
+                intent.putExtra("fragmentLoad", 0)
+                intent.putExtra("chosenId", selectedId)
+
+                startActivity(intent)
             }
+
             else {
                 Toast.makeText(
                     applicationContext,
@@ -112,6 +117,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMarkerClickListe
     override fun onMarkerClick(marker: Marker): Boolean {
 
         restaurantBtn.text = marker.title
+        selectedId = marker.tag as Int
+        Log.e("ID", selectedId.toString())
 
         return false
     }
@@ -123,6 +130,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMarkerClickListe
 
     override fun onMapClick(p0: LatLng?) {
         restaurantBtn.text = "Nothing selected"
+        selectedId = -1
     }
 
 

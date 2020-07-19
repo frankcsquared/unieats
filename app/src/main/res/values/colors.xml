@@ -8,4 +8,19 @@
     <color name="transparent">#00F44336</color>
     <color name="primary_red">#DC3535</color>
     <color name="darker_red">#D93636</color>
+
+<!--PROFILE COLORS -->
+        <color name="address">#2F7092</color>
+        <color name="followers">#0D5D98</color>
+        <color name="headings">#F33232</color>
+        <color name="solidCircle">#AAFFFFFF</color>
+        <color name="circleBorder">#50FFFFFF</color>
+        <color name="gradEnd">#6200EE</color>
+        <color name="gradStart">#F33232</color>
+        <color name="followersBg">#F33232</color>
+        <color name="followingBg">#49BEFF</color>
+        <color name="grey">#E5E5E5</color>
+
+
+
 </resources>

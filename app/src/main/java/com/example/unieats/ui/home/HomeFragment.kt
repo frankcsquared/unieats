@@ -9,7 +9,6 @@ import android.widget.Switch
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import com.example.unieats.MainActivity
 import com.example.unieats.R
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -19,7 +18,6 @@ import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.series.BarGraphSeries
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
-import java.util.*
 import kotlin.random.Random
 
 class HomeFragment : Fragment() {
@@ -45,10 +43,9 @@ class HomeFragment : Fragment() {
 
 
         //Initialize database and read
-        //val ref = FirebaseDatabase.getInstance().reference.child("Food")
-        //val ref2 = FirebaseDatabase.getInstance().reference.child("Users")
+        val ref = FirebaseDatabase.getInstance().reference.child("Food")
+        val ref2 = FirebaseDatabase.getInstance().reference.child("Users")
         var myIntList: MutableList<Double?> = mutableListOf<Double?>() // calories
-<<<<<<< Updated upstream
         var myCalList: MutableList<Double?> = mutableListOf<Double?>() // cals for the day
         var cals: Array<Double?> = myIntList.toTypedArray();
 
@@ -98,36 +95,6 @@ class HomeFragment : Fragment() {
                 //Toast.makeText(this@SearchFragment, "error error", Toast.LENGTH_LONG).show()
             }
         })
-=======
-        var myDateList: MutableList<Int?> = mutableListOf<Int?>() // date
-        //var cals: Array<Double?> = myIntList.toTypedArray();
-
-        Log.e("LENGTH " +  MainActivity.selectedUser.history.size, " SIZE")
-
-        for ((k, v) in MainActivity.selectedUser.history) {
-            Log.e("IM HERE " + "$k", "PRINT THIS")
-            MainActivity.selectedUser.history["$k"]
-            myIntList.add(MainActivity.selectedUser.history["$k"]!!.cals + 0.0)
-            Log.e("PRINTING: " + MainActivity.selectedUser.history["$k"]!!.cals, " SAVED")
-            myDateList.add(MainActivity.selectedUser.history["$k"]!!.date)
-            Log.e("PRINTING: " + MainActivity.selectedUser.history["$k"]!!.date, " SAVED")
-        }
-
-        Log.e("IM HERE ", "PRINT THIS")
-        myDateList.sortBy{it}
-
-        // create graph
-        val series: LineGraphSeries<DataPoint> = LineGraphSeries(
-            arrayOf(
-                 DataPoint(myDateList[0]!! + 0.0, myIntList[0]!!),
-                 DataPoint(myDateList[1]!! + 0.0, myIntList[1]!!),
-                 DataPoint(myDateList[2]!! + 0.0, myIntList[2]!!)
-            )
-        )
-
-        // Add series above to graph
-        graph.addSeries(series);
->>>>>>> Stashed changes
 
         //Toggle display based on switch state
         switch.setOnClickListener {

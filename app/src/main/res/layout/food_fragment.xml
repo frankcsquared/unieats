@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,6 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/foodImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher" />
 
         <TextView
             android:id="@+id/foodTitle"
@@ -27,6 +34,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Log" />
+
+        <Button
+            android:id="@+id/removeButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="REMOVE" />
+
+        <TextView
+            android:id="@+id/todayTotal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Today's Total:" />
     </LinearLayout>
 
 </FrameLayout>

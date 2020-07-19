@@ -2,7 +2,9 @@ package com.example.unieats.models
 
 data class History(
     val date: Int = 0,
-    val cals: Int = 0)
+    val cals: Int = 0,
+    val proteins: Int = 0
+)
 
 data class User(
     val id: String ="",

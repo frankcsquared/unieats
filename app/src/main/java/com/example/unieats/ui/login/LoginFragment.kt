@@ -100,7 +100,7 @@ class LoginFragment : Fragment() {
                 for (i in 0 until users.size){
                     Log.i("FOUND USER", users[i].username)
                     Log.i("FOUND pwd", users[i].password)
-                    if(usernameText.text.toString() == users[i].username && passwordText.text.toString() == users[i].password){
+                    if(usernameText.text.trim().toString() == users[i].username && passwordText.text.trim().toString() == users[i].password){
 
                         foundUser = true
 

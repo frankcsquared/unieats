@@ -41,7 +41,7 @@ class FoodFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.food_fragment, container, false)
-        var ref = FirebaseDatabase.getInstance().getReference("Users/"+"${MainActivity.selectedUser.id}"+"/history").push()
+        var ref = FirebaseDatabase.getInstance().getReference("Users/"+"${MainActivity.selectedUser.id}"+"/history")
         var readRef = FirebaseDatabase.getInstance().getReference("Users/"+"${MainActivity.selectedUser.id}"+"/history")
 
         var title = root.findViewById<TextView>(R.id.foodTitle)
@@ -65,7 +65,7 @@ class FoodFragment : Fragment() {
             val formatter = DateTimeFormatter.BASIC_ISO_DATE
             val formatted = current.format(formatter)
             Log.e(formatted, formatted)
-            ref.setValue(History(formatted.toInt(),clickedFood.calories,10)).addOnCompleteListener{
+            ref.push().setValue(History(formatted.toInt(),clickedFood.calories,10)).addOnCompleteListener{
                 Toast.makeText(requireContext(), "Food logged successfully", Toast.LENGTH_LONG).show()
             }
         }
@@ -76,7 +76,7 @@ class FoodFragment : Fragment() {
             val formatter = DateTimeFormatter.BASIC_ISO_DATE
             val formatted = current.format(formatter)
             Log.e(formatted, formatted)
-            ref.setValue(History(formatted.toInt(),-1*clickedFood.calories,10)).addOnCompleteListener{
+            ref.push().setValue(History(formatted.toInt(),-1*clickedFood.calories,10)).addOnCompleteListener{
                 Toast.makeText(requireContext(), "Food removed successfully", Toast.LENGTH_LONG).show()
             }
 

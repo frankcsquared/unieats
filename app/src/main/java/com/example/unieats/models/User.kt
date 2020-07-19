@@ -12,4 +12,5 @@ data class User(
     val last_name: String ="",
     val history: Map<String, History> = mapOf<String, History>("" to History(0,0)),
     val username: String ="",
-    val password: String ="")
+    val password: String ="",
+    val goal: String = "")

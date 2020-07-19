@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     companion object {
         var history = History(0,0, 0)
         var histMap = mapOf<String, History>("" to history)
-        var selectedUser = User("","","", histMap, "", "")
+        var selectedUser = User("","","", histMap, "", "", "0")
         var location = ""
 
     }

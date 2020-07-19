@@ -28,7 +28,7 @@ class SearchFragment : Fragment() {
     private lateinit var searchViewModel: SearchViewModel
 
     companion object {
-        var clickedFood = Food("","",0)
+        var clickedFood = Food("",null,0)
     }
 
     override fun onCreateView(
@@ -48,6 +48,9 @@ class SearchFragment : Fragment() {
         var foods: Array<String?> = myList.toTypedArray();
         var cals: Array<Int?> = myIntList.toTypedArray();
         var image: Array<Bitmap?> = myBitList.toTypedArray();
+
+        var encodedImage : String? = ""
+
         // Read from the database
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -64,10 +67,10 @@ class SearchFragment : Fragment() {
                     Log.e("CALS SIze: ", myIntList.size.toString())
                     cals = myIntList.toTypedArray()
 
-                    var encodedImage = childSnapshot.child("image").getValue(String::class.java)
+                    encodedImage = childSnapshot.child("image").getValue(String::class.java)
 
                     if(encodedImage != null) {
-                        encodedImage = encodedImage.replace("data:image/jpeg;base64,","")
+                        encodedImage = encodedImage!!.replace("data:image/jpeg;base64,","")
                         val decodedString: ByteArray =
                             Base64.decode(encodedImage, Base64.DEFAULT)
                         val decodedByte =
@@ -106,8 +109,12 @@ class SearchFragment : Fragment() {
 
 
                 listView.setOnItemClickListener { adapter, v, position, arg3 ->
-                    if(foods[position] != null || cals[position] != null ) {
-                        clickedFood = Food(foods[position].toString(), "", cals[position]!!)
+                    if(foods[position] != null && cals[position] != null ) {
+                        if(image[position] != null){
+                            clickedFood = Food(foods[position].toString(),image[position], cals[position]!!)
+                        }else {
+                            clickedFood = Food(foods[position].toString(), null, cals[position]!!)
+                        }
                     }
 
                     Log.e("VALSE", clickedFood.name)
@@ -119,13 +126,8 @@ class SearchFragment : Fragment() {
                 }
 
 
-/*
-                // access the listView from xml file
-                val mListView = root.findViewById<ListView>(R.id.foodList)
-                arrayAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_expandable_list_item_1, users)
-                mListView!!.adapter = arrayAdapter
 
- */
+
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -133,7 +135,7 @@ class SearchFragment : Fragment() {
                 //Toast.makeText(this@SearchFragment, "error error", Toast.LENGTH_LONG).show()
             }
         })
-    //geniusman https://stackoverflow.com/questions/44139841/how-to-retrieve-an-array-data-inside-an-array-from-firebase-database-android
+
 
         return root
     }

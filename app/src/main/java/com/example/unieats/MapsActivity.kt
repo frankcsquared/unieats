@@ -13,9 +13,10 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener
+import com.google.android.gms.maps.GoogleMap.OnMapClickListener
 import kotlin.math.log
 
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMarkerClickListener, OnMapClickListener {
 
     private lateinit var mMap: GoogleMap
     private lateinit var imgBtn: ImageButton
@@ -50,38 +51,47 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
         // Add markers and move the camera to Centro
         val centro = LatLng(43.2624, -79.9201)
-        mMap.addMarker(MarkerOptions().position(centro).title("Centro"))
+        makePin (centro, 0, "Centro")
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(centro, 15.0f))
 
         val lapiazza = LatLng(43.2637, -79.9171)
-        mMap.addMarker(MarkerOptions().position(lapiazza).title("La Piazza"))
+        makePin (lapiazza, 1, "La Piazza")
 
         val bistro = LatLng(43.2643, -79.9165)
-        makePin (bistro, 0, "bistro")
+        makePin (bistro, 2, "Bistro")
 
         val bridges = LatLng(43.2603, -79.9208)
-        mMap.addMarker(MarkerOptions().position(bridges).title("Bridges Cafe"))
+        makePin (bridges, 3, "Bridges")
+        //mMap.addMarker(MarkerOptions().position(bridges).title("Bridges Cafe"))
+        // kept for now for reference
 
         val bymac = LatLng(43.2654, -79.9153)
-        mMap.addMarker(MarkerOptions().position(bymac).title("Bymac"))
+        makePin (bymac, 4, "Bymac")
+        //mMap.addMarker(MarkerOptions().position(bymac).title("Bymac"))
 
         val cafeone = LatLng(43.2613, -79.9163)
-        mMap.addMarker(MarkerOptions().position(cafeone).title("Cafe One"))
+        makePin (cafeone, 5, "Cafe One")
+        //mMap.addMarker(MarkerOptions().position(cafeone).title("Cafe One"))
 
         val caffeine = LatLng(43.2622, -79.9202)
-        mMap.addMarker(MarkerOptions().position(caffeine).title("CaFFeINe the Elements"))
+        makePin (caffeine, 6, "CaFFeINe the Elements")
+        //mMap.addMarker(MarkerOptions().position(caffeine).title("CaFFeINe the Elements"))
 
         val ecafe = LatLng(43.2586, -79.9196)
-        mMap.addMarker(MarkerOptions().position(ecafe).title("E-Cafe"))
+        makePin (ecafe, 7, "E-Cafe")
+        //mMap.addMarker(MarkerOptions().position(ecafe).title("E-Cafe"))
 
         mMap.setOnMarkerClickListener(this)
+        mMap.setOnMapClickListener {
+            restaurantBtn.text = "Nothing selected"
+        }
 
         imgBtn.setOnClickListener {
             finish()
         }
 
         restaurantBtn.setOnClickListener {
-            if (!restaurantBtn.text.equals("Nothing selected")) {
+            if (restaurantBtn.text != "Nothing selected") {
                 Toast.makeText(
                     applicationContext,
                     restaurantBtn.text,
@@ -110,6 +120,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         val marker:Marker = mMap.addMarker(MarkerOptions().position(location).title(title))
         marker.tag = id
     }
+
+    override fun onMapClick(p0: LatLng?) {
+        restaurantBtn.text = "Nothing selected"
+    }
+
 
 }
 

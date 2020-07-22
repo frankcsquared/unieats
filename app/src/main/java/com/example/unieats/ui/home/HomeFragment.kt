@@ -26,7 +26,6 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-
     ): View? {
         homeViewModel =
             ViewModelProviders.of(this).get(HomeViewModel::class.java)
@@ -36,7 +35,54 @@ class HomeFragment : Fragment() {
         //graph.addSeries(mSeries1)
         val switch = view.findViewById(R.id.switch1) as Switch
         val calsText = view.findViewById(R.id.calsText) as TextView
+        var myIntList: MutableList<Double?> = mutableListOf<Double?>() // calories
+        var myCalList: MutableList<Double?> = mutableListOf<Double?>() // cals for the day
 
+        // Read from the database
+        ref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                for (childSnapshot in dataSnapshot.children) {
+                    myIntList.add(childSnapshot.child("calories").getValue(Double::class.java))
+                }
+
+                // create graph
+                val series: LineGraphSeries<DataPoint> = LineGraphSeries(
+                    arrayOf(
+                        DataPoint(0.0, myIntList[0]!!),
+                        DataPoint(1.0, myIntList[1]!!),
+                        DataPoint(2.0, myIntList[2]!!),
+                        DataPoint(3.0, myIntList[3]!!),
+                        DataPoint(4.0, myIntList[4]!!)
+                    )
+                )
+
+                // Add series above to graph
+                graph.addSeries(series);
+            }
+            override fun onCancelled(error: DatabaseError) {
+                //Failed to read value
+                //Toast.makeText(this@SearchFragment, "error error", Toast.LENGTH_LONG).show()
+            }
+        })
+
+        // Read from the database
+        ref2.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                var count: Double
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                for (childSnapshot in dataSnapshot.children) {
+                    myCalList.add(childSnapshot.child("history").child("cals").getValue(Double::class.java))
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                //Failed to read value
+                //Toast.makeText(this@SearchFragment, "error error", Toast.LENGTH_LONG).show()
+            }
+        })
+        var myDateList: MutableList<Int?> = mutableListOf<Int?>() // date
         //set graph labels
         graph.getViewport().setMinX(20200718.0);
         graph.getViewport().setMaxX(20200724.0);
@@ -47,8 +93,6 @@ class HomeFragment : Fragment() {
         graph.getViewport().setXAxisBoundsManual(true);
 
         graph.getGridLabelRenderer().setHorizontalLabelsAngle(135);
-
-        //var cals: Array<Double?> = myIntList.toTypedArray();
 
         Log.e("LENGTH " +  MainActivity.selectedUser.history.size, " SIZE")
 
@@ -70,8 +114,29 @@ class HomeFragment : Fragment() {
             dataPts[iterator] = DataPoint(k.toDouble(), v.toDouble())
             iterator+=1
         }
+        // create graph
+        val series: LineGraphSeries<DataPoint> = LineGraphSeries(
+            arrayOf(
+                 DataPoint(myDateList[0]!! + 0.0, myIntList[0]!!),
+                 DataPoint(myDateList[1]!! + 0.0, myIntList[1]!!),
+                 DataPoint(myDateList[2]!! + 0.0, myIntList[2]!!)
+            )
+        )
+            if(graphMap[v.date] == null) {
+                graphMap[v.date] = 0
+            }else{
+                var addme = graphMap[v.date]!! + v.cals
+                graphMap[v.date] = addme
+            }
+        }
 
+        var dataPts = arrayOfNulls<DataPoint>(graphMap.size)
 
+        var iterator = 0
+        for ((k,v) in graphMap){
+            dataPts[iterator] = DataPoint(k.toDouble(), v.toDouble())
+            iterator+=1
+        }
         val series = LineGraphSeries<DataPoint>(dataPts)
         // Add series above to graph
         graph.addSeries(series);
@@ -89,64 +154,4 @@ class HomeFragment : Fragment() {
         }
         return view
     }
-/*
-    private fun displayData(): Array<DataPoint?>? {
-        //val sdf = SimpleDateFormat("yyyy/MM/dd")
-        //val currentDate = sdf.format(Date())
-        val currentDate = 20200718
-        val weekDate = currentDate + 7
-        val count = 21
-        var cnt = 1
-        var x = 0.0
-        var y = 0.0
-        var currdate = 20200718
-        val values = arrayOfNulls<DataPoint>(count)
-
-
-
-        for ((k, v) in MainActivity.selectedUser.history){
-            Log.e("HISTORY " + k, "VALUE")
-            if(IntArray(weekDate){currentDate}.contains(MainActivity.selectedUser.history["$k"]!!.date)){
-                x = MainActivity.selectedUser.history["$k"]!!.date!!.toDouble()
-                if (currdate.toDouble() == x){
-                    val v = DataPoint(20200718.0 + cnt/100, 2500.0 + cnt)
-                    values[cnt] = v
-                    y += MainActivity.selectedUser.history["$k"]!!.cals!!.toDouble()
-                    cnt += 1
-                }
-                else{
-                    Log.e("PRESENT", "PRESENT")
-//                    val v =
-//                        DataPoint(1.0, 3.0)
-                        //DataPoint(currdate.toDouble(), y)
-//                    values.add(v)
-                    y = MainActivity.selectedUser.history["$k"]!!.cals!!.toDouble()
-                    currdate = MainActivity.selectedUser.history["$k"]!!.date
-                }
-                //Log.e("DATE: " + currdate, "VALUE")
-                //Log.e("CALS: " + y, "VALUE")
-                Log.e("SIZE: " + values.size, "VALUE")
-            }
-        }
-        return values
-    }
-
- */
-
-//    private fun generateData(): Array<DataPoint?>? {
-//        Log.e("SIZE", "PRINT THIS")
-//        val count = myDateList.size
-//        val values =
-//            arrayOfNulls<DataPoint>(count)
-//        for (i in myDateList.indices) {
-//            val x: Double = myDateList[i]!!.toDouble()
-//            Log.e("PRINT " + x, "MESSAGE")
-//            val y: Double = myIntList[i]!!.toDouble()
-//            Log.e("PRINT " + y, "MESSAGE")
-//            val v =
-//                DataPoint(x, y)
-//            values[i] = v
-//        }
-//        return values
-//    }
 }

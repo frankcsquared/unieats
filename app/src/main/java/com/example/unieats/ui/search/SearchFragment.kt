@@ -50,7 +50,7 @@ class SearchFragment : Fragment() {
             ViewModelProviders.of(this).get(SearchViewModel::class.java)
 
         val root = inflater.inflate(R.layout.fragment_search, container, false)
-        Log.e("IM HERE", "FRAG HERE")
+
         val ref = FirebaseDatabase.getInstance().reference.child("Food")
         var myList: MutableList<String?> = mutableListOf<String?>() // title
         var myIntList: MutableList<Int?> = mutableListOf<Int?>() // calories
@@ -69,12 +69,11 @@ class SearchFragment : Fragment() {
                 for (childSnapshot in dataSnapshot.children) {
                     //childSnapshot.child("name").getValue(String::class.java)
                     myList.add(childSnapshot.child("name").getValue(String::class.java))
-                    Log.e("MYLIST", myList.size.toString())
+
                     foods = myList.toTypedArray()
 
                     myIntList.add(childSnapshot.child("calories").getValue(Int::class.java))
-                    Log.e("CALS EEEE", childSnapshot.child("calories").getValue(Int::class.java).toString())
-                    Log.e("CALS SIze: ", myIntList.size.toString())
+
                     cals = myIntList.toTypedArray()
 
                     encodedImage = childSnapshot.child("image").getValue(String::class.java)
@@ -106,9 +105,6 @@ class SearchFragment : Fragment() {
                     //Log.e("asd","asdf")
 
                 }
-                Log.e("USERS", foods.size.toString())
-                Log.e("EEE", "END OF LINE")
-                Log.e("TEST MEKASHFKJALHGKJHG", MainActivity.selectedUser.first_name)
 
                 val listView = root.findViewById<ListView>(R.id.foodList)
                 val arrayAdapter: ArrayAdapter<*>
@@ -127,9 +123,6 @@ class SearchFragment : Fragment() {
                         }
                     }
 
-                    Log.e("VALSE", clickedFood.name)
-                    Log.e("VALSE", foods[position].toString())
-                    Log.e("VALSE", cals[position].toString())
                     //val test = Food(foods[position].toString(), "", cals[position]!!)
                     //Log.e("TEST", test.name)
                     listView.findNavController().navigate(R.id.action_navigation_search_to_foodFragment)

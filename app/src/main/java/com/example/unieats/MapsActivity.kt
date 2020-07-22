@@ -7,6 +7,8 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.unieats.models.Location
+import com.example.unieats.models.User
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -16,6 +18,10 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlin.math.log
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMarkerClickListener, OnMapClickListener {
@@ -51,7 +57,33 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMarkerClickListe
         restaurantBtn = findViewById(R.id.restaurant_button)
 
         mMap = googleMap
+        //firebase stuff
+        val ref = FirebaseDatabase.getInstance().reference.child("Location")
 
+        ref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (childSnapshot in dataSnapshot.children) {
+                    Log.e("ASD", "ASD")
+                    var asd = childSnapshot.getValue(Location::class.java)
+                    Log.e("MAPS", asd!!.id.toString())
+                    ////val select = childSnapshot.getValue(User::class.java)
+                    val tempId = asd!!.id.removePrefix("loc")
+
+                    val ll = LatLng(asd.lat,asd.lon)
+                    makePin (ll, tempId.toInt(), asd!!.name)
+
+                }
+
+
+            }
+            override fun onCancelled(error: DatabaseError) {
+                // Failed to read value
+                //Toast.makeText(this@SearchFragment, "error error", Toast.LENGTH_LONG).show()
+            }
+        })
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(43.2624, -79.9201), 15.0f))
+
+/*
         // Add markers and move the camera to Centro
         val centro = LatLng(43.2624, -79.9201)
         makePin (centro, 0, "Centro")
@@ -83,6 +115,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMarkerClickListe
         val ecafe = LatLng(43.2586, -79.9196)
         makePin (ecafe, 7, "E-Cafe")
         //mMap.addMarker(MarkerOptions().position(ecafe).title("E-Cafe"))
+
+ */
 
         mMap.setOnMarkerClickListener(this)
         mMap.setOnMapClickListener {

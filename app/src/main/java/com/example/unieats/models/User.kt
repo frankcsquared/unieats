@@ -17,8 +17,6 @@ data class User(
 
 data class Location(
     val id: String ="",
-    val lat: Int = 0,
-    val lon: Int = 0,
-    val long:
-
-)
+    val lat: Double = 0.0,
+    val lon: Double = 0.0,
+    val name: String = "")

@@ -11,21 +11,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.unieats.MainActivity
 import com.example.unieats.R
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import com.jjoe64.graphview.GraphView
-import com.jjoe64.graphview.series.BarGraphSeries
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
-import java.util.*
-import kotlin.random.Random
 
 class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var switch: Switch
+    private var myDateList: MutableList<Int?> = mutableListOf<Int?>() // date
+    private var myIntList: MutableList<Double?> = mutableListOf<Double?>() // calories
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -104,17 +99,21 @@ class HomeFragment : Fragment() {
         //inserts all things into map with date as index
         var graphMap = mutableMapOf<Int, Int>()
         for ((k, v) in MainActivity.selectedUser.history) {
-            Log.e("IM HERE " + "$k", "PRINT THIS")
-            MainActivity.selectedUser.history["$k"]
-            myIntList.add(MainActivity.selectedUser.history["$k"]!!.cals + 0.0)
-            Log.e("PRINTING: " + MainActivity.selectedUser.history["$k"]!!.cals, " SAVED")
-            myDateList.add(MainActivity.selectedUser.history["$k"]!!.date)
-            Log.e("PRINTING: " + MainActivity.selectedUser.history["$k"]!!.date, " SAVED")
+            if(graphMap[v.date] == null) {
+                graphMap[v.date] = 0
+            }else{
+                var addme = graphMap[v.date]!! + v.cals
+                graphMap[v.date] = addme
+            }
         }
 
-        Log.e("IM HERE ", "PRINT THIS")
-        myDateList.sortBy{it}
+        var dataPts = arrayOfNulls<DataPoint>(graphMap.size)
 
+        var iterator = 0
+        for ((k,v) in graphMap){
+            dataPts[iterator] = DataPoint(k.toDouble(), v.toDouble())
+            iterator+=1
+        }
         // create graph
         val series: LineGraphSeries<DataPoint> = LineGraphSeries(
             arrayOf(
@@ -138,7 +137,6 @@ class HomeFragment : Fragment() {
             dataPts[iterator] = DataPoint(k.toDouble(), v.toDouble())
             iterator+=1
         }
-
         val series = LineGraphSeries<DataPoint>(dataPts)
         // Add series above to graph
         graph.addSeries(series);

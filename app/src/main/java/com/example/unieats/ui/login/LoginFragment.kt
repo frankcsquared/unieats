@@ -2,15 +2,27 @@ package com.example.unieats.ui.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.unieats.MainActivity
 import com.example.unieats.R
 import com.example.unieats.databinding.FragmentLoginBinding
+import com.example.unieats.models.History
+import com.example.unieats.models.User
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import kotlinx.android.synthetic.main.fragment_login.view.*
+import kotlinx.android.synthetic.main.fragment_title.view.*
+import kotlinx.android.synthetic.main.fragment_title.view.login_button
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -23,6 +35,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [LoginFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+
 class LoginFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -40,23 +53,82 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = DataBindingUtil.inflate<FragmentLoginBinding>(
-            inflater,
-            R.layout.fragment_login, container, false
-        )
+        val root = inflater.inflate(R.layout.fragment_login, container, false)
+        val ref = FirebaseDatabase.getInstance().reference.child("Users")
 
-        binding.loginButton.setOnClickListener {view: View->
+        var users = ArrayList<User>()
+
+        val usernameText = root.findViewById<EditText>(R.id.usernameText)
+        val passwordText = root.findViewById<EditText>(R.id.passwordText)
+        val errorMsg = root.findViewById<TextView>(R.id.errorMsg)
+        //generates array of users from database -> when logging in, queries for matching username, then checks pwd
+
+
+        //get us the data
+        ref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (childSnapshot in dataSnapshot.children) {
+
+                    val asd = childSnapshot.getValue(User::class.java)
+
+                    val select = childSnapshot.getValue(User::class.java)
+
+
+                    if (select != null) {
+                        if(select.username != null && select.password != null) {
+                            users.add(select)
+                        }
+                    }
+
+
+                }
+
+
+            }
+
+
+            override fun onCancelled(error: DatabaseError) {
+                // Failed to read value
+                //Toast.makeText(this@SearchFragment, "error error", Toast.LENGTH_LONG).show()
+            }
+        })
+
+        root.login_button.setOnClickListener {view: View->
             activity?.let{
-                val intent = Intent (it, MainActivity::class.java)
-                it.startActivity(intent)
+                //Log.e("LOGIN USERS")
+                var foundUser = false
+                for (i in 0 until users.size){
+                    Log.i("FOUND USER", users[i].username)
+                    Log.i("FOUND pwd", users[i].password)
+                    if(usernameText.text.trim().toString() == users[i].username && passwordText.text.trim().toString() == users[i].password){
+
+                        foundUser = true
+
+                        MainActivity.selectedUser = users[i]
+
+                        errorMsg.visibility = View.INVISIBLE
+                        val intent = Intent (it, MainActivity::class.java)
+                        it.startActivity(intent)
+                        break;
+                    }
+                }
+
+                if(foundUser == false){
+                    errorMsg.visibility = View.VISIBLE
+                }
+
+
             }
         }
 
-        binding.imageButton.setOnClickListener {view: View->
+        root.imageButton.setOnClickListener {view: View->
             view.findNavController().navigate(R.id.action_loginFragment_to_titleFragment)
         }
 
-        return binding.root
+
+
+
+        return root
     }
 
     companion object {

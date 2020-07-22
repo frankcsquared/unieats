@@ -1,10 +1,14 @@
 package com.example.unieats
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.unieats.models.Location
+import com.example.unieats.models.User
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -12,11 +16,20 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener
+import com.google.android.gms.maps.GoogleMap.OnMapClickListener
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import kotlin.math.log
 
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMarkerClickListener, OnMapClickListener {
 
     private lateinit var mMap: GoogleMap
     private lateinit var imgBtn: ImageButton
+    private lateinit var restaurantBtn: Button
+    private var selectedId: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,47 +54,106 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     override fun onMapReady(googleMap: GoogleMap) {
 
         imgBtn = findViewById(R.id.imageButton2)
+        restaurantBtn = findViewById(R.id.restaurant_button)
 
         mMap = googleMap
+        //firebase stuff
+        val ref = FirebaseDatabase.getInstance().reference.child("Location")
 
-        // Add a marker on Centro and move the camera
+        ref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (childSnapshot in dataSnapshot.children) {
+                    Log.e("ASD", "ASD")
+                    var asd = childSnapshot.getValue(Location::class.java)
+                    Log.e("MAPS", asd!!.id.toString())
+                    ////val select = childSnapshot.getValue(User::class.java)
+                    val tempId = asd!!.id.removePrefix("loc")
+
+                    val ll = LatLng(asd.lat,asd.lon)
+                    makePin (ll, tempId.toInt(), asd!!.name)
+
+                }
+
+
+            }
+            override fun onCancelled(error: DatabaseError) {
+                // Failed to read value
+                //Toast.makeText(this@SearchFragment, "error error", Toast.LENGTH_LONG).show()
+            }
+        })
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(43.2624, -79.9201), 15.0f))
+
+/*
+        // Add markers and move the camera to Centro
         val centro = LatLng(43.2624, -79.9201)
-        mMap.addMarker(MarkerOptions().position(centro).title("Centro"))
+        makePin (centro, 0, "Centro")
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(centro, 15.0f))
 
         val lapiazza = LatLng(43.2637, -79.9171)
-        mMap.addMarker(MarkerOptions().position(lapiazza).title("La Piazza"))
+        makePin (lapiazza, 1, "La Piazza")
 
         val bistro = LatLng(43.2643, -79.9165)
-        makePin (bistro, 0, "bistro")
+        makePin (bistro, 2, "Bistro")
 
         val bridges = LatLng(43.2603, -79.9208)
-        mMap.addMarker(MarkerOptions().position(bridges).title("Bridges Cafe"))
+        makePin (bridges, 3, "Bridges")
+        //mMap.addMarker(MarkerOptions().position(bridges).title("Bridges Cafe"))
+        // kept for now for reference
 
         val bymac = LatLng(43.2654, -79.9153)
-        mMap.addMarker(MarkerOptions().position(bymac).title("Bymac"))
+        makePin (bymac, 4, "Bymac")
+        //mMap.addMarker(MarkerOptions().position(bymac).title("Bymac"))
 
         val cafeone = LatLng(43.2613, -79.9163)
-        mMap.addMarker(MarkerOptions().position(cafeone).title("Cafe One"))
+        makePin (cafeone, 5, "Cafe One")
+        //mMap.addMarker(MarkerOptions().position(cafeone).title("Cafe One"))
 
         val caffeine = LatLng(43.2622, -79.9202)
-        mMap.addMarker(MarkerOptions().position(caffeine).title("CaFFeINe the Elements"))
+        makePin (caffeine, 6, "CaFFeINe the Elements")
+        //mMap.addMarker(MarkerOptions().position(caffeine).title("CaFFeINe the Elements"))
 
         val ecafe = LatLng(43.2586, -79.9196)
-        mMap.addMarker(MarkerOptions().position(ecafe).title("E-Cafe"))
+        makePin (ecafe, 7, "E-Cafe")
+        //mMap.addMarker(MarkerOptions().position(ecafe).title("E-Cafe"))
+
+ */
 
         mMap.setOnMarkerClickListener(this)
+        mMap.setOnMapClickListener {
+            restaurantBtn.text = "Nothing selected"
+        }
 
         imgBtn.setOnClickListener {
             finish()
         }
 
+        restaurantBtn.setOnClickListener {
+
+            if (restaurantBtn.text != "Nothing selected") {
+                val intent = Intent (this, MainActivity::class.java)
+                intent.putExtra("fragmentLoad", 0)
+                intent.putExtra("chosenId", selectedId)
+
+                startActivity(intent)
+            }
+
+            else {
+                Toast.makeText(
+                    applicationContext,
+                    "choose a location!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+
     }
 
     override fun onMarkerClick(marker: Marker): Boolean {
-        Toast.makeText(this,
-            marker.tag.toString(),
-            Toast.LENGTH_SHORT).show();
+
+        restaurantBtn.text = marker.title
+        selectedId = marker.tag as Int
+        Log.e("ID", selectedId.toString())
+
         return false
     }
 
@@ -89,6 +161,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         val marker:Marker = mMap.addMarker(MarkerOptions().position(location).title(title))
         marker.tag = id
     }
+
+    override fun onMapClick(p0: LatLng?) {
+        restaurantBtn.text = "Nothing selected"
+        selectedId = -1
+    }
+
 
 }
 

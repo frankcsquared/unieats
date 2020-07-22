@@ -41,13 +41,6 @@ class HomeFragment : Fragment() {
         //graph.addSeries(mSeries1)
         val switch = view.findViewById(R.id.switch1) as Switch
         val calsText = view.findViewById(R.id.calsText) as TextView
-
-<<<<<<< Updated upstream
-        //Initialize database and read
-        //val ref = FirebaseDatabase.getInstance().reference.child("Food")
-        //val ref2 = FirebaseDatabase.getInstance().reference.child("Users")
-        var myIntList: MutableList<Double?> = mutableListOf<Double?>() // calories
-<<<<<<< Updated upstream
         var myCalList: MutableList<Double?> = mutableListOf<Double?>() // cals for the day
 
         // Read from the database
@@ -94,9 +87,7 @@ class HomeFragment : Fragment() {
                 //Toast.makeText(this@SearchFragment, "error error", Toast.LENGTH_LONG).show()
             }
         })
-=======
         var myDateList: MutableList<Int?> = mutableListOf<Int?>() // date
-=======
         //set graph labels
         graph.getViewport().setMinX(20200718.0);
         graph.getViewport().setMaxX(20200724.0);
@@ -108,15 +99,11 @@ class HomeFragment : Fragment() {
 
         graph.getGridLabelRenderer().setHorizontalLabelsAngle(135);
 
->>>>>>> Stashed changes
-        //var cals: Array<Double?> = myIntList.toTypedArray();
-
         Log.e("LENGTH " +  MainActivity.selectedUser.history.size, " SIZE")
 
         //inserts all things into map with date as index
         var graphMap = mutableMapOf<Int, Int>()
         for ((k, v) in MainActivity.selectedUser.history) {
-<<<<<<< Updated upstream
             Log.e("IM HERE " + "$k", "PRINT THIS")
             MainActivity.selectedUser.history["$k"]
             myIntList.add(MainActivity.selectedUser.history["$k"]!!.cals + 0.0)
@@ -136,7 +123,6 @@ class HomeFragment : Fragment() {
                  DataPoint(myDateList[2]!! + 0.0, myIntList[2]!!)
             )
         )
-=======
             if(graphMap[v.date] == null) {
                 graphMap[v.date] = 0
             }else{
@@ -153,12 +139,9 @@ class HomeFragment : Fragment() {
             iterator+=1
         }
 
->>>>>>> Stashed changes
-
         val series = LineGraphSeries<DataPoint>(dataPts)
         // Add series above to graph
         graph.addSeries(series);
->>>>>>> Stashed changes
 
         //Toggle display based on switch state
         switch.setOnClickListener {
@@ -171,73 +154,9 @@ class HomeFragment : Fragment() {
                 graph.visibility = View.VISIBLE
             }
         }
-<<<<<<< Updated upstream
 
         return view
     }
-
-=======
         return view
     }
-/*
-    private fun displayData(): Array<DataPoint?>? {
-        //val sdf = SimpleDateFormat("yyyy/MM/dd")
-        //val currentDate = sdf.format(Date())
-        val currentDate = 20200718
-        val weekDate = currentDate + 7
-        val count = 21
-        var cnt = 1
-        var x = 0.0
-        var y = 0.0
-        var currdate = 20200718
-        val values = arrayOfNulls<DataPoint>(count)
-
-
-
-        for ((k, v) in MainActivity.selectedUser.history){
-            Log.e("HISTORY " + k, "VALUE")
-            if(IntArray(weekDate){currentDate}.contains(MainActivity.selectedUser.history["$k"]!!.date)){
-                x = MainActivity.selectedUser.history["$k"]!!.date!!.toDouble()
-                if (currdate.toDouble() == x){
-                    val v = DataPoint(20200718.0 + cnt/100, 2500.0 + cnt)
-                    values[cnt] = v
-                    y += MainActivity.selectedUser.history["$k"]!!.cals!!.toDouble()
-                    cnt += 1
-                }
-                else{
-                    Log.e("PRESENT", "PRESENT")
-//                    val v =
-//                        DataPoint(1.0, 3.0)
-                        //DataPoint(currdate.toDouble(), y)
-//                    values.add(v)
-                    y = MainActivity.selectedUser.history["$k"]!!.cals!!.toDouble()
-                    currdate = MainActivity.selectedUser.history["$k"]!!.date
-                }
-                //Log.e("DATE: " + currdate, "VALUE")
-                //Log.e("CALS: " + y, "VALUE")
-                Log.e("SIZE: " + values.size, "VALUE")
-            }
-        }
-        return values
-    }
-
- */
-
-//    private fun generateData(): Array<DataPoint?>? {
-//        Log.e("SIZE", "PRINT THIS")
-//        val count = myDateList.size
-//        val values =
-//            arrayOfNulls<DataPoint>(count)
-//        for (i in myDateList.indices) {
-//            val x: Double = myDateList[i]!!.toDouble()
-//            Log.e("PRINT " + x, "MESSAGE")
-//            val y: Double = myIntList[i]!!.toDouble()
-//            Log.e("PRINT " + y, "MESSAGE")
-//            val v =
-//                DataPoint(x, y)
-//            values[i] = v
-//        }
-//        return values
-//    }
->>>>>>> Stashed changes
 }

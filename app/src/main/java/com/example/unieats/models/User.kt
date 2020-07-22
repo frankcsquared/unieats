@@ -14,3 +14,11 @@ data class User(
     val username: String ="",
     val password: String ="",
     val goal: String = "")
+
+data class Location(
+    val id: String ="",
+    val lat: Int = 0,
+    val lon: Int = 0,
+    val long:
+
+)

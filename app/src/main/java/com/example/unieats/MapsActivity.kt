@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.unieats.models.User
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -16,6 +17,10 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlin.math.log
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMarkerClickListener, OnMapClickListener {
@@ -51,6 +56,37 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMarkerClickListe
         restaurantBtn = findViewById(R.id.restaurant_button)
 
         mMap = googleMap
+        //firebase stuff
+        val ref = FirebaseDatabase.getInstance().reference.child("Location")
+
+        ref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (childSnapshot in dataSnapshot.children) {
+
+                    val asd = childSnapshot.getValue(User::class.java)
+
+                    val select = childSnapshot.getValue(User::class.java)
+
+
+                    if (select != null) {
+                        if(select.username != null && select.password != null) {
+                            users.add(select)
+                        }
+                    }
+
+
+                }
+
+
+            }
+
+
+            override fun onCancelled(error: DatabaseError) {
+                // Failed to read value
+                //Toast.makeText(this@SearchFragment, "error error", Toast.LENGTH_LONG).show()
+            }
+        })
+
 
         // Add markers and move the camera to Centro
         val centro = LatLng(43.2624, -79.9201)

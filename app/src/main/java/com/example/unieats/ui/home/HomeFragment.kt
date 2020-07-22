@@ -39,7 +39,7 @@ class HomeFragment : Fragment() {
         var myCalList: MutableList<Double?> = mutableListOf<Double?>() // cals for the day
 
         // Read from the database
-        ref.addValueEventListener(object : ValueEventListener {
+        /*ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
@@ -81,7 +81,7 @@ class HomeFragment : Fragment() {
                 //Failed to read value
                 //Toast.makeText(this@SearchFragment, "error error", Toast.LENGTH_LONG).show()
             }
-        })
+        })*/
         var myDateList: MutableList<Int?> = mutableListOf<Int?>() // date
         //set graph labels
         graph.getViewport().setMinX(20200718.0);
@@ -107,28 +107,28 @@ class HomeFragment : Fragment() {
             }
         }
 
-        var dataPts = arrayOfNulls<DataPoint>(graphMap.size)
+        /*var dataPts = arrayOfNulls<DataPoint>(graphMap.size)
 
         var iterator = 0
         for ((k,v) in graphMap){
             dataPts[iterator] = DataPoint(k.toDouble(), v.toDouble())
             iterator+=1
-        }
+        }*/
         // create graph
-        val series: LineGraphSeries<DataPoint> = LineGraphSeries(
+        /*val series: LineGraphSeries<DataPoint> = LineGraphSeries(
             arrayOf(
                  DataPoint(myDateList[0]!! + 0.0, myIntList[0]!!),
                  DataPoint(myDateList[1]!! + 0.0, myIntList[1]!!)
-                 /*DataPoint(myDateList[2]!! + 0.0, myIntList[2]!!)*/
+                 *//*DataPoint(myDateList[2]!! + 0.0, myIntList[2]!!)*//*
             )
-        )
-            if(graphMap[v.date] == null) {
+        )*/
+ /*           if(graphMap[v.date] == null) {
                 graphMap[v.date] = 0
             }else{
                 var addme = graphMap[v.date]!! + v.cals
                 graphMap[v.date] = addme
             }
-        }
+        }*/
 
         var dataPts = arrayOfNulls<DataPoint>(graphMap.size)
 

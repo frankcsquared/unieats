@@ -12,7 +12,7 @@ import com.example.unieats.databinding.FragmentHomeBinding
 import com.example.unieats.databinding.FragmentNameBinding
 import com.example.unieats.databinding.FragmentTitleBinding
 
-class NameFragment : Fragment() {
+class UniFragment : Fragment() {
 
     /*override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +24,7 @@ class NameFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = DataBindingUtil.inflate<FragmentNameBinding>(inflater,
-            R.layout.fragment_name, container, false)
+            R.layout.fragment_uni, container, false)
 
         return binding.root
     }

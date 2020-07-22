@@ -12,7 +12,7 @@ import com.example.unieats.databinding.FragmentHomeBinding
 import com.example.unieats.databinding.FragmentNameBinding
 import com.example.unieats.databinding.FragmentTitleBinding
 
-class NameFragment : Fragment() {
+class FinalProfileFragment : Fragment() {
 
     /*override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

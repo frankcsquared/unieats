@@ -31,6 +31,26 @@
     <fragment
         android:id="@+id/nameFragment"
         android:name="com.example.unieats.ui.registration.NameFragment"
-        android:label="NameFragment" />
+        android:label="NameFragment" >
+        <action
+            android:id="@+id/action_nameFragment_to_emailFragment"
+            app:destination="@id/emailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/emailFragment"
+        android:name="com.example.unieats.ui.registration.EmailFragment"
+        android:label="EmailFragment" >
+        <action
+            android:id="@+id/action_emailFragment_to_uniFragment"
+            app:destination="@id/uniFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/uniFragment"
+        android:name="com.example.unieats.ui.registration.UniFragment"
+        android:label="UniFragment" />
+    <fragment
+        android:id="@+id/finalProfileFragment"
+        android:name="com.example.unieats.ui.registration.FinalProfileFragment"
+        android:label="FinalProfileFragment" />
 
 </navigation>

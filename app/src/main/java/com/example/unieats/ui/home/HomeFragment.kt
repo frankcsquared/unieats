@@ -31,7 +31,6 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-
     ): View? {
         homeViewModel =
             ViewModelProviders.of(this).get(HomeViewModel::class.java)
@@ -41,6 +40,7 @@ class HomeFragment : Fragment() {
         //graph.addSeries(mSeries1)
         val switch = view.findViewById(R.id.switch1) as Switch
         val calsText = view.findViewById(R.id.calsText) as TextView
+        var myIntList: MutableList<Double?> = mutableListOf<Double?>() // calories
         var myCalList: MutableList<Double?> = mutableListOf<Double?>() // cals for the day
 
         // Read from the database
@@ -154,9 +154,6 @@ class HomeFragment : Fragment() {
                 graph.visibility = View.VISIBLE
             }
         }
-
-        return view
-    }
         return view
     }
 }

@@ -44,6 +44,10 @@ class TitleFragment : Fragment() {
             view.findNavController().navigate(R.id.action_titleFragment_to_loginFragment)
         }
 
+        binding.singupButton.setOnClickListener {view: View->
+            view.findNavController().navigate(R.id.action_titleFragment_to_nameFragment)
+        }
+
         return binding.root
     }
 

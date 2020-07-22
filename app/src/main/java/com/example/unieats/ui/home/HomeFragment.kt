@@ -118,8 +118,8 @@ class HomeFragment : Fragment() {
         val series: LineGraphSeries<DataPoint> = LineGraphSeries(
             arrayOf(
                  DataPoint(myDateList[0]!! + 0.0, myIntList[0]!!),
-                 DataPoint(myDateList[1]!! + 0.0, myIntList[1]!!),
-                 DataPoint(myDateList[2]!! + 0.0, myIntList[2]!!)
+                 DataPoint(myDateList[1]!! + 0.0, myIntList[1]!!)
+                 /*DataPoint(myDateList[2]!! + 0.0, myIntList[2]!!)*/
             )
         )
             if(graphMap[v.date] == null) {

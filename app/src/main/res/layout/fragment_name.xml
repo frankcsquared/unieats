@@ -12,11 +12,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="36dp"
             android:background="@color/transparent"
+            android:contentDescription="@string/exit"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_back_icon2" />
+            app:srcCompat="@drawable/ic_back_icon_small" />
 
         <ImageButton
             android:id="@+id/imageButton4"
@@ -25,20 +26,21 @@
             android:layout_marginTop="35dp"
             android:layout_marginEnd="20dp"
             android:background="@color/transparent"
+            android:contentDescription="@string/next"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_forward_icon" />
 
         <TextView
-            android:id="@+id/eats"
+            android:id="@+id/eats1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="124dp"
+            android:layout_marginStart="123dp"
             android:layout_marginTop="24dp"
-            android:layout_marginEnd="126dp"
+            android:layout_marginEnd="127dp"
             android:fontFamily="@font/roboto_medium"
             android:letterSpacing="0.04"
-            android:text="Eats"
+            android:text="@string/Eats"
             android:textAllCaps="true"
             android:textColor="@color/primary_red"
             android:textSize="36sp"
@@ -46,5 +48,41 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/imageButton3"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/name_input"
+            android:layout_width="370dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="160dp"
+            android:fontFamily="@font/roboto"
+            android:inputType="textPersonName"
+            android:letterSpacing="0.04"
+            android:textSize="30sp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            app:backgroundTint="@color/bottom_line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/eats1">
+        </EditText>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_light"
+            android:letterSpacing="0.04"
+            android:text="@string/name_prompt"
+            android:textColor="@color/text_black"
+            android:textSize="30sp"
+            android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@+id/name_input"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/eats1"
+            app:layout_constraintVertical_bias="0.75" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

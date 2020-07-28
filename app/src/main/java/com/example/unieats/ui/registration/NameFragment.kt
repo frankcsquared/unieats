@@ -39,7 +39,7 @@ class NameFragment : Fragment() {
             view?.findNavController()?.navigate(R.id.action_nameFragment_to_emailFragment)
         }
 
-        binding.nameInput.requestFocus()
+        /*binding.nameInput.requestFocus()*/
 
         return binding.root
     }

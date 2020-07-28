@@ -41,7 +41,7 @@ class EmailFragment : Fragment() {
             view?.findNavController()?.navigate(R.id.action_emailFragment_to_uniFragment)
         }
 
-        binding.emailInput.requestFocus()
+        /*binding.emailInput.requestFocus()*/
 
         return binding.root
     }

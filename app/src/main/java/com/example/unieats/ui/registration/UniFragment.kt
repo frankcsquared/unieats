@@ -41,7 +41,7 @@ class UniFragment : Fragment() {
             view?.findNavController()?.navigate(R.id.action_uniFragment_to_finalProfileFragment)
         }
 
-        binding.uniInput.requestFocus()
+        /*binding.uniInput.requestFocus()*/
 
         return binding.root
     }

@@ -11,9 +11,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.unieats.MainActivity
 import com.example.unieats.R
+import com.jjoe64.graphview.DefaultLabelFormatter
 import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
+import java.text.NumberFormat
+
 
 class HomeFragment : Fragment() {
 
@@ -87,22 +90,33 @@ class HomeFragment : Fragment() {
         graph.getViewport().setMinX(20200718.0);
         graph.getViewport().setMaxX(20200724.0);
         graph.getViewport().setMinY(200.0);
-        graph.getViewport().setMaxY(10000.0);
+        graph.getViewport().setMaxY(5000.0);
 
         graph.getViewport().setYAxisBoundsManual(true);
         graph.getViewport().setXAxisBoundsManual(true);
 
         graph.getGridLabelRenderer().setHorizontalLabelsAngle(135);
 
+        val nf: NumberFormat = NumberFormat.getInstance()
+        nf.setMinimumFractionDigits(3)
+        nf.setMinimumIntegerDigits(2)
+
+        graph.gridLabelRenderer.labelFormatter = DefaultLabelFormatter(nf, nf)
+        graph.getGridLabelRenderer().setNumHorizontalLabels(2); // only 3 because of the space
+        graph.getGridLabelRenderer().setNumVerticalLabels(2); // only 3 because of the space
+
+
         Log.e("LENGTH " +  MainActivity.selectedUser.history.size, " SIZE")
 
         //inserts all things into map with date as index
         var graphMap = mutableMapOf<Int, Int>()
+        var num = 0
         for ((k, v) in MainActivity.selectedUser.history) {
             if(graphMap[v.date] == null) {
                 graphMap[v.date] = 0
             }else{
                 var addme = graphMap[v.date]!! + v.cals
+                num += v.cals
                 graphMap[v.date] = addme
             }
         }
@@ -140,6 +154,8 @@ class HomeFragment : Fragment() {
         val series = LineGraphSeries<DataPoint>(dataPts)
         // Add series above to graph
         graph.addSeries(series);
+        calsText.setText(num.toString() + "/" + "2000")
+
 
         //Toggle display based on switch state
         switch.setOnClickListener {

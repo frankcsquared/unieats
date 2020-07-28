@@ -12,8 +12,8 @@
 
         <com.jjoe64.graphview.GraphView
             android:id="@+id/graph"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_width="409dp"
+            android:layout_height="243dp"
             android:layout_marginTop="16dp"
             android:layout_weight="1"
             android:visibility="visible"
@@ -28,12 +28,13 @@
 
         <TextView
             android:id="@+id/homeText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_width="100dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="152dp"
+            android:layout_marginTop="0dp"
             android:text="Home"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="24sp"
+            android:textSize="36sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -52,15 +53,15 @@
             android:id="@+id/calsText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1200/2000"
+            android:text="1200"
             android:textSize="60sp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintHorizontal_bias="0.174"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/homeText"
-            app:layout_constraintVertical_bias="0.021" />
+            app:layout_constraintVertical_bias="0.02" />
 
         <TableRow
             android:id="@+id/line1"

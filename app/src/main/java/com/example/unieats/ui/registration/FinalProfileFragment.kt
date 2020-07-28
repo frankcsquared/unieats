@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
+import com.example.unieats.databinding.FragmentFinalprofileBinding
 import com.example.unieats.databinding.FragmentHomeBinding
 import com.example.unieats.databinding.FragmentNameBinding
 import com.example.unieats.databinding.FragmentTitleBinding
@@ -23,8 +24,12 @@ class FinalProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = DataBindingUtil.inflate<FragmentNameBinding>(inflater,
-            R.layout.fragment_name, container, false)
+        val binding = DataBindingUtil.inflate<FragmentFinalprofileBinding>(inflater,
+            R.layout.fragment_finalprofile, container, false)
+
+        binding.imageButton3.setOnClickListener{
+            view?.findNavController()?.navigate(R.id.action_finalProfileFragment_to_uniFragment)
+        }
 
         return binding.root
     }

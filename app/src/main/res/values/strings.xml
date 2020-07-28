@@ -30,4 +30,10 @@
     <string name="calsText">1200/200</string>
 
     <string name="mac">McMaster\nEATS</string>
+    <string name="exit">exit</string>
+    <string name="next">next</string>
+    <string name="Eats">Eats</string>
+    <string name="name_prompt">What\'s your name?</string>
+    <string name="email_prompt">What\'s your email address?</string>
+    <string name="uni_prompt">What university do you attend?</string>
 </resources>

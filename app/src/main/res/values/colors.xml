@@ -8,6 +8,7 @@
     <color name="transparent">#00F44336</color>
     <color name="primary_red">#DC3535</color>
     <color name="darker_red">#D93636</color>
+    <color name="bottom_line">#2B2B2B</color>
 
 <!--PROFILE COLORS -->
         <color name="address">#2F7092</color>
@@ -21,6 +22,7 @@
         <color name="followingBg">#49BEFF</color>
         <color name="grey">#E5E5E5</color>
 
+    <color name="text_black">#1A1A1A</color>
 
 
 </resources>

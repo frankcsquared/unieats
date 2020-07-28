@@ -35,6 +35,9 @@
         <action
             android:id="@+id/action_nameFragment_to_emailFragment"
             app:destination="@id/emailFragment" />
+        <action
+            android:id="@+id/action_nameFragment_to_titleFragment"
+            app:destination="@id/titleFragment" />
     </fragment>
     <fragment
         android:id="@+id/emailFragment"
@@ -43,14 +46,28 @@
         <action
             android:id="@+id/action_emailFragment_to_uniFragment"
             app:destination="@id/uniFragment" />
+        <action
+            android:id="@+id/action_emailFragment_to_nameFragment"
+            app:destination="@id/nameFragment" />
     </fragment>
     <fragment
         android:id="@+id/uniFragment"
         android:name="com.example.unieats.ui.registration.UniFragment"
-        android:label="UniFragment" />
+        android:label="UniFragment" >
+        <action
+            android:id="@+id/action_uniFragment_to_finalProfileFragment"
+            app:destination="@id/finalProfileFragment" />
+        <action
+            android:id="@+id/action_uniFragment_to_emailFragment"
+            app:destination="@id/emailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/finalProfileFragment"
         android:name="com.example.unieats.ui.registration.FinalProfileFragment"
-        android:label="FinalProfileFragment" />
+        android:label="FinalProfileFragment" >
+        <action
+            android:id="@+id/action_finalProfileFragment_to_uniFragment"
+            app:destination="@id/uniFragment" />
+    </fragment>
 
 </navigation>

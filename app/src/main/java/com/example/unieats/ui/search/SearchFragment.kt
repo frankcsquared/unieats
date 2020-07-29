@@ -53,13 +53,13 @@ class SearchFragment : Fragment() {
 
         val ref = FirebaseDatabase.getInstance().reference.child("Food")
         var myList: MutableList<String?> = mutableListOf<String?>() // title
-        var myIntList: MutableList<Int?> = mutableListOf<Int?>() // calories
-        var myBitList: MutableList<Bitmap?> = mutableListOf<Bitmap?>() // imageBitmap
-        var foods: Array<String?> = myList.toTypedArray();
-        var cals: Array<Int?> = myIntList.toTypedArray();
-        var image: Array<Bitmap?> = myBitList.toTypedArray();
 
-        var encodedImage : String? = ""
+        var foods: Array<String?> = myList.toTypedArray();
+
+
+        var foodList: MutableList<Food> = mutableListOf<Food>()
+
+
 
         // Read from the database
         ref.addValueEventListener(object : ValueEventListener {
@@ -67,69 +67,30 @@ class SearchFragment : Fragment() {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 for (childSnapshot in dataSnapshot.children) {
-                    //childSnapshot.child("name").getValue(String::class.java)
-                    myList.add(childSnapshot.child("name").getValue(String::class.java))
-
-                    foods = myList.toTypedArray()
-
-                    myIntList.add(childSnapshot.child("calories").getValue(Int::class.java))
-
-                    cals = myIntList.toTypedArray()
-
-                    encodedImage = childSnapshot.child("image").getValue(String::class.java)
-
-                    if(encodedImage != null) {
-                        encodedImage = encodedImage!!.replace("data:image/jpeg;base64,","")
-                        val decodedString: ByteArray =
-                            Base64.decode(encodedImage, Base64.DEFAULT)
-                        val decodedByte =
-                            BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-
-                        myBitList.add(decodedByte)
-                        //Log.e("IMG STR EEEE", childSnapshot.child("calories").getValue(Bitmap::class.java).toString())
-                        //Log.e("CALS SIze: ", myIntList.size.toString())
-                        image = myBitList.toTypedArray()
-                        //im.setImageBitmap(decodedByte);
-                       // Log.e("STRING LONG", encodedImage)
-                       // val im: Drawable = BitmapDrawable(resources, decodedByte)
-
-
-
-                    }else{
-                        myBitList.add(null)
-                        //Log.e("IMG STR EEEE", childSnapshot.child("calories").getValue(Bitmap::class.java).toString())
-                        //Log.e("CALS SIze: ", myIntList.size.toString())
-                        image = myBitList.toTypedArray()
+                    //filter by location
+                    if (childSnapshot.child("locationid").getValue(String::class.java).toString()!! == "loc" + locationId.toString()) {
+                        foodList.add(childSnapshot.getValue(Food::class.java)!!)
                     }
-
-                    //Log.e("asd","asdf")
 
                 }
 
                 val listView = root.findViewById<ListView>(R.id.foodList)
-                val arrayAdapter: ArrayAdapter<*>
-                val myListAdapter = MyListAdapter(requireActivity(),foods ,cals, image)
+               //makes title array for arrayAdapter inherit in MyListAdapter
+                val titleArr = arrayListOf<String?>();
+                for (i in foodList){
+                    titleArr.add(i.name)
+                }
+                val title = titleArr.toTypedArray()
+
+                //injects Food to List Object
+                val myListAdapter = MyListAdapter(requireActivity(), title, foodList.toTypedArray())
                 listView.adapter = myListAdapter
 
-
-
-
                 listView.setOnItemClickListener { adapter, v, position, arg3 ->
-                    if(foods[position] != null && cals[position] != null ) {
-                        if(image[position] != null){
-                            clickedFood = Food(foods[position].toString(),image[position], cals[position]!!)
-                        }else {
-                            clickedFood = Food(foods[position].toString(), null, cals[position]!!)
-                        }
-                    }
+                    clickedFood = foodList[position]
 
-                    //val test = Food(foods[position].toString(), "", cals[position]!!)
-                    //Log.e("TEST", test.name)
                     listView.findNavController().navigate(R.id.action_navigation_search_to_foodFragment)
                 }
-
-
-
 
             }
 
@@ -145,5 +106,21 @@ class SearchFragment : Fragment() {
 
 
 }
+
+
+fun toImage(inString: String) : Bitmap?{
+    val encodedImage: String;
+    return if(inString != null) {
+        encodedImage = inString!!.replace("data:image/jpeg;base64,","")
+        val decodedString: ByteArray = Base64.decode(encodedImage, Base64.DEFAULT)
+        val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+
+        decodedByte
+    }else{
+        null
+    }
+}
+
+
 
 

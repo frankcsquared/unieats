@@ -1,8 +1,11 @@
 package com.example.unieats.ui.search
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Build
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -55,7 +58,7 @@ class FoodFragment : Fragment() {
 
         title.text = clickedFood.name
         cals.text = clickedFood.calories.toString()
-        img.setImageBitmap(clickedFood.image)
+        img.setImageBitmap(toImage(clickedFood.image))
 
         //val logButton = root.findViewById<Button>(R.id.log_button)
 
@@ -108,6 +111,19 @@ class FoodFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(FoodViewModel::class.java)
         // TODO: Use the ViewModel
+    }
+
+    fun toImage(inString: String?) : Bitmap?{
+        val encodedImage: String;
+        return if(inString != null) {
+            encodedImage = inString!!.replace("data:image/jpeg;base64,","")
+            val decodedString: ByteArray = Base64.decode(encodedImage, Base64.DEFAULT)
+            val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+
+            decodedByte
+        }else{
+            null
+        }
     }
 
 }

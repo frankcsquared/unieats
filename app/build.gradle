@@ -89,4 +89,8 @@ dependencies {
     def material_version = "1.3.0-alpha01"
     implementation "com.google.android.material:material:$material_version"
 
+    def lifecycle_version = "2.2.0" // currently the latest version
+    // Saved state module for ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
+
 }

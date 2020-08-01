@@ -32,12 +32,6 @@
         tools:layout="@layout/fragment_log" />
 
     <fragment
-        android:id="@+id/navigation_settings"
-        android:name="com.example.unieats.ui.settings.SettingsFragment"
-        android:label="@string/title_settings"
-        tools:layout="@layout/fragment_settings" />
-
-    <fragment
         android:id="@+id/navigation_profile"
         android:name="com.example.unieats.ui.profile.ProfileFragment"
         android:label="@string/title_profile"

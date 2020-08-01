@@ -1,14 +1,18 @@
 package com.example.unieats
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import com.example.unieats.databinding.FragmentHomeBinding
 import com.example.unieats.databinding.FragmentTitleBinding
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -39,6 +43,10 @@ class TitleFragment : Fragment() {
     ): View? {
         val binding = DataBindingUtil.inflate<FragmentTitleBinding>(inflater,
             R.layout.fragment_title, container, false)
+
+        val imgr =
+            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imgr.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
 
         binding.loginButton.setOnClickListener {view: View->
             view.findNavController().navigate(R.id.action_titleFragment_to_loginFragment)

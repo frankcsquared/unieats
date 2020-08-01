@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -36,6 +37,10 @@ class ProfileFragment : Fragment() {
         val editLast = root.findViewById<EditText>(R.id.editLastName)
         val editGoal = root.findViewById<EditText>(R.id.editTodayGoal)
 
+        val editEmail = root.findViewById<EditText>(R.id.editEmail)
+        val editUni = root.findViewById<EditText>(R.id.editUni)
+        val editPass = root.findViewById<EditText>(R.id.editPassword)
+
         val ref = FirebaseDatabase.getInstance().reference.child("Users/${MainActivity.selectedUser.id}")
 
 
@@ -44,6 +49,10 @@ class ProfileFragment : Fragment() {
             ref.child("first_name").setValue(editFirst.text.toString())
             ref.child("last_name").setValue(editLast.text.toString())
             ref.child("goal").setValue(editGoal.text.toString())
+
+            ref.child("email").setValue(editEmail.text.toString())
+            ref.child("uni").setValue(editUni.text.toString())
+            ref.child("password").setValue(editPass.text.toString())
 
 
 
@@ -56,8 +65,13 @@ class ProfileFragment : Fragment() {
                 profileName.text = selectedUser.first_name + " "  + selectedUser.last_name
                 editFirst.setText(selectedUser.first_name)
                 editLast.setText(selectedUser.last_name)
+                editEmail.setText(selectedUser.email)
+                editUni.setText(selectedUser.uni)
+                editPass.setText("")
+
 
                 editGoal.setText(selectedUser.goal.toString())
+                Toast.makeText(requireContext(), "Updated!", Toast.LENGTH_SHORT).show()
 
             }
 

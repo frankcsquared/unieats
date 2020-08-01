@@ -93,6 +93,12 @@ class FinalProfileFragment : Fragment() {
                     }
 
                     ref.removeEventListener(this);
+
+                    activity?.let {
+                        val intent = Intent (it, MainActivity::class.java)
+                        it.startActivity(intent)
+                    }
+                    
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -100,7 +106,6 @@ class FinalProfileFragment : Fragment() {
                     //Toast.makeText(this@SearchFragment, "error error", Toast.LENGTH_LONG).show()
                 }
             })
-
 
         }
 

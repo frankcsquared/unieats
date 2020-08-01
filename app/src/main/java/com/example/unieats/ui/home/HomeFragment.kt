@@ -11,11 +11,17 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.unieats.MainActivity
 import com.example.unieats.R
-import com.jjoe64.graphview.DefaultLabelFormatter
-import com.jjoe64.graphview.GraphView
+import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
-import java.text.NumberFormat
+import java.util.*
 
 
 class HomeFragment : Fragment() {
@@ -34,128 +40,88 @@ class HomeFragment : Fragment() {
             ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         //initialize graph
+<<<<<<< HEAD
         val graph = view.findViewById(R.id.chart) as LineChart
         //graph.addSeries(mSeries1)
+=======
+        // val graph = view.findViewById(R.id.graph) as GraphView
+        val graph = view.findViewById(R.id.chart) as LineChart
+
+>>>>>>> 217673f8abac91ffc1bcd0eb0fbef8ba10ac2fd6
         val switch = view.findViewById(R.id.switch1) as Switch
         val calsText = view.findViewById(R.id.calsText) as TextView
-        var myIntList: MutableList<Double?> = mutableListOf<Double?>() // calories
-        var myCalList: MutableList<Double?> = mutableListOf<Double?>() // cals for the day
 
-        // Read from the database
-        /*ref.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                for (childSnapshot in dataSnapshot.children) {
-                    myIntList.add(childSnapshot.child("calories").getValue(Double::class.java))
-                }
+        //Access Firebase
+        val ref = FirebaseDatabase.getInstance().reference.child("Food")
 
-                // create graph
-                val series: LineGraphSeries<DataPoint> = LineGraphSeries(
-                    arrayOf(
-                        DataPoint(0.0, myIntList[0]!!),
-                        DataPoint(1.0, myIntList[1]!!),
-                        DataPoint(2.0, myIntList[2]!!),
-                        DataPoint(3.0, myIntList[3]!!),
-                        DataPoint(4.0, myIntList[4]!!)
-                    )
-                )
-
-                // Add series above to graph
-                graph.addSeries(series);
-            }
-            override fun onCancelled(error: DatabaseError) {
-                //Failed to read value
-                //Toast.makeText(this@SearchFragment, "error error", Toast.LENGTH_LONG).show()
-            }
-        })
-
-        // Read from the database
-        ref2.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                var count: Double
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                for (childSnapshot in dataSnapshot.children) {
-                    myCalList.add(childSnapshot.child("history").child("cals").getValue(Double::class.java))
-                }
-            }
-            override fun onCancelled(error: DatabaseError) {
-                //Failed to read value
-                //Toast.makeText(this@SearchFragment, "error error", Toast.LENGTH_LONG).show()
-            }
-        })*/
-        var myDateList: MutableList<Int?> = mutableListOf<Int?>() // date
         //set graph labels
-        graph.getViewport().setMinX(20200718.0);
-        graph.getViewport().setMaxX(20200724.0);
-        graph.getViewport().setMinY(200.0);
-        graph.getViewport().setMaxY(5000.0);
+//        graph.getViewport().setMinX(20200718.0);
+//        graph.getViewport().setMaxX(20200722.0);
+//        graph.getViewport().setMinY(200.0);
+//        graph.getViewport().setMaxY(5000.0);
+//
+//        graph.getViewport().setYAxisBoundsManual(true);
+//        graph.getViewport().setXAxisBoundsManual(true);
+//
+//        graph.getGridLabelRenderer().setHorizontalLabelsAngle(135);
 
-        graph.getViewport().setYAxisBoundsManual(true);
-        graph.getViewport().setXAxisBoundsManual(true);
+//        val nf: NumberFormat = NumberFormat.getInstance()
+//        nf.setMinimumFractionDigits(3)
+//        nf.setMinimumIntegerDigits(2)
 
-        graph.getGridLabelRenderer().setHorizontalLabelsAngle(135);
-
-        val nf: NumberFormat = NumberFormat.getInstance()
-        nf.setMinimumFractionDigits(3)
-        nf.setMinimumIntegerDigits(2)
-
-        graph.gridLabelRenderer.labelFormatter = DefaultLabelFormatter(nf, nf)
-        graph.getGridLabelRenderer().setNumHorizontalLabels(2); // only 3 because of the space
-        graph.getGridLabelRenderer().setNumVerticalLabels(2); // only 3 because of the space
+//        graph.gridLabelRenderer.labelFormatter = DefaultLabelFormatter(nf, nf)
+//        graph.getGridLabelRenderer().setNumHorizontalLabels(2); // only 3 because of the space
+//        graph.getGridLabelRenderer().setNumVerticalLabels(2); // only 3 because of the space
 
 
         Log.e("LENGTH " +  MainActivity.selectedUser.history.size, " SIZE")
-/*
+
         //inserts all things into map with date as index
         var graphMap = mutableMapOf<Int, Int>()
         var num = 0
+        var goal = MainActivity.selectedUser.goal
+
         for ((k, v) in MainActivity.selectedUser.history) {
+//            var d = Date(v.date.toLong())
+//            val format = SimpleDateFormat("yyyyMMdd")
+//            val date = format.format(d)
+
             if(graphMap[v.date] == null) {
-                graphMap[v.date] = 0
+                graphMap[v.date] =  0
             }else{
-                var addme = graphMap[v.date]!! + v.cals
-                num += v.cals
-                graphMap[v.date] = addme
+                ref.addValueEventListener(object : ValueEventListener{
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        for (childSnapshot in dataSnapshot.children) {
+                            if (childSnapshot.child("id").getValue(String::class.java).toString() == v.foodId){
+                                var addme = graphMap[v.date]!! + childSnapshot.child("calories").getValue(Int::class.java)!!
+                                num += childSnapshot.child("calories").getValue(Int::class.java)!!
+                                graphMap[v.date] = addme
+                            }
+                        }
+                    }
+                    override fun onCancelled(error: DatabaseError) {
+                        Log.e("Error:", "Failed to read value")
+                    }
+                })
             }
         }
-*/
-        /*var dataPts = arrayOfNulls<DataPoint>(graphMap.size)
 
-        var iterator = 0
-        for ((k,v) in graphMap){
-            dataPts[iterator] = DataPoint(k.toDouble(), v.toDouble())
-            iterator+=1
-        }*/
-        // create graph
-        /*val series: LineGraphSeries<DataPoint> = LineGraphSeries(
-            arrayOf(
-                 DataPoint(myDateList[0]!! + 0.0, myIntList[0]!!),
-                 DataPoint(myDateList[1]!! + 0.0, myIntList[1]!!)
-                 *//*DataPoint(myDateList[2]!! + 0.0, myIntList[2]!!)*//*
-            )
-        )*/
- /*           if(graphMap[v.date] == null) {
-                graphMap[v.date] = 0
-            }else{
-                var addme = graphMap[v.date]!! + v.cals
-                graphMap[v.date] = addme
-            }
-        }*/
-/*
-        var dataPts = arrayOfNulls<DataPoint>(graphMap.size)
+        val entries = ArrayList<Entry>()
 
-        var iterator = 0
+        //var iterator = 0
         for ((k,v) in graphMap){
-            dataPts[iterator] = DataPoint(k.toDouble(), v.toDouble())
-            iterator+=1
+//            dataPts[iterator] = DataPoint(k.toDouble(), v.toDouble())
+            entries.add(Entry(k.toFloat(), v.toFloat()))
+//            iterator+=1
         }
-        val series = LineGraphSeries<DataPoint>(dataPts)
+        //val series = LineGraphSeries<DataPoint>(dataPts)
         // Add series above to graph
-        graph.addSeries(series);
-        calsText.setText(num.toString() + "/" + "2000")
+        val dataSet = LineDataSet(entries, "Label") // add entries to dataset
+        val lineData = LineData(dataSet)
+        graph.setData(lineData);
+        graph.invalidate(); // refresh
 
+        calsText.setText(num.toString() + "/" + goal.toString())
 
         //Toggle display based on switch state
         switch.setOnClickListener {
@@ -168,8 +134,6 @@ class HomeFragment : Fragment() {
                 graph.visibility = View.VISIBLE
             }
         }
-        */
-
         return view
     }
 }

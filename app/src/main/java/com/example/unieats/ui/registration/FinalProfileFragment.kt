@@ -77,6 +77,12 @@ class FinalProfileFragment : Fragment() {
                     }
 
                     ref.removeEventListener(this);
+
+                    activity?.let {
+                        val intent = Intent (it, MainActivity::class.java)
+                        it.startActivity(intent)
+                    }
+                    
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -88,10 +94,6 @@ class FinalProfileFragment : Fragment() {
            use MainActivity.field (.firstName, ,.lastName, etc)
            to access all the things. reset() at the end.
             */
-            activity?.let {
-                val intent = Intent (it, MainActivity::class.java)
-                it.startActivity(intent)
-            }
         }
 
         return binding.root

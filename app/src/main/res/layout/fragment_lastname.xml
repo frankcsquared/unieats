@@ -12,12 +12,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="35dp"
             android:background="@color/transparent"
-            android:contentDescription="@string/exit"
+            android:contentDescription="@string/back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_back_icon_small" />
+            app:srcCompat="@drawable/ic_back_icon2" />
 
         <ImageButton
             android:id="@+id/imageButton4"
@@ -74,7 +74,7 @@
             android:fontFamily="@font/roboto_light"
             android:gravity="center"
             android:letterSpacing="0.04"
-            android:text="@string/fn_prompt"
+            android:text="@string/ln_prompt"
             android:textColor="@color/text_black"
             android:textSize="30sp"
             app:layout_constraintBottom_toTopOf="@+id/name_input"

@@ -46,9 +46,13 @@ class NameFragment : Fragment() {
         }
 
         binding.imageButton4.setOnClickListener{
+<<<<<<< Updated upstream
             view?.findNavController()?.navigate(R.id.action_nameFragment_to_emailFragment)
             model.setName(binding.nameInput.text.toString())
             Log.e("a", model.getName())
+=======
+            view?.findNavController()?.navigate(R.id.action_nameFragment_to_lastNameFragment)
+>>>>>>> Stashed changes
         }
 
         /*binding.nameInput.requestFocus()*/

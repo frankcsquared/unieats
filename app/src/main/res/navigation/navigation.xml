@@ -29,45 +29,78 @@
             app:destination="@id/titleFragment" />
     </fragment>
     <fragment
-        android:id="@+id/nameFragment"
-        android:name="com.example.unieats.ui.registration.NameFragment"
-        android:label="NameFragment" >
-        <action
-            android:id="@+id/action_nameFragment_to_emailFragment"
-            app:destination="@id/emailFragment" />
-        <action
-            android:id="@+id/action_nameFragment_to_titleFragment"
-            app:destination="@id/titleFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/emailFragment"
-        android:name="com.example.unieats.ui.registration.EmailFragment"
-        android:label="EmailFragment" >
-        <action
-            android:id="@+id/action_emailFragment_to_uniFragment"
-            app:destination="@id/uniFragment" />
-        <action
-            android:id="@+id/action_emailFragment_to_nameFragment"
-            app:destination="@id/nameFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/uniFragment"
-        android:name="com.example.unieats.ui.registration.UniFragment"
-        android:label="UniFragment" >
-        <action
-            android:id="@+id/action_uniFragment_to_finalProfileFragment"
-            app:destination="@id/finalProfileFragment" />
-        <action
-            android:id="@+id/action_uniFragment_to_emailFragment"
-            app:destination="@id/emailFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/finalProfileFragment"
         android:name="com.example.unieats.ui.registration.FinalProfileFragment"
         android:label="FinalProfileFragment" >
         <action
             android:id="@+id/action_finalProfileFragment_to_uniFragment"
             app:destination="@id/uniFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/lastNameFragment"
+        android:name="com.example.unieats.ui.registration.LastNameFragment"
+        android:label="LastNameFragment" >
+        <action
+            android:id="@+id/action_lastNameFragment_to_nameFragment"
+            app:destination="@id/nameFragment" />
+        <action
+            android:id="@+id/action_lastNameFragment_to_userFragment"
+            app:destination="@id/userFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nameFragment"
+        android:name="com.example.unieats.ui.registration.NameFragment"
+        android:label="NameFragment" >
+        <action
+            android:id="@+id/action_nameFragment_to_titleFragment"
+            app:destination="@id/titleFragment" />
+        <action
+            android:id="@+id/action_nameFragment_to_lastNameFragment"
+            app:destination="@id/lastNameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/passFragment"
+        android:name="com.example.unieats.ui.registration.PassFragment"
+        android:label="PassFragment" >
+        <action
+            android:id="@+id/action_passFragment_to_userFragment"
+            app:destination="@id/userFragment" />
+        <action
+            android:id="@+id/action_passFragment_to_emailFragment"
+            app:destination="@id/emailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="com.example.unieats.ui.registration.UserFragment"
+        android:label="UserFragment" >
+        <action
+            android:id="@+id/action_userFragment_to_lastNameFragment"
+            app:destination="@id/lastNameFragment" />
+        <action
+            android:id="@+id/action_userFragment_to_passFragment"
+            app:destination="@id/passFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/emailFragment"
+        android:name="com.example.unieats.ui.registration.EmailFragment"
+        android:label="EmailFragment" >
+        <action
+            android:id="@+id/action_emailFragment_to_passFragment"
+            app:destination="@id/passFragment" />
+        <action
+            android:id="@+id/action_emailFragment_to_uniFragment"
+            app:destination="@id/uniFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/uniFragment"
+        android:name="com.example.unieats.ui.registration.UniFragment"
+        android:label="UniFragment" >
+        <action
+            android:id="@+id/action_uniFragment_to_emailFragment"
+            app:destination="@id/emailFragment" />
+        <action
+            android:id="@+id/action_uniFragment_to_finalProfileFragment"
+            app:destination="@id/finalProfileFragment" />
     </fragment>
 
 </navigation>

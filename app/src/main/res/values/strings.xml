@@ -36,4 +36,8 @@
     <string name="name_prompt">What\'s your name?</string>
     <string name="email_prompt">What\'s your email address?</string>
     <string name="uni_prompt">What university do you attend?</string>
+    <string name="fn_prompt">What\'s your first name?</string>
+    <string name="ln_prompt">What\'s your last name?</string>
+    <string name="pass_prompt">Set your password:</string>
+    <string name="user_prompt">Set your username:</string>
 </resources>

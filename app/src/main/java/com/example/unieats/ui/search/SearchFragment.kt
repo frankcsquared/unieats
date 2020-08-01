@@ -14,8 +14,8 @@ import android.widget.ListView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
+import com.example.unieats.LogActivity.Companion.locationId
 import com.example.unieats.MainActivity
-import com.example.unieats.MainActivity.Companion.locationId
 import com.example.unieats.R
 import com.example.unieats.models.Food
 import com.google.firebase.database.DataSnapshot
@@ -89,7 +89,7 @@ class SearchFragment : Fragment() {
                 listView.setOnItemClickListener { adapter, v, position, arg3 ->
                     clickedFood = foodList[position]
 
-                    listView.findNavController().navigate(R.id.action_navigation_search_to_foodFragment)
+                    listView.findNavController().navigate(R.id.action_searchFragment_to_foodFragment)
                 }
 
             }

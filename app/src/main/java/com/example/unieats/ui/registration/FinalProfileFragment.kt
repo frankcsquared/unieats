@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.example.unieats.MainActivity
@@ -71,7 +72,9 @@ class FinalProfileFragment : Fragment() {
                         val histor: Map<String, History> =mutableMapOf<String, History>()
                         val userPush = User(id!!,MainActivity.firstName, MainActivity.lastName, histor ,MainActivity.username, MainActivity.password, "0", MainActivity.email, MainActivity.uni)
                         //val userPush = User("","","",histor,"","","","","")
-                        pusher.setValue(userPush)
+                        pusher.setValue(userPush).addOnCompleteListener{
+                            Toast.makeText(requireContext(), "Registered!", Toast.LENGTH_SHORT).show()
+                        }
                     }
 
                     ref.removeEventListener(this);

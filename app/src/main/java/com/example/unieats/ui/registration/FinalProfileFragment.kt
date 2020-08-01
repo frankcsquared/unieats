@@ -94,10 +94,7 @@ class FinalProfileFragment : Fragment() {
 
                     ref.removeEventListener(this);
 
-                    activity?.let {
-                        val intent = Intent (it, MainActivity::class.java)
-                        it.startActivity(intent)
-                    }
+                  
                     
                 }
 

@@ -46,11 +46,11 @@ class SearchFragment : Fragment() {
             R.layout.fragment_search, container, false)
 
         binding.proceedButton.setOnClickListener {
+            Log.e("yay","yay")
             activity?.let {
                 val intent = Intent (it, MainActivity::class.java)
                 it.startActivity(intent)
             }
-            Log.e("yay","yay")
         }
 
         if (locationId != null) {
@@ -63,17 +63,14 @@ class SearchFragment : Fragment() {
         searchViewModel =
             ViewModelProviders.of(this).get(SearchViewModel::class.java)
 
-        val root = inflater.inflate(R.layout.fragment_search, container, false)
+        /*val root = inflater.inflate(R.layout.fragment_search, container, false)*/
 
         val ref = FirebaseDatabase.getInstance().reference.child("Food")
         var myList: MutableList<String?> = mutableListOf<String?>() // title
 
         var foods: Array<String?> = myList.toTypedArray();
 
-
         var foodList: MutableList<Food> = mutableListOf<Food>()
-
-
 
         // Read from the database
         ref.addValueEventListener(object : ValueEventListener {
@@ -85,10 +82,9 @@ class SearchFragment : Fragment() {
                     if (childSnapshot.child("locationid").getValue(String::class.java).toString()!! == "loc" + locationId.toString()) {
                         foodList.add(childSnapshot.getValue(Food::class.java)!!)
                     }
-
                 }
 
-                val listView = root.findViewById<ListView>(R.id.foodList)
+                val listView = binding.foodList
                //makes title array for arrayAdapter inherit in MyListAdapter
                 val titleArr = arrayListOf<String?>();
                 for (i in foodList){
@@ -115,7 +111,7 @@ class SearchFragment : Fragment() {
         })
 
 
-        return root
+        return binding.root
     }
 
 

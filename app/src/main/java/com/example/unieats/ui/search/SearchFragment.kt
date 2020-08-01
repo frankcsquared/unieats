@@ -1,5 +1,6 @@
 package com.example.unieats.ui.search
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -11,12 +12,15 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import com.example.unieats.LogActivity.Companion.locationId
 import com.example.unieats.MainActivity
 import com.example.unieats.R
+import com.example.unieats.databinding.FragmentSearchBinding
+import com.example.unieats.databinding.FragmentTitleBinding
 import com.example.unieats.models.Food
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -38,6 +42,16 @@ class SearchFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val binding = DataBindingUtil.inflate<FragmentSearchBinding>(inflater,
+            R.layout.fragment_search, container, false)
+
+        binding.proceedButton.setOnClickListener {
+            activity?.let {
+                val intent = Intent (it, MainActivity::class.java)
+                it.startActivity(intent)
+            }
+            Log.e("yay","yay")
+        }
 
         if (locationId != null) {
             Log.e("LOCATION", locationId.toString())

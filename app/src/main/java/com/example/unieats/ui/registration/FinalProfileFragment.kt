@@ -10,6 +10,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
@@ -74,6 +76,20 @@ class FinalProfileFragment : Fragment() {
                         pusher.setValue(userPush).addOnCompleteListener{
                             Toast.makeText(requireContext(), "Registered!", Toast.LENGTH_SHORT).show()
                         }
+
+
+                        //LOGIN
+
+
+                        activity?.let{
+
+                            MainActivity.selectedUser = userPush
+                            val intent = Intent (it, MainActivity::class.java)
+                            it.startActivity(intent)
+
+                        }
+
+
                     }
 
                     ref.removeEventListener(this);
@@ -84,14 +100,8 @@ class FinalProfileFragment : Fragment() {
                     //Toast.makeText(this@SearchFragment, "error error", Toast.LENGTH_LONG).show()
                 }
             })
-            /*
-           use MainActivity.field (.firstName, ,.lastName, etc)
-           to access all the things. reset() at the end.
-            */
-            activity?.let {
-                val intent = Intent (it, MainActivity::class.java)
-                it.startActivity(intent)
-            }
+
+
         }
 
         return binding.root

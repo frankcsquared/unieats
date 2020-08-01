@@ -45,22 +45,22 @@ class FoodFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.food_fragment, container, false)
         var ref = FirebaseDatabase.getInstance().getReference("Users/"+"${MainActivity.selectedUser.id}"+"/history")
-        var readRef = FirebaseDatabase.getInstance().getReference("Users/"+"${MainActivity.selectedUser.id}"+"/history")
+        //var readRef = FirebaseDatabase.getInstance().getReference("Users/"+"${MainActivity.selectedUser.id}"+"/history")
+        var rootRef = FirebaseDatabase.getInstance().getReference()
+
 
         var title = root.findViewById<TextView>(R.id.foodTitle)
         var cals = root.findViewById<TextView>(R.id.foodCals)
         var img = root.findViewById<ImageView>(R.id.foodImage)
 
         var total = root.findViewById<TextView>(R.id.todayTotal)
-
-
         var totalCnt = 0
 
         title.text = clickedFood.name
         cals.text = clickedFood.calories.toString()
         img.setImageBitmap(toImage(clickedFood.image))
 
-        //val logButton = root.findViewById<Button>(R.id.log_button)
+
 
         root.foodButton.setOnClickListener { view: View ->
             val current = LocalDateTime.now()
@@ -68,7 +68,7 @@ class FoodFragment : Fragment() {
             val formatter = DateTimeFormatter.BASIC_ISO_DATE
             val formatted = current.format(formatter)
             Log.e(formatted, formatted)
-            ref.push().setValue(History(formatted.toInt(),clickedFood.calories,10)).addOnCompleteListener{
+            ref.push().setValue(History(formatted.toInt(),clickedFood.id)).addOnCompleteListener{
                 Toast.makeText(requireContext(), "Food logged successfully", Toast.LENGTH_SHORT).show()
             }
         }
@@ -79,19 +79,49 @@ class FoodFragment : Fragment() {
             val formatter = DateTimeFormatter.BASIC_ISO_DATE
             val formatted = current.format(formatter)
             Log.e(formatted, formatted)
-            ref.push().setValue(History(formatted.toInt(),-1*clickedFood.calories,10)).addOnCompleteListener{
-                Toast.makeText(requireContext(), "Food removed successfully", Toast.LENGTH_SHORT).show()
-            }
+            ref.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    for (childSnapshot in dataSnapshot.children) {
+                        if(childSnapshot.child("foodId").getValue(String::class.java) == clickedFood.id){
+                            childSnapshot.ref.removeValue()
+                            Toast.makeText(requireContext(), "Food removed successfully", Toast.LENGTH_SHORT).show()
+                            ref.removeEventListener(this);
+                            break;
+                        }
+                        Toast.makeText(requireContext(), "No food history found", Toast.LENGTH_SHORT).show()
+                    }
+                    ref.removeEventListener(this);
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    // Failed to read value
+                    //Toast.makeText(this@SearchFragment, "error error", Toast.LENGTH_LONG).show()
+                }
+            })
+
+
 
 
         }
 
-        readRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (childSnapshot in dataSnapshot.children) {
+        //reads onchange -> for text
+        rootRef.addValueEventListener(object : ValueEventListener {
 
-                    val addition = childSnapshot.child("cals").getValue(Long::class.java)!!
-                    totalCnt += addition.toInt()
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                Log.e("ASDF", "AFAFAFF")
+                totalCnt = 0
+                for (childSnapshot in dataSnapshot.child("Users/" + "${MainActivity.selectedUser.id}" + "/history").children) {
+                    try {
+                        Log.e("ASDF", "poops")
+                        val id = childSnapshot.child("foodId").getValue(String::class.java)!!
+                        Log.e("poopsajf", id)
+                        totalCnt += dataSnapshot.child("Food").child(id).child("calories").getValue(Int::class.java)!!
+                    }catch(e: Exception){
+                        Log.e("ASDF", "error")
+                        totalCnt = 0
+                    }
+                    //val addition = childSnapshot.child("cals").getValue(Long::class.java)!!
+                   // totalCnt += addition.toInt()
+                    Log.e("ASDF", "totcnt here")
                     total.text = "Today's Total: " + totalCnt
                 }
             }

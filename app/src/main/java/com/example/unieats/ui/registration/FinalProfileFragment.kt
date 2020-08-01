@@ -9,9 +9,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.example.unieats.databinding.FragmentFinalprofileBinding
-import com.example.unieats.databinding.FragmentHomeBinding
-import com.example.unieats.databinding.FragmentNameBinding
-import com.example.unieats.databinding.FragmentTitleBinding
 
 class FinalProfileFragment : Fragment() {
 
@@ -29,6 +26,15 @@ class FinalProfileFragment : Fragment() {
 
         binding.imageButton3.setOnClickListener{
             view?.findNavController()?.navigate(R.id.action_finalProfileFragment_to_uniFragment)
+        }
+
+        binding.toProfile.setOnClickListener{
+
+            /*
+           use MainActivity.field (.firstName, ,.lastName, etc)
+           to access all the things. reset() at the end.
+            */
+            
         }
 
         return binding.root

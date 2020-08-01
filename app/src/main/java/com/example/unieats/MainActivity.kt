@@ -20,6 +20,22 @@ class MainActivity : AppCompatActivity() {
         var histMap = mapOf<String, History>("" to history)
         var selectedUser = User("","","", histMap, "", "", "0")
         var locationId : Int = -1
+
+        var firstName : String = "dwyn the cock"
+        var lastName : String = "johnson"
+        var username : String = "dwnthebigboi"
+        var password : String = "coker"
+        var email : String = ""
+        var uni : String = "mcdicks uni"
+
+        fun reset () {
+            firstName = ""
+            lastName = ""
+            username = ""
+            password = ""
+            email = ""
+            uni = ""
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

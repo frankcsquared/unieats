@@ -1,7 +1,6 @@
 package com.example.unieats.ui.registration
 
 import android.content.Context
-import android.net.http.SslCertificate.saveState
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,15 +10,15 @@ import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.SavedStateViewModelFactory
 import androidx.navigation.findNavController
+import com.example.unieats.MainActivity
 import com.example.unieats.R
 import com.example.unieats.databinding.FragmentNameBinding
-import com.google.android.gms.common.config.GservicesValue.isInitialized
-import kotlin.reflect.KProperty
 
 
 class NameFragment : Fragment() {
+
+    private val hint = "Dwayne the cock"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,20 +38,23 @@ class NameFragment : Fragment() {
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imgr.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
 
-        binding.nameInput.setText(model.getName())
+        if (MainActivity.firstName == ""){
+            binding.nameInput.hint = hint
+            Log.e("yay", "yay")
+        }
+        else {
+            binding.nameInput.setText(MainActivity.firstName)
+        }
 
         binding.imageButton3.setOnClickListener{
             view?.findNavController()?.navigate(R.id.action_nameFragment_to_titleFragment)
+            MainActivity.reset()
         }
 
-        binding.imageButton4.setOnClickListener{
-<<<<<<< Updated upstream
-            view?.findNavController()?.navigate(R.id.action_nameFragment_to_emailFragment)
-            model.setName(binding.nameInput.text.toString())
-            Log.e("a", model.getName())
-=======
+        binding.imageButton4.setOnClickListener {
             view?.findNavController()?.navigate(R.id.action_nameFragment_to_lastNameFragment)
->>>>>>> Stashed changes
+            MainActivity.firstName = binding.nameInput.text.toString()
+            Log.e("a", MainActivity.firstName)
         }
 
         /*binding.nameInput.requestFocus()*/
@@ -62,6 +64,10 @@ class NameFragment : Fragment() {
 
     companion object {
 
+    }
+
+    interface FragmentToActivity {
+        fun communicate(comm: String?)
     }
 
 }

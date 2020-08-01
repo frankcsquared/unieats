@@ -12,12 +12,15 @@ import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import com.example.unieats.MainActivity
 import com.example.unieats.databinding.FragmentHomeBinding
 import com.example.unieats.databinding.FragmentNameBinding
 import com.example.unieats.databinding.FragmentTitleBinding
 import com.example.unieats.databinding.FragmentUniBinding
 
 class UniFragment : Fragment() {
+
+    private val hint = "mcdicks uni"
 
     /*override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +40,12 @@ class UniFragment : Fragment() {
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imgr.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
 
-        binding.uniInput.setText(model.getUni())
+        if (MainActivity.uni == ""){
+            binding.uniInput.hint = hint
+        }
+        else {
+            binding.uniInput.setText(MainActivity.uni)
+        }
 
         binding.imageButton3.setOnClickListener{
             view?.findNavController()?.navigate(R.id.action_uniFragment_to_emailFragment)
@@ -45,8 +53,8 @@ class UniFragment : Fragment() {
 
         binding.imageButton4.setOnClickListener{
             view?.findNavController()?.navigate(R.id.action_uniFragment_to_finalProfileFragment)
-            model.setUni(binding.uniInput.text.toString())
-            Log.e("a", model.getUni())
+            MainActivity.uni = binding.uniInput.text.toString()
+            Log.e("a", MainActivity.uni)
         }
 
         /*binding.uniInput.requestFocus()*/

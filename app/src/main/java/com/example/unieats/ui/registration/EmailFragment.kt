@@ -12,12 +12,15 @@ import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import com.example.unieats.MainActivity
 import com.example.unieats.databinding.FragmentEmailBinding
 import com.example.unieats.databinding.FragmentHomeBinding
 import com.example.unieats.databinding.FragmentNameBinding
 import com.example.unieats.databinding.FragmentTitleBinding
 
 class EmailFragment : Fragment() {
+
+    private val hint = "dywanethecock@cock.co.ck"
 
     /*override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +40,12 @@ class EmailFragment : Fragment() {
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imgr.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
 
-        binding.emailInput.setText(model.getEmail())
+        if (MainActivity.email == ""){
+            binding.emailInput.hint = hint
+        }
+        else {
+            binding.emailInput.setText(MainActivity.email)
+        }
 
         binding.imageButton3.setOnClickListener{
             view?.findNavController()?.navigate(R.id.action_emailFragment_to_passFragment)
@@ -45,8 +53,8 @@ class EmailFragment : Fragment() {
 
         binding.imageButton4.setOnClickListener{
             view?.findNavController()?.navigate(R.id.action_emailFragment_to_uniFragment)
-            model.setEmail(binding.emailInput.text.toString())
-            Log.e("a", model.getEmail())
+            MainActivity.email = binding.emailInput.text.toString()
+            Log.e("a", MainActivity.email)
         }
 
         /*binding.emailInput.requestFocus()*/

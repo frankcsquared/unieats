@@ -107,7 +107,7 @@ class HomeFragment : Fragment() {
 
 
         Log.e("LENGTH " +  MainActivity.selectedUser.history.size, " SIZE")
-
+/*
         //inserts all things into map with date as index
         var graphMap = mutableMapOf<Int, Int>()
         var num = 0
@@ -120,7 +120,7 @@ class HomeFragment : Fragment() {
                 graphMap[v.date] = addme
             }
         }
-
+*/
         /*var dataPts = arrayOfNulls<DataPoint>(graphMap.size)
 
         var iterator = 0
@@ -143,7 +143,7 @@ class HomeFragment : Fragment() {
                 graphMap[v.date] = addme
             }
         }*/
-
+/*
         var dataPts = arrayOfNulls<DataPoint>(graphMap.size)
 
         var iterator = 0
@@ -168,6 +168,8 @@ class HomeFragment : Fragment() {
                 graph.visibility = View.VISIBLE
             }
         }
+        */
+
         return view
     }
 }

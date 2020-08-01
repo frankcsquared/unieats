@@ -1,6 +1,7 @@
 package com.example.unieats.ui.registration
 
 import android.content.Context
+import android.content.Intent
 import com.example.unieats.R
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +14,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.example.unieats.MainActivity
 import com.example.unieats.ContextExtensions.hideKeyboard
+import com.example.unieats.LogActivity
 import com.example.unieats.databinding.FragmentFinalprofileBinding
 import com.example.unieats.models.History
 import com.example.unieats.models.User
@@ -38,9 +40,6 @@ class FinalProfileFragment : Fragment() {
         val imgr =
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imgr.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
-
-        val ref = FirebaseDatabase.getInstance().reference.child("Users")
-
 
         hideKeyboard()
 
@@ -86,7 +85,10 @@ class FinalProfileFragment : Fragment() {
            use MainActivity.field (.firstName, ,.lastName, etc)
            to access all the things. reset() at the end.
             */
-
+            activity?.let {
+                val intent = Intent (it, MainActivity::class.java)
+                it.startActivity(intent)
+            }
         }
 
         return binding.root

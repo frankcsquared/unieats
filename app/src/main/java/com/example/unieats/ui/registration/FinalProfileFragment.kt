@@ -12,6 +12,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.example.unieats.ContextExtensions.hideKeyboard
 import com.example.unieats.databinding.FragmentFinalprofileBinding
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class FinalProfileFragment : Fragment() {
 
@@ -31,6 +35,8 @@ class FinalProfileFragment : Fragment() {
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imgr.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
 
+        val ref = FirebaseDatabase.getInstance().reference.child("Users")
+
         hideKeyboard()
 
         binding.imageButton3.setOnClickListener{
@@ -38,7 +44,17 @@ class FinalProfileFragment : Fragment() {
         }
 
         binding.toProfile.setOnClickListener{
+            ref.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
 
+                }
+
+
+                override fun onCancelled(error: DatabaseError) {
+                    // Failed to read value
+                    //Toast.makeText(this@SearchFragment, "error error", Toast.LENGTH_LONG).show()
+                }
+            })
             /*
            use MainActivity.field (.firstName, ,.lastName, etc)
            to access all the things. reset() at the end.

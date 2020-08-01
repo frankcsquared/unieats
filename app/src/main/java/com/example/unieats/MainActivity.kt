@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         var histMap = mapOf<String, History>("" to history)
         var selectedUser = User("","","", histMap, "", "", "0")
 
+        //User Registration stuff
         var firstName : String = ""
         var lastName : String = ""
         var username : String = ""

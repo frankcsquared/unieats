@@ -50,6 +50,8 @@ class UserFragment : Fragment() {
         binding.imageButton4.setOnClickListener{
             view?.findNavController()?.navigate(R.id.action_userFragment_to_passFragment)
             MainActivity.username = binding.nameInput.text.toString()
+
+
             Log.e("a", MainActivity.username)
         }
 

@@ -11,8 +11,8 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
-import com.example.unieats.ContextExtensions.hideKeyboard
 import com.example.unieats.MainActivity
+import com.example.unieats.ContextExtensions.hideKeyboard
 import com.example.unieats.databinding.FragmentFinalprofileBinding
 import com.example.unieats.models.History
 import com.example.unieats.models.User
@@ -40,6 +40,7 @@ class FinalProfileFragment : Fragment() {
         imgr.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
 
         val ref = FirebaseDatabase.getInstance().reference.child("Users")
+
 
         hideKeyboard()
 

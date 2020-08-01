@@ -10,31 +10,43 @@
         android:paddingTop="30dp"
         >
 
-        <com.jjoe64.graphview.GraphView
-            android:id="@+id/graph"
-            android:layout_width="409dp"
-            android:layout_height="243dp"
-            android:layout_marginTop="16dp"
-            android:layout_weight="1"
-            android:visibility="visible"
+<!--        <com.jjoe64.graphview.GraphView-->
+<!--            android:id="@+id/graph"-->
+<!--            android:layout_width="409dp"-->
+<!--            android:layout_height="243dp"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:visibility="visible"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.0"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/homeText"-->
+<!--            app:layout_constraintVertical_bias="0.01"-->
+<!--            app:seriesColor="#ee0000"-->
+<!--            app:seriesType="bar" />-->
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/chart"
+            android:layout_width="344dp"
+            android:layout_height="381dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/homeText"
-            app:layout_constraintVertical_bias="0.01"
-            app:seriesColor="#ee0000"
-            app:seriesType="bar" />
+            app:layout_constraintVertical_bias="0.074" />
 
         <TextView
             android:id="@+id/homeText"
             android:layout_width="100dp"
             android:layout_height="48dp"
-            android:layout_marginStart="152dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginStart="155dp"
+            android:layout_marginEnd="155dp"
             android:text="Home"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="36sp"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,8 +55,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Switch display"
-            app:layout_constraintStart_toStartOf="@id/graph"
-            app:layout_constraintTop_toBottomOf="@id/graph"
+            app:layout_constraintStart_toStartOf="@id/chart"
+            app:layout_constraintTop_toBottomOf="@id/chart"
             app:layout_constraintVertical_bias="0.02"
             tools:layout_editor_absoluteX="200dp"
             tools:layout_editor_absoluteY="317dp" />
@@ -53,12 +65,13 @@
             android:id="@+id/calsText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="1200"
             android:textSize="60sp"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.174"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/homeText"
             app:layout_constraintVertical_bias="0.02" />

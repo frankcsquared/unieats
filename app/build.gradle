@@ -19,6 +19,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
 
         vectorDrawables {
             useSupportLibrary true
@@ -41,6 +42,10 @@ android {
         jvmTarget = "1.8"
     }
 
+}
+
+repositories {
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
@@ -85,6 +90,9 @@ dependencies {
     //GraphView
     implementation 'com.jjoe64:graphview:4.2.2'
 
+    //mpandroidchart
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
     //material design
     def material_version = "1.3.0-alpha01"
     implementation "com.google.android.material:material:$material_version"
@@ -92,5 +100,8 @@ dependencies {
     def lifecycle_version = "2.2.0" // currently the latest version
     // Saved state module for ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
+
+    //as per https://stackoverflow.com/questions/54911906/cannot-fit-requested-classes-in-a-single-dex-file-even-for-earlier-commits-whic
+    implementation 'com.android.support:multidex:1.0.3'
 
 }

@@ -40,14 +40,9 @@ class HomeFragment : Fragment() {
             ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         //initialize graph
-<<<<<<< HEAD
-        val graph = view.findViewById(R.id.chart) as LineChart
-        //graph.addSeries(mSeries1)
-=======
         // val graph = view.findViewById(R.id.graph) as GraphView
         val graph = view.findViewById(R.id.chart) as LineChart
 
->>>>>>> 217673f8abac91ffc1bcd0eb0fbef8ba10ac2fd6
         val switch = view.findViewById(R.id.switch1) as Switch
         val calsText = view.findViewById(R.id.calsText) as TextView
 

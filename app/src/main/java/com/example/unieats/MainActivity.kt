@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         var selectedUser = User("","","", histMap, "", "", "0")
         var locationId : Int = -1
 
+        //User Registration stuff
         var firstName : String = ""
         var lastName : String = ""
         var username : String = ""

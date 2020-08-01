@@ -130,8 +130,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMarkerClickListe
         restaurantBtn.setOnClickListener {
 
             if (restaurantBtn.text != "Nothing selected") {
-                val intent = Intent (this, MainActivity::class.java)
-                intent.putExtra("fragmentLoad", 0)
+                val intent = Intent (this, LogActivity::class.java)
                 intent.putExtra("chosenId", selectedId)
 
                 startActivity(intent)

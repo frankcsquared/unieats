@@ -12,7 +12,9 @@ data class User(
     val history: Map<String, History> = mapOf<String, History>("" to History(0,"")),
     val username: String ="",
     val password: String ="",
-    val goal: String = "")
+    val goal: String = "",
+    val email: String = "",
+    val uni: String = "")
 
 data class Location(
     val id: String ="",

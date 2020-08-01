@@ -3,6 +3,7 @@ package com.example.unieats.ui.registration
 import android.content.Context
 import com.example.unieats.R
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +11,10 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
+import com.example.unieats.MainActivity
 import com.example.unieats.databinding.FragmentFinalprofileBinding
+import com.example.unieats.models.History
+import com.example.unieats.models.User
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -34,8 +38,7 @@ class FinalProfileFragment : Fragment() {
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imgr.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
 
-        //database ref
-        val ref = FirebaseDatabase.getInstance().reference.child("Users")
+
 
 
         binding.imageButton3.setOnClickListener{
@@ -43,9 +46,32 @@ class FinalProfileFragment : Fragment() {
         }
 
         binding.toProfile.setOnClickListener{
+            //database ref
+            val ref = FirebaseDatabase.getInstance().getReference("Users")
+
+            var noMatch = true
             ref.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    for  (childSnapshot in dataSnapshot.children){
 
+                        if(childSnapshot.child("username").getValue(String::class.java) == MainActivity.username){
+                            noMatch = false
+                            Log.e("FAIL", "user match")
+                            break;
+                        }
+
+                    }
+                    if(noMatch){
+                        val pusher = ref.push()
+                        val id = pusher.key
+
+                        val histor: Map<String, History> =mutableMapOf<String, History>()
+                        val userPush = User(id!!,MainActivity.firstName, MainActivity.lastName, histor ,MainActivity.username, MainActivity.password, "0", MainActivity.email, MainActivity.uni)
+                        //val userPush = User("","","",histor,"","","","","")
+                        pusher.setValue(userPush)
+                    }
+
+                    ref.removeEventListener(this);
                 }
 
 

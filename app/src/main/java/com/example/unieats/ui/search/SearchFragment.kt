@@ -1,5 +1,6 @@
 package com.example.unieats.ui.search
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -11,12 +12,15 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
+import com.example.unieats.LogActivity.Companion.locationId
 import com.example.unieats.MainActivity
-import com.example.unieats.MainActivity.Companion.locationId
 import com.example.unieats.R
+import com.example.unieats.databinding.FragmentSearchBinding
+import com.example.unieats.databinding.FragmentTitleBinding
 import com.example.unieats.models.Food
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -38,6 +42,16 @@ class SearchFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val binding = DataBindingUtil.inflate<FragmentSearchBinding>(inflater,
+            R.layout.fragment_search, container, false)
+
+        binding.proceedButton.setOnClickListener {
+            Log.e("yay","yay")
+            activity?.let {
+                val intent = Intent (it, MainActivity::class.java)
+                it.startActivity(intent)
+            }
+        }
 
         if (locationId != null) {
             Log.e("LOCATION", locationId.toString())
@@ -49,17 +63,14 @@ class SearchFragment : Fragment() {
         searchViewModel =
             ViewModelProviders.of(this).get(SearchViewModel::class.java)
 
-        val root = inflater.inflate(R.layout.fragment_search, container, false)
+        /*val root = inflater.inflate(R.layout.fragment_search, container, false)*/
 
         val ref = FirebaseDatabase.getInstance().reference.child("Food")
         var myList: MutableList<String?> = mutableListOf<String?>() // title
 
         var foods: Array<String?> = myList.toTypedArray();
 
-
         var foodList: MutableList<Food> = mutableListOf<Food>()
-
-
 
         // Read from the database
         ref.addValueEventListener(object : ValueEventListener {
@@ -71,10 +82,9 @@ class SearchFragment : Fragment() {
                     if (childSnapshot.child("locationid").getValue(String::class.java).toString()!! == "loc" + locationId.toString()) {
                         foodList.add(childSnapshot.getValue(Food::class.java)!!)
                     }
-
                 }
 
-                val listView = root.findViewById<ListView>(R.id.foodList)
+                val listView = binding.foodList
                //makes title array for arrayAdapter inherit in MyListAdapter
                 val titleArr = arrayListOf<String?>();
                 for (i in foodList){
@@ -89,7 +99,7 @@ class SearchFragment : Fragment() {
                 listView.setOnItemClickListener { adapter, v, position, arg3 ->
                     clickedFood = foodList[position]
 
-                    listView.findNavController().navigate(R.id.action_navigation_search_to_foodFragment)
+                    listView.findNavController().navigate(R.id.action_searchFragment_to_foodFragment)
                 }
 
             }
@@ -101,7 +111,7 @@ class SearchFragment : Fragment() {
         })
 
 
-        return root
+        return binding.root
     }
 
 

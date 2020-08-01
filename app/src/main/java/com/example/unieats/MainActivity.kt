@@ -20,7 +20,6 @@ class MainActivity : AppCompatActivity() {
         var history = History(0,"")
         var histMap = mapOf<String, History>("" to history)
         var selectedUser = User("","","", histMap, "", "", "0")
-        var locationId : Int = -1
 
         //User Registration stuff
         var firstName : String = ""
@@ -52,29 +51,9 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.navigation_home, R.id.navigation_search, R.id.navigation_log, R.id.navigation_profile))
+            R.id.navigation_home, R.id.navigation_log, R.id.navigation_profile))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
-        var intentLocation = intent.extras?.getInt("chosenId")
-        var intentFragment = intent.extras?.getInt("fragmentLoad");
-
-        when(intentFragment) {
-
-            0 -> {
-                findNavController(R.id.nav_host_fragment).navigate(R.id.action_navigation_home_to_navigation_search)
-            }
-
-        }
-
-        if (intentLocation != null) {
-           /* val bundle = Bundle()
-            bundle.putInt("chosenId", intentLocation)
-            var searchPass = SearchFragment
-            searchPass.arguments = bundle
-            Log.e("LOCATIONINMAIN", intentLocation.toString())*/
-            locationId = intentLocation
-        }
 
     }
 }

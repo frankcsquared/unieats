@@ -34,7 +34,7 @@ class FinalProfileFragment : Fragment() {
            use MainActivity.field (.firstName, ,.lastName, etc)
            to access all the things. reset() at the end.
             */
-            
+
         }
 
         return binding.root

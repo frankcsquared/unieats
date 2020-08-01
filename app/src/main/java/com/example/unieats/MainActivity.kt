@@ -21,12 +21,12 @@ class MainActivity : AppCompatActivity() {
         var selectedUser = User("","","", histMap, "", "", "0")
         var locationId : Int = -1
 
-        var firstName : String = "dwyn the cock"
-        var lastName : String = "johnson"
-        var username : String = "dwnthebigboi"
-        var password : String = "coker"
+        var firstName : String = ""
+        var lastName : String = ""
+        var username : String = ""
+        var password : String = ""
         var email : String = ""
-        var uni : String = "mcdicks uni"
+        var uni : String = ""
 
         fun reset () {
             firstName = ""

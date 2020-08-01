@@ -93,8 +93,6 @@ class FinalProfileFragment : Fragment() {
                     }
 
                     ref.removeEventListener(this);
-
-                  
                     
                 }
 

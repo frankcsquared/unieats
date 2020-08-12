@@ -1,5 +1,6 @@
 package com.example.unieats.ui.home
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,20 +8,26 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Switch
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.unieats.MainActivity
 import com.example.unieats.R
 import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.components.AxisBase
+import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.IAxisValueFormatter
+import com.github.mikephil.charting.formatter.ValueFormatter
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.jjoe64.graphview.series.DataPoint
-import com.jjoe64.graphview.series.LineGraphSeries
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -31,6 +38,7 @@ class HomeFragment : Fragment() {
     private var myDateList: MutableList<Int?> = mutableListOf<Int?>() // date
     private var myIntList: MutableList<Double?> = mutableListOf<Double?>() // calories
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -73,6 +81,7 @@ class HomeFragment : Fragment() {
 
         //inserts all things into map with date as index
         var graphMap = mutableMapOf<Int, Int>()
+        var dateList = ArrayList<Int>()
         var num = 0
         var goal = MainActivity.selectedUser.goal
 
@@ -80,6 +89,8 @@ class HomeFragment : Fragment() {
 //            var d = Date(v.date.toLong())
 //            val format = SimpleDateFormat("yyyyMMdd")
 //            val date = format.format(d)
+            val date = LocalDate.parse(v.date.toString(), DateTimeFormatter.ofPattern("yyyyMMdd"))
+            dateList.add(v.date)
 
             if(graphMap[v.date] == null) {
                 graphMap[v.date] =  0
@@ -116,6 +127,24 @@ class HomeFragment : Fragment() {
         graph.setData(lineData);
         graph.invalidate(); // refresh
 
+        //val formatter: IAxisValueFormatter = MyXAxisValueFormatter()
+
+        //THIS PART IS FFED
+        val formatter: IAxisValueFormatter = object : IAxisValueFormatter {
+            override fun getFormattedValue(value: Float, axis: AxisBase?): String? {
+                val sdf = SimpleDateFormat("yyyyMMdd", Locale.ENGLISH)
+                return sdf.format(dateList)
+            }
+
+            // we don't draw numbers, so no decimal digits needed
+            val decimalDigits: Int
+                get() = 0
+        }
+
+        val xAxis: XAxis = graph.getXAxis()
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM)
+        xAxis.setValueFormatter(formatter as ValueFormatter?)
+
         calsText.setText(num.toString() + "/" + goal.toString())
 
         //Toggle display based on switch state
@@ -132,3 +161,5 @@ class HomeFragment : Fragment() {
         return view
     }
 }
+
+

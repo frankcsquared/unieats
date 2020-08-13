@@ -27,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import java.text.SimpleDateFormat
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 
@@ -57,27 +58,9 @@ class HomeFragment : Fragment() {
         //Access Firebase
         val ref = FirebaseDatabase.getInstance().reference.child("Food")
 
-        //set graph labels
-//        graph.getViewport().setMinX(20200718.0);
-//        graph.getViewport().setMaxX(20200722.0);
-//        graph.getViewport().setMinY(200.0);
-//        graph.getViewport().setMaxY(5000.0);
-//
-//        graph.getViewport().setYAxisBoundsManual(true);
-//        graph.getViewport().setXAxisBoundsManual(true);
-//
-//        graph.getGridLabelRenderer().setHorizontalLabelsAngle(135);
-
-//        val nf: NumberFormat = NumberFormat.getInstance()
-//        nf.setMinimumFractionDigits(3)
-//        nf.setMinimumIntegerDigits(2)
-
-//        graph.gridLabelRenderer.labelFormatter = DefaultLabelFormatter(nf, nf)
-//        graph.getGridLabelRenderer().setNumHorizontalLabels(2); // only 3 because of the space
-//        graph.getGridLabelRenderer().setNumVerticalLabels(2); // only 3 because of the space
 
 
-        Log.e("LENGTH " +  MainActivity.selectedUser.history.size, " SIZE")
+
 
         //inserts all things into map with date as index
         var graphMap = mutableMapOf<Int, Int>()
@@ -85,11 +68,30 @@ class HomeFragment : Fragment() {
         var num = 0
         var goal = MainActivity.selectedUser.goal
 
+
+        fun refreshGraph(){
+            val entries = ArrayList<Entry>()
+
+
+            for ((k,v) in graphMap){
+                Log.e(k.toString(), v.toString())
+                entries.add(Entry(k.toFloat(), v.toFloat()))
+            }
+
+
+
+            // Add series above to graph
+            val dataSet = LineDataSet(entries, "Calories") // add entries to dataset
+            val lineData = LineData(dataSet)
+            graph.setData(lineData);
+            graph.invalidate(); // refresh
+
+            //refresh toggle page
+            calsText.setText(num.toString() + "/" + goal.toString())
+        }
+
+
         for ((k, v) in MainActivity.selectedUser.history) {
-//            var d = Date(v.date.toLong())
-//            val format = SimpleDateFormat("yyyyMMdd")
-//            val date = format.format(d)
-            val date = LocalDate.parse(v.date.toString(), DateTimeFormatter.ofPattern("yyyyMMdd"))
             dateList.add(v.date)
 
             if(graphMap[v.date] == null) {
@@ -97,11 +99,24 @@ class HomeFragment : Fragment() {
             }else{
                 ref.addValueEventListener(object : ValueEventListener{
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        //get today's date
+                        val current = LocalDateTime.now()
+
+                        val formatter = DateTimeFormatter.BASIC_ISO_DATE
+                        val formatted = current.format(formatter)
                         for (childSnapshot in dataSnapshot.children) {
                             if (childSnapshot.child("id").getValue(String::class.java).toString() == v.foodId){
+
+
                                 var addme = graphMap[v.date]!! + childSnapshot.child("calories").getValue(Int::class.java)!!
-                                num += childSnapshot.child("calories").getValue(Int::class.java)!!
+                                if(v.date == formatted.toInt()) {
+                                    num += childSnapshot.child("calories")
+                                        .getValue(Int::class.java)!!
+                                }
+
                                 graphMap[v.date] = addme
+
+                                refreshGraph()
                             }
                         }
                     }
@@ -112,40 +127,15 @@ class HomeFragment : Fragment() {
             }
         }
 
-        val entries = ArrayList<Entry>()
 
-        //var iterator = 0
-        for ((k,v) in graphMap){
-//            dataPts[iterator] = DataPoint(k.toDouble(), v.toDouble())
-            entries.add(Entry(k.toFloat(), v.toFloat()))
-//            iterator+=1
-        }
-        //val series = LineGraphSeries<DataPoint>(dataPts)
-        // Add series above to graph
-        val dataSet = LineDataSet(entries, "Label") // add entries to dataset
-        val lineData = LineData(dataSet)
-        graph.setData(lineData);
-        graph.invalidate(); // refresh
 
-        //val formatter: IAxisValueFormatter = MyXAxisValueFormatter()
 
-        //THIS PART IS FFED
-        val formatter: IAxisValueFormatter = object : IAxisValueFormatter {
-            override fun getFormattedValue(value: Float, axis: AxisBase?): String? {
-                val sdf = SimpleDateFormat("yyyyMMdd", Locale.ENGLISH)
-                return sdf.format(dateList)
-            }
 
-            // we don't draw numbers, so no decimal digits needed
-            val decimalDigits: Int
-                get() = 0
-        }
 
-        val xAxis: XAxis = graph.getXAxis()
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM)
-        xAxis.setValueFormatter(formatter as ValueFormatter?)
 
-        calsText.setText(num.toString() + "/" + goal.toString())
+
+
+
 
         //Toggle display based on switch state
         switch.setOnClickListener {
@@ -160,6 +150,8 @@ class HomeFragment : Fragment() {
         }
         return view
     }
+
+
 }
 
 

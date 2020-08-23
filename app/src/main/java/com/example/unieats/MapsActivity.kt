@@ -125,6 +125,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMarkerClickListe
 
         imgBtn.setOnClickListener {
             finish()
+            val intent = Intent (this, MainActivity::class.java)
+            startActivity(intent)
         }
 
         restaurantBtn.setOnClickListener {

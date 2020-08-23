@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import com.example.unieats.LogActivity.Companion.locationId
 import com.example.unieats.MainActivity
+import com.example.unieats.MapsActivity
 import com.example.unieats.R
 import com.example.unieats.databinding.FragmentSearchBinding
 import com.example.unieats.databinding.FragmentTitleBinding
@@ -58,9 +59,7 @@ class SearchFragment : Fragment() {
                     if (childSnapshot.child("id").getValue(String::class.java).toString()!! == "loc" + locationId.toString()) {
                         textView2.setText(childSnapshot.child("name").getValue(String::class.java).toString()!!)
                         //Log.e(" YES ", childSnapshot.child("name").getValue(String::class.java).toString()!!)
-                        val encodedImage = childSnapshot.child("img").getValue(String::class.java).toString()!!.replace("data:image/jpeg;base64,","")
-                        val decodedString: ByteArray = Base64.decode(encodedImage, Base64.DEFAULT)
-                        val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+                        imageView2.setImageBitmap(toImage(childSnapshot.child("img").getValue(String::class.java).toString()!!))
                     }
                 }
             }
@@ -73,7 +72,7 @@ class SearchFragment : Fragment() {
         binding.proceedButton.setOnClickListener {
             Log.e("yay","yay")
             activity?.let {
-                val intent = Intent (it, MainActivity::class.java)
+                val intent = Intent (it, MapsActivity::class.java)
                 it.startActivity(intent)
             }
         }
@@ -142,7 +141,6 @@ class SearchFragment : Fragment() {
 
 }
 
-
 fun toImage(inString: String) : Bitmap?{
     val encodedImage: String;
     return if(inString != null) {
@@ -155,7 +153,5 @@ fun toImage(inString: String) : Bitmap?{
         null
     }
 }
-
-
 
 

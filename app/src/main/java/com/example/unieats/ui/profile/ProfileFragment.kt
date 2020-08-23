@@ -32,7 +32,7 @@ class ProfileFragment : Fragment() {
         profileViewModel =
             ViewModelProviders.of(this).get(ProfileViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_profile, container, false)
-        val profileName = root.findViewById<TextView>(R.id.profileName) //shown top
+//        val profileName = root.findViewById<TextView>(R.id.profileName) //shown top
         val editFirst = root.findViewById<EditText>(R.id.editFirstName)
         val editLast = root.findViewById<EditText>(R.id.editLastName)
         val editGoal = root.findViewById<EditText>(R.id.editTodayGoal)
@@ -62,7 +62,7 @@ class ProfileFragment : Fragment() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
                 MainActivity.selectedUser = dataSnapshot.getValue(User::class.java)!!
-                profileName.text = selectedUser.first_name + " "  + selectedUser.last_name
+//                profileName.text = selectedUser.first_name + " "  + selectedUser.last_name
                 editFirst.setText(selectedUser.first_name)
                 editLast.setText(selectedUser.last_name)
                 editEmail.setText(selectedUser.email)

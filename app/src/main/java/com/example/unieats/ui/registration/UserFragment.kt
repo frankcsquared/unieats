@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -14,6 +15,12 @@ import com.example.unieats.MainActivity
 import com.example.unieats.R
 import com.example.unieats.databinding.FragmentNameBinding
 import com.example.unieats.databinding.FragmentUserBinding
+import com.example.unieats.models.History
+import com.example.unieats.models.User
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 
 class UserFragment : Fragment() {
@@ -48,9 +55,44 @@ class UserFragment : Fragment() {
         }
 
         binding.imageButton4.setOnClickListener{
-            view?.findNavController()?.navigate(R.id.action_userFragment_to_passFragment)
             MainActivity.username = binding.nameInput.text.toString()
-            Log.e("a", MainActivity.username)
+
+            //database ref
+            val ref = FirebaseDatabase.getInstance().getReference("Users")
+
+            var noMatch = true
+            ref.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    for  (childSnapshot in dataSnapshot.children){
+
+                        if(childSnapshot.child("username").getValue(String::class.java) == MainActivity.username){
+                            noMatch = false
+                            Log.e("FAIL", "user match")
+                            break;
+                        }
+
+                    }
+                    if(noMatch){
+                        view?.findNavController()?.navigate(R.id.action_userFragment_to_passFragment)
+                        Log.e("a", MainActivity.username)
+                    }else{
+                        Toast.makeText(requireContext(), "Username already exists!", Toast.LENGTH_SHORT).show()
+                    }
+
+                    ref.removeEventListener(this);
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // Failed to read value
+                    //Toast.makeText(this@SearchFragment, "error error", Toast.LENGTH_LONG).show()
+                }
+            })
+
+
+
+
+
+
         }
 
         /*binding.nameInput.requestFocus()*/

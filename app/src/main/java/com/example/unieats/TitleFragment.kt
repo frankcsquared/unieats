@@ -11,8 +11,9 @@ import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.example.unieats.ContextExtensions.hideKeyboard
 import com.example.unieats.databinding.FragmentTitleBinding
-
+import com.example.unieats.ui.login.LoginActivity
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -48,6 +49,8 @@ class TitleFragment : Fragment() {
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imgr.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
 
+        hideKeyboard()
+
         binding.loginButton.setOnClickListener {view: View->
             view.findNavController().navigate(R.id.action_titleFragment_to_loginFragment)
         }
@@ -78,4 +81,5 @@ class TitleFragment : Fragment() {
                 }
             }
     }
+
 }

@@ -14,19 +14,14 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.unieats.MainActivity
 import com.example.unieats.R
 import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.components.AxisBase
-import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.formatter.IAxisValueFormatter
-import com.github.mikephil.charting.formatter.ValueFormatter
+import com.github.mikephil.charting.utils.EntryXComparator
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import java.text.SimpleDateFormat
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -72,18 +67,53 @@ class HomeFragment : Fragment() {
         fun refreshGraph(){
             val entries = ArrayList<Entry>()
 
+            //get current date, used to find current month
+            val current = LocalDateTime.now()
+            val formatter = DateTimeFormatter.BASIC_ISO_DATE
+            val isoDate = current.format(formatter).toInt()
+            val curMonth = (isoDate-20200000)-(isoDate-20200000)%100
 
+            var largestDate = 1
+
+            // loops through database here
             for ((k,v) in graphMap){
-                Log.e(k.toString(), v.toString())
-                entries.add(Entry(k.toFloat(), v.toFloat()))
+                val entryMonth = (k-20200000) - (k-20200000) % 100
+
+                //only accept entries in the current month
+                if(entryMonth == curMonth) {
+                    val day = (k - 20200000) % 100
+                    entries.add(Entry(day.toFloat(), v.toFloat()))
+                    //get largest date (for 0s below)
+                    if(day > largestDate){
+                        largestDate = day
+                    }
+                }
+            }
+
+            //create 0s here to inject into entries
+            //largestDate ALWAYS has entry (as its from entries)
+            for (i in 0 until largestDate){
+                var xExists = false
+                for (j in entries){
+                    if(j.x == i.toFloat()){
+                        xExists = true
+                    }
+                }
+                if(xExists == false){
+                    entries.add(Entry(i.toFloat(), 0.toFloat()))
+                }
             }
 
 
+            //sort then,
+            Collections.sort(entries, EntryXComparator())
 
             // Add series above to graph
             val dataSet = LineDataSet(entries, "Calories") // add entries to dataset
             val lineData = LineData(dataSet)
-            graph.setData(lineData);
+            graph.data = lineData;
+
+            //graph.setVisibleXRange(20200801.toFloat(), 20200820.toFloat())
             graph.invalidate(); // refresh
 
             //refresh toggle page
@@ -101,7 +131,9 @@ class HomeFragment : Fragment() {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         //get today's date
                         val current = LocalDateTime.now()
-
+                        val incr = current.plusDays(40)
+                        Log.e("incr", incr.toString())
+                        //val diff
                         val formatter = DateTimeFormatter.BASIC_ISO_DATE
                         val formatted = current.format(formatter)
                         for (childSnapshot in dataSnapshot.children) {

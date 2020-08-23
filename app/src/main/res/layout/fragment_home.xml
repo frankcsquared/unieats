@@ -14,7 +14,7 @@
             android:id="@+id/calsText"
             android:layout_width="98dp"
             android:layout_height="46dp"
-            android:layout_marginTop="76dp"
+            android:layout_marginTop="44dp"
             android:gravity="center"
             android:text="1200"
             android:textSize="30sp"
@@ -32,39 +32,23 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/homeText"
-            app:layout_constraintVertical_bias="0.503">
+            app:layout_constraintTop_toTopOf="parent">
 
         </com.github.mikephil.charting.charts.BarChart>
 
         <com.github.mikephil.charting.charts.PieChart
-            android:visibility="gone"
             android:id="@+id/pieChart"
             android:layout_width="344dp"
             android:layout_height="381dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/homeText"
-            app:layout_constraintVertical_bias="0.503">
+            app:layout_constraintTop_toTopOf="parent">
 
         </com.github.mikephil.charting.charts.PieChart>
 
-
-        <TextView
-            android:id="@+id/homeText"
-            android:layout_width="100dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="155dp"
-            android:layout_marginEnd="155dp"
-            android:text="Home"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="36sp"
-            android:gravity="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <Switch
             android:id="@+id/switch1"
@@ -76,57 +60,21 @@
             app:layout_constraintStart_toStartOf="@id/chart"
             app:layout_constraintTop_toBottomOf="@id/chart" />
 
-        <TableRow
-            android:id="@+id/line1"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#444"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/homeText"
-            app:layout_constraintVertical_bias="0.0"></TableRow>
-
-        <TableRow
-            android:id="@+id/line2"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#444"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/switch1"
-            app:layout_constraintVertical_bias="0.564"></TableRow>
-
-        <TextView
-            android:id="@+id/favText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Favourites"
-            android:textSize="36sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/line2"
-            app:layout_constraintVertical_bias="0.76" />
-
         <TextView
             android:id="@+id/dailyGoalTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:text="Daily Goal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/homeText" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/graphTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="125dp"
+            android:layout_marginTop="100dp"
             android:text="Thi's Month's Progress"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

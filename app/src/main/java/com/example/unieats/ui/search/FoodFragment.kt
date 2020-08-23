@@ -98,9 +98,6 @@ class FoodFragment : Fragment() {
                 }
             })
 
-
-
-
         }
 
         //reads onchange -> for text

@@ -81,6 +81,7 @@
                         app:srcCompat="@drawable/ic_baseline_account_circle_24" />
 
                     <TextView
+                        android:id="@+id/profileName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"

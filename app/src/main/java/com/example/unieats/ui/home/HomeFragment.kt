@@ -161,8 +161,10 @@ class HomeFragment : Fragment() {
 
 
         for ((k, v) in MainActivity.selectedUser.history) {
+
             dateList.add(v.date)
             //populate graphMap
+
             if(graphMap[v.date] == null) {
                 graphMap[v.date] =  0
             }
@@ -205,6 +207,8 @@ class HomeFragment : Fragment() {
 
 
         }
+
+
 
 
 

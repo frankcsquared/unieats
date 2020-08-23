@@ -13,12 +13,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_log"
-        android:name="com.example.unieats.ui.log.LogFragment"
-        android:label="@string/title_log"
-        tools:layout="@layout/fragment_log" />
-
-    <fragment
         android:id="@+id/navigation_profile"
         android:name="com.example.unieats.ui.profile.ProfileFragment"
         android:label="@string/title_profile"

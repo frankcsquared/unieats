@@ -1,5 +1,6 @@
 package com.example.unieats.ui.home
 
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -13,10 +14,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.unieats.MainActivity
 import com.example.unieats.R
-import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.utils.EntryXComparator
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -45,9 +45,14 @@ class HomeFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         //initialize graph
         // val graph = view.findViewById(R.id.graph) as GraphView
-        val graph = view.findViewById(R.id.chart) as LineChart
+        val graph = view.findViewById(R.id.chart) as BarChart
+        graph.description.isEnabled = false;
 
+        val pieChart = view.findViewById(R.id.pieChart) as PieChart
+        pieChart.description.isEnabled = false;
         val switch = view.findViewById(R.id.switch1) as Switch
+
+        val graphTitle = view.findViewById(R.id.graphTitle) as TextView
         val calsText = view.findViewById(R.id.calsText) as TextView
 
         //Access Firebase
@@ -63,9 +68,26 @@ class HomeFragment : Fragment() {
         var num = 0
         var goal = MainActivity.selectedUser.goal
 
+        var pieMap = mutableMapOf<String, Int>()
+        //initialize 3 macros cuz theres only 3
+        pieMap["Carbs"] = 0
+        pieMap["Proteins"] = 0
+        pieMap["Fats"] = 0
 
         fun refreshGraph(){
-            val entries = ArrayList<Entry>()
+            //colors for graph
+            val MY_COLORS = intArrayOf(
+                Color.rgb(192, 0, 0),
+                Color.rgb(255, 0, 0),
+                Color.rgb(255, 192, 0),
+                Color.rgb(127, 127, 127),
+                Color.rgb(146, 208, 80),
+                Color.rgb(0, 176, 80),
+                Color.rgb(79, 129, 189)
+            )
+
+            val entries = ArrayList<BarEntry>()
+            val pieEntries = ArrayList<PieEntry>()
 
             //get current date, used to find current month
             val current = LocalDateTime.now()
@@ -78,16 +100,21 @@ class HomeFragment : Fragment() {
             // loops through database here
             for ((k,v) in graphMap){
                 val entryMonth = (k-20200000) - (k-20200000) % 100
-
+                val entryDay = (k-20200000) % 100
                 //only accept entries in the current month
                 if(entryMonth == curMonth) {
-                    val day = (k - 20200000) % 100
-                    entries.add(Entry(day.toFloat(), v.toFloat()))
+
+                    entries.add(BarEntry(entryDay.toFloat(), v.toFloat()))
                     //get largest date (for 0s below)
-                    if(day > largestDate){
-                        largestDate = day
+                    if(entryDay > largestDate){
+                        largestDate = entryDay
                     }
                 }
+
+            }
+
+            for ((k,v) in pieMap) {
+                pieEntries.add(PieEntry(v.toFloat(), k))
             }
 
             //create 0s here to inject into entries
@@ -100,63 +127,83 @@ class HomeFragment : Fragment() {
                     }
                 }
                 if(xExists == false){
-                    entries.add(Entry(i.toFloat(), 0.toFloat()))
+                    entries.add(BarEntry(i.toFloat(), 0.toFloat()))
                 }
             }
-
 
             //sort then,
             Collections.sort(entries, EntryXComparator())
 
+            //define colors for graph (based on MY_COLORS AT TOP of func)
+            val colors = ArrayList<Int>()
+            for (c in MY_COLORS) colors.add(c)
+
             // Add series above to graph
-            val dataSet = LineDataSet(entries, "Calories") // add entries to dataset
-            val lineData = LineData(dataSet)
+            val dataSet = BarDataSet(entries.toMutableList(), "Calories") // add entries to dataset
+            dataSet.setColor(getResources().getColor(R.color.darker_red))
+            val lineData = BarData(dataSet)
             graph.data = lineData;
+            //Piechart data add
+
+            val pieDataSet = PieDataSet(pieEntries.toMutableList(), "")
+            pieDataSet.colors = colors
+            val pieData = PieData(pieDataSet)
+
+            pieChart.data = pieData
+
 
             //graph.setVisibleXRange(20200801.toFloat(), 20200820.toFloat())
             graph.invalidate(); // refresh
-
+            pieChart.invalidate();
             //refresh toggle page
-            calsText.setText(num.toString() + "/" + goal.toString())
+            calsText.text = num.toString() + "/" + goal.toString()
         }
 
 
         for ((k, v) in MainActivity.selectedUser.history) {
             dateList.add(v.date)
-
+            //populate graphMap
             if(graphMap[v.date] == null) {
                 graphMap[v.date] =  0
-            }else{
-                ref.addValueEventListener(object : ValueEventListener{
-                    override fun onDataChange(dataSnapshot: DataSnapshot) {
-                        //get today's date
-                        val current = LocalDateTime.now()
-                        val incr = current.plusDays(40)
-                        Log.e("incr", incr.toString())
-                        //val diff
-                        val formatter = DateTimeFormatter.BASIC_ISO_DATE
-                        val formatted = current.format(formatter)
-                        for (childSnapshot in dataSnapshot.children) {
-                            if (childSnapshot.child("id").getValue(String::class.java).toString() == v.foodId){
+            }
+            ref.addValueEventListener(object : ValueEventListener{
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    //get today's date
+                    val current = LocalDateTime.now()
+                    val incr = current.plusDays(40)
+                    //val diff
+                    val formatter = DateTimeFormatter.BASIC_ISO_DATE
+                    val formatted = current.format(formatter)
+                    for (childSnapshot in dataSnapshot.children) {
+                        if (childSnapshot.child("id").getValue(String::class.java).toString() == v.foodId){
 
-
-                                var addme = graphMap[v.date]!! + childSnapshot.child("calories").getValue(Int::class.java)!!
-                                if(v.date == formatted.toInt()) {
-                                    num += childSnapshot.child("calories")
-                                        .getValue(Int::class.java)!!
-                                }
-
-                                graphMap[v.date] = addme
-
-                                refreshGraph()
+                            var addme = graphMap[v.date]!! + childSnapshot.child("calories").getValue(Int::class.java)!!
+                            if(v.date == formatted.toInt()) {
+                                num += childSnapshot.child("calories")
+                                    .getValue(Int::class.java)!!
                             }
+                            graphMap[v.date] = addme
+                            if(v.date == formatted.toInt()) {
+
+                                pieMap["Carbs"] =
+                                    pieMap["Carbs"]!! + childSnapshot.child("gramsCarbs")
+                                        .getValue(Int::class.java)!!
+                                pieMap["Proteins"] =
+                                    pieMap["Proteins"]!! + childSnapshot.child("gramsProteins")
+                                        .getValue(Int::class.java)!!
+                                pieMap["Fats"] = pieMap["Fats"]!! + childSnapshot.child("gramsFats")
+                                    .getValue(Int::class.java)!!
+                            }
+                            refreshGraph()
                         }
                     }
-                    override fun onCancelled(error: DatabaseError) {
-                        Log.e("Error:", "Failed to read value")
-                    }
-                })
-            }
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    Log.e("Error:", "Failed to read value")
+                }
+            })
+
+
         }
 
 
@@ -172,12 +219,14 @@ class HomeFragment : Fragment() {
         //Toggle display based on switch state
         switch.setOnClickListener {
             if(switch.isChecked){
-                calsText.visibility = View.VISIBLE
+                pieChart.visibility = View.VISIBLE
                 graph.visibility = View.INVISIBLE
+                graphTitle.text = "Daily Macros"
             }
             else{
-                calsText.visibility = View.INVISIBLE
+                pieChart.visibility = View.INVISIBLE
                 graph.visibility = View.VISIBLE
+                graphTitle.text = "This Month's Progress"
             }
         }
         return view

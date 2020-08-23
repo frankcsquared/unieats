@@ -22,10 +22,12 @@ import com.example.unieats.R
 import com.example.unieats.databinding.FragmentSearchBinding
 import com.example.unieats.databinding.FragmentTitleBinding
 import com.example.unieats.models.Food
+import com.github.mikephil.charting.charts.LineChart
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlinx.android.synthetic.main.fragment_search.*
 import kotlin.math.log
 
 
@@ -44,6 +46,29 @@ class SearchFragment : Fragment() {
     ): View? {
         val binding = DataBindingUtil.inflate<FragmentSearchBinding>(inflater,
             R.layout.fragment_search, container, false)
+
+        val loc = FirebaseDatabase.getInstance().reference.child("Location")
+
+        // Read from the database
+        loc.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.)
+                for (childSnapshot in dataSnapshot.children) {
+                    if (childSnapshot.child("id").getValue(String::class.java).toString()!! == "loc" + locationId.toString()) {
+                        textView2.setText(childSnapshot.child("name").getValue(String::class.java).toString()!!)
+                        //Log.e(" YES ", childSnapshot.child("name").getValue(String::class.java).toString()!!)
+                        val encodedImage = childSnapshot.child("img").getValue(String::class.java).toString()!!.replace("data:image/jpeg;base64,","")
+                        val decodedString: ByteArray = Base64.decode(encodedImage, Base64.DEFAULT)
+                        val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+                    }
+                }
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
 
         binding.proceedButton.setOnClickListener {
             activity?.let {

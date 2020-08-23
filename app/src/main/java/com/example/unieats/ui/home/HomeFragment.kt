@@ -89,8 +89,8 @@ class HomeFragment : Fragment() {
 //            var d = Date(v.date.toLong())
 //            val format = SimpleDateFormat("yyyyMMdd")
 //            val date = format.format(d)
-            val date = LocalDate.parse(v.date.toString(), DateTimeFormatter.ofPattern("yyyyMMdd"))
-            dateList.add(v.date)
+            //val date = LocalDate.parse(v.date.toString(), DateTimeFormatter.ofPattern("yyyyMMdd"))
+            //dateList.add(v.date)
 
             if(graphMap[v.date] == null) {
                 graphMap[v.date] =  0
@@ -128,7 +128,7 @@ class HomeFragment : Fragment() {
         graph.invalidate(); // refresh
 
         //val formatter: IAxisValueFormatter = MyXAxisValueFormatter()
-
+/*
         //THIS PART IS FFED
         val formatter: IAxisValueFormatter = object : IAxisValueFormatter {
             override fun getFormattedValue(value: Float, axis: AxisBase?): String? {
@@ -144,7 +144,7 @@ class HomeFragment : Fragment() {
         val xAxis: XAxis = graph.getXAxis()
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM)
         xAxis.setValueFormatter(formatter as ValueFormatter?)
-
+*/
         calsText.setText(num.toString() + "/" + goal.toString())
 
         //Toggle display based on switch state

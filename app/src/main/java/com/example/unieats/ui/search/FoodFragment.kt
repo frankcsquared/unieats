@@ -109,6 +109,7 @@ class FoodFragment : Fragment() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 Log.e("ASDF", "AFAFAFF")
                 totalCnt = 0
+                MainActivity.selectedUser = dataSnapshot.child("Users/" + "${MainActivity.selectedUser.id}" ).getValue(User::class.java)!!
                 for (childSnapshot in dataSnapshot.child("Users/" + "${MainActivity.selectedUser.id}" + "/history").children) {
                     try {
                         Log.e("ASDF", "poops")

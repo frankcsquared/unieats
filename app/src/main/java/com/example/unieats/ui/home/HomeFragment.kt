@@ -1,5 +1,6 @@
 package com.example.unieats.ui.home
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Switch
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.unieats.MainActivity
@@ -15,12 +17,13 @@ import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.utils.EntryXComparator
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.jjoe64.graphview.series.DataPoint
-import com.jjoe64.graphview.series.LineGraphSeries
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -31,6 +34,7 @@ class HomeFragment : Fragment() {
     private var myDateList: MutableList<Int?> = mutableListOf<Int?>() // date
     private var myIntList: MutableList<Double?> = mutableListOf<Double?>() // calories
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -49,48 +53,102 @@ class HomeFragment : Fragment() {
         //Access Firebase
         val ref = FirebaseDatabase.getInstance().reference.child("Food")
 
-        //set graph labels
-//        graph.getViewport().setMinX(20200718.0);
-//        graph.getViewport().setMaxX(20200722.0);
-//        graph.getViewport().setMinY(200.0);
-//        graph.getViewport().setMaxY(5000.0);
-//
-//        graph.getViewport().setYAxisBoundsManual(true);
-//        graph.getViewport().setXAxisBoundsManual(true);
-//
-//        graph.getGridLabelRenderer().setHorizontalLabelsAngle(135);
-
-//        val nf: NumberFormat = NumberFormat.getInstance()
-//        nf.setMinimumFractionDigits(3)
-//        nf.setMinimumIntegerDigits(2)
-
-//        graph.gridLabelRenderer.labelFormatter = DefaultLabelFormatter(nf, nf)
-//        graph.getGridLabelRenderer().setNumHorizontalLabels(2); // only 3 because of the space
-//        graph.getGridLabelRenderer().setNumVerticalLabels(2); // only 3 because of the space
 
 
-        Log.e("LENGTH " +  MainActivity.selectedUser.history.size, " SIZE")
+
 
         //inserts all things into map with date as index
         var graphMap = mutableMapOf<Int, Int>()
+        var dateList = ArrayList<Int>()
         var num = 0
         var goal = MainActivity.selectedUser.goal
 
+
+        fun refreshGraph(){
+            val entries = ArrayList<Entry>()
+
+            //get current date, used to find current month
+            val current = LocalDateTime.now()
+            val formatter = DateTimeFormatter.BASIC_ISO_DATE
+            val isoDate = current.format(formatter).toInt()
+            val curMonth = (isoDate-20200000)-(isoDate-20200000)%100
+
+            var largestDate = 1
+
+            // loops through database here
+            for ((k,v) in graphMap){
+                val entryMonth = (k-20200000) - (k-20200000) % 100
+
+                //only accept entries in the current month
+                if(entryMonth == curMonth) {
+                    val day = (k - 20200000) % 100
+                    entries.add(Entry(day.toFloat(), v.toFloat()))
+                    //get largest date (for 0s below)
+                    if(day > largestDate){
+                        largestDate = day
+                    }
+                }
+            }
+
+            //create 0s here to inject into entries
+            //largestDate ALWAYS has entry (as its from entries)
+            for (i in 0 until largestDate){
+                var xExists = false
+                for (j in entries){
+                    if(j.x == i.toFloat()){
+                        xExists = true
+                    }
+                }
+                if(xExists == false){
+                    entries.add(Entry(i.toFloat(), 0.toFloat()))
+                }
+            }
+
+
+            //sort then,
+            Collections.sort(entries, EntryXComparator())
+
+            // Add series above to graph
+            val dataSet = LineDataSet(entries, "Calories") // add entries to dataset
+            val lineData = LineData(dataSet)
+            graph.data = lineData;
+
+            //graph.setVisibleXRange(20200801.toFloat(), 20200820.toFloat())
+            graph.invalidate(); // refresh
+
+            //refresh toggle page
+            calsText.setText(num.toString() + "/" + goal.toString())
+        }
+
+
         for ((k, v) in MainActivity.selectedUser.history) {
-//            var d = Date(v.date.toLong())
-//            val format = SimpleDateFormat("yyyyMMdd")
-//            val date = format.format(d)
+            dateList.add(v.date)
 
             if(graphMap[v.date] == null) {
                 graphMap[v.date] =  0
             }else{
                 ref.addValueEventListener(object : ValueEventListener{
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        //get today's date
+                        val current = LocalDateTime.now()
+                        val incr = current.plusDays(40)
+                        Log.e("incr", incr.toString())
+                        //val diff
+                        val formatter = DateTimeFormatter.BASIC_ISO_DATE
+                        val formatted = current.format(formatter)
                         for (childSnapshot in dataSnapshot.children) {
                             if (childSnapshot.child("id").getValue(String::class.java).toString() == v.foodId){
+
+
                                 var addme = graphMap[v.date]!! + childSnapshot.child("calories").getValue(Int::class.java)!!
-                                num += childSnapshot.child("calories").getValue(Int::class.java)!!
+                                if(v.date == formatted.toInt()) {
+                                    num += childSnapshot.child("calories")
+                                        .getValue(Int::class.java)!!
+                                }
+
                                 graphMap[v.date] = addme
+
+                                refreshGraph()
                             }
                         }
                     }
@@ -101,22 +159,15 @@ class HomeFragment : Fragment() {
             }
         }
 
-        val entries = ArrayList<Entry>()
 
-        //var iterator = 0
-        for ((k,v) in graphMap){
-//            dataPts[iterator] = DataPoint(k.toDouble(), v.toDouble())
-            entries.add(Entry(k.toFloat(), v.toFloat()))
-//            iterator+=1
-        }
-        //val series = LineGraphSeries<DataPoint>(dataPts)
-        // Add series above to graph
-        val dataSet = LineDataSet(entries, "Label") // add entries to dataset
-        val lineData = LineData(dataSet)
-        graph.setData(lineData);
-        graph.invalidate(); // refresh
 
-        calsText.setText(num.toString() + "/" + goal.toString())
+
+
+
+
+
+
+
 
         //Toggle display based on switch state
         switch.setOnClickListener {
@@ -131,4 +182,8 @@ class HomeFragment : Fragment() {
         }
         return view
     }
+
+
 }
+
+

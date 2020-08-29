@@ -3,49 +3,48 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".HomeFragment" >
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation = "vertical"
-        android:paddingTop="30dp"
-        >
+        android:orientation="vertical"
+        android:paddingBottom="30dp">
 
         <TextView
             android:id="@+id/calsText"
-            android:layout_width="98dp"
-            android:layout_height="46dp"
-            android:layout_marginTop="44dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:text="1200"
             android:textSize="30sp"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/dailyGoalTitle" />
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/chart"
-            android:layout_width="344dp"
-            android:layout_height="381dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="360dp"
+            android:layout_height="362dp"
+            android:layout_marginTop="6dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.492"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/graphTitle">
 
         </com.github.mikephil.charting.charts.BarChart>
 
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/pieChart"
-            android:layout_width="344dp"
-            android:layout_height="381dp"
+            android:layout_width="360dp"
+            android:layout_height="362dp"
+            android:layout_marginTop="6dp"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.492"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/graphTitle">
 
         </com.github.mikephil.charting.charts.PieChart>
 
@@ -55,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="10dp"
             android:text="Switch display"
             app:layout_constraintStart_toStartOf="@id/chart"
             app:layout_constraintTop_toBottomOf="@id/chart" />
@@ -64,9 +63,10 @@
             android:id="@+id/dailyGoalTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="10dp"
             android:text="Daily Goal"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -74,11 +74,12 @@
             android:id="@+id/graphTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
-            android:text="Thi's Month's Progress"
+            android:layout_marginTop="12dp"
+            android:text="This Month's Progress"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/calsText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

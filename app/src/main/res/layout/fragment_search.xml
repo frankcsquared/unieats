@@ -5,9 +5,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <RelativeLayout
             android:id="@+id/relativelayout"
@@ -76,7 +76,8 @@
                 android:layout_marginBottom="1dp"
                 android:background="#00FFFFFF"
                 android:rotation="180"
-                android:src="@drawable/ic_forward_icon" />
+                app:srcCompat="@drawable/ic_forward_icon"
+                android:contentDescription="TODO" />
 
             <!--            <Button-->
             <!--                android:id="@+id/proceedButton"-->
@@ -104,12 +105,26 @@
             android:id="@+id/foodList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             android:layout_marginTop="250dp"
             app:layout_constraintTop_toBottomOf="@+id/linlayout">
 
 
         </ListView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_marginBottom="15dp"
+            android:layout_marginEnd="15dp"
+            android:clickable="true"
+            app:elevation="6dp"
+            app:borderWidth="0dp"
+            app:backgroundTint="@color/primary_red"
+            app:srcCompat="@drawable/ic_icons8_checkmark"
+            app:layout_constraintBottom_toBottomOf="@+id/container"
+            app:layout_constraintEnd_toEndOf="@+id/container"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

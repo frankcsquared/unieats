@@ -77,10 +77,7 @@ class FinalProfileFragment : Fragment() {
                             Toast.makeText(requireContext(), "Registered!", Toast.LENGTH_SHORT).show()
                         }
 
-
                         //LOGIN
-
-
                         activity?.let{
 
                             MainActivity.selectedUser = userPush
@@ -88,12 +85,9 @@ class FinalProfileFragment : Fragment() {
                             it.startActivity(intent)
 
                         }
-
-
                     }
-
                     ref.removeEventListener(this);
-                    
+
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -101,7 +95,6 @@ class FinalProfileFragment : Fragment() {
                     //Toast.makeText(this@SearchFragment, "error error", Toast.LENGTH_LONG).show()
                 }
             })
-
         }
 
         return binding.root

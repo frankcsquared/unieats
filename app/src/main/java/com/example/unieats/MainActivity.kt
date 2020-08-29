@@ -15,6 +15,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.unieats.models.Food
 import com.example.unieats.models.History
 import com.example.unieats.models.User
 import com.example.unieats.ui.search.SearchFragment
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         var histMap = mapOf<String, History>("" to history)
         var selectedUser = User("","","", histMap, "", "", "0")
 
+        var cart = mutableListOf<Food>();
         //User Registration stuff
         var firstName : String = ""
         var lastName : String = ""

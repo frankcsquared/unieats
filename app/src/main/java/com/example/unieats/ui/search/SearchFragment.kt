@@ -18,14 +18,17 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import com.example.unieats.LogActivity.Companion.locationId
 import com.example.unieats.MainActivity
+import com.example.unieats.MapsActivity
 import com.example.unieats.R
 import com.example.unieats.databinding.FragmentSearchBinding
 import com.example.unieats.databinding.FragmentTitleBinding
 import com.example.unieats.models.Food
+import com.github.mikephil.charting.charts.LineChart
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlinx.android.synthetic.main.fragment_search.*
 import kotlin.math.log
 
 
@@ -45,10 +48,31 @@ class SearchFragment : Fragment() {
         val binding = DataBindingUtil.inflate<FragmentSearchBinding>(inflater,
             R.layout.fragment_search, container, false)
 
+        val loc = FirebaseDatabase.getInstance().reference.child("Location")
+
+        // Read from the database
+        loc.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.)
+                for (childSnapshot in dataSnapshot.children) {
+                    if (childSnapshot.child("id").getValue(String::class.java).toString()!! == "loc" + locationId.toString()) {
+                        textView2.setText(childSnapshot.child("name").getValue(String::class.java).toString()!!)
+                        //Log.e(" YES ", childSnapshot.child("name").getValue(String::class.java).toString()!!)
+                        imageView2.setImageBitmap(toImage(childSnapshot.child("img").getValue(String::class.java).toString()!!))
+                    }
+                }
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+
         binding.proceedButton.setOnClickListener {
             Log.e("yay","yay")
             activity?.let {
-                val intent = Intent (it, MainActivity::class.java)
+                val intent = Intent (it, MapsActivity::class.java)
                 it.startActivity(intent)
             }
         }
@@ -117,7 +141,6 @@ class SearchFragment : Fragment() {
 
 }
 
-
 fun toImage(inString: String) : Bitmap?{
     val encodedImage: String;
     return if(inString != null) {
@@ -130,7 +153,5 @@ fun toImage(inString: String) : Bitmap?{
         null
     }
 }
-
-
 
 

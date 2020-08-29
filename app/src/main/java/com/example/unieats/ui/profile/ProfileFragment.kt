@@ -71,8 +71,6 @@ class ProfileFragment : Fragment() {
                 editEmail.setText(selectedUser.email)
                 editUni.setText(selectedUser.uni)
 
-
-
                 editGoal.setText(selectedUser.goal.toString())
 
 

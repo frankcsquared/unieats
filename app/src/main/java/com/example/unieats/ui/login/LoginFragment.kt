@@ -1,27 +1,25 @@
 package com.example.unieats.ui.login
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.unieats.MainActivity
 import com.example.unieats.R
-import com.example.unieats.databinding.FragmentLoginBinding
-import com.example.unieats.models.History
 import com.example.unieats.models.User
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_login.view.*
-import kotlinx.android.synthetic.main.fragment_title.view.*
 import kotlinx.android.synthetic.main.fragment_title.view.login_button
 
 
@@ -83,7 +81,6 @@ class LoginFragment : Fragment() {
 
                 }
 
-
             }
 
 
@@ -129,6 +126,10 @@ class LoginFragment : Fragment() {
 
 
         return root
+    }
+
+    fun hideKeyboard(view: View) {
+        (context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager?)?.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     companion object {

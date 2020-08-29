@@ -126,8 +126,8 @@
             app:borderWidth="0dp"
             app:backgroundTint="@color/primary_red"
             app:srcCompat="@drawable/ic_icons8_checkmark"
-            app:layout_constraintBottom_toBottomOf="@+id/container"
-            app:layout_constraintEnd_toEndOf="@+id/container"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

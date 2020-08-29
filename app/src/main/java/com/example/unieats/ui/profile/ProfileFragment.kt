@@ -54,9 +54,12 @@ class ProfileFragment : Fragment() {
 
             Toast.makeText(requireContext(), "Updated!", Toast.LENGTH_SHORT).show()
 
+        }
 
+        root.changePasswordButton.setOnClickListener {
 
         }
+
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 

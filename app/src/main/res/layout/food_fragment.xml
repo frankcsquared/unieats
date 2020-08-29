@@ -14,6 +14,7 @@
     tools:context=".ui.search.FoodFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -42,7 +43,7 @@
             android:layout_marginTop="10dp"
             android:background="#00FFFFFF"
             android:rotation="180"
-            android:src="@drawable/ic_forward_icon"
+            app:srcCompat="@drawable/ic_forward_icon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -61,26 +62,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@color/darker_red"
-            android:text="REMOVE"
+            android:background="@drawable/rounded_corners_red"
+            android:text="Remove"
+            android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/foodCals" />
+            app:layout_constraintTop_toBottomOf="@+id/foodButton"
+            tools:layout_editor_absoluteX="-2dp" />
 
         <Button
             android:id="@+id/foodButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@color/darker_red"
-            android:text="Log"
+            android:background="@drawable/rounded_corners_red"
+            android:text="Add"
+            android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:textSize="17sp"
-            app:layout_constraintTop_toBottomOf="@+id/removeButton"
-            tools:layout_editor_absoluteX="-2dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/foodCals"/>
 
         <ImageView
             android:id="@+id/foodImage"
@@ -146,6 +149,21 @@
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/foodTitle" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_marginBottom="13.8dp"
+            android:layout_marginEnd="13.8dp"
+            android:clickable="true"
+            app:elevation="6dp"
+            app:borderWidth="0dp"
+            app:backgroundTint="@color/primary_red"
+            app:srcCompat="@drawable/ic_icons8_checkmark"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

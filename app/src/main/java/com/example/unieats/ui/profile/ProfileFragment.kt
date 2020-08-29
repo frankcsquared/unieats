@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
 import com.example.unieats.MainActivity
 import com.example.unieats.MainActivity.Companion.selectedUser
 import com.example.unieats.R
@@ -57,7 +58,7 @@ class ProfileFragment : Fragment() {
         }
 
         root.changePasswordButton.setOnClickListener {
-
+            root.findNavController().navigate(R.id.action_profileFragment_to_change_pass)
         }
 
         ref.addValueEventListener(object : ValueEventListener {

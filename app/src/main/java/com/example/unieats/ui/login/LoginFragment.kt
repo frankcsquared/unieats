@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
@@ -122,13 +123,23 @@ class LoginFragment : Fragment() {
             view.findNavController().navigate(R.id.action_loginFragment_to_titleFragment)
         }
 
+        root.usernameText.onFocusChangeListener = OnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus) {
+                Log.e("detected", "detected")
+                hideKeyboard(v)
+            }
+        }
 
-
+        root.passwordText.onFocusChangeListener = OnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus) {
+                hideKeyboard(v)
+            }
+        }
 
         return root
     }
 
-    fun hideKeyboard(view: View) {
+    private fun hideKeyboard(view: View) {
         (context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager?)?.hideSoftInputFromWindow(view.windowToken, 0)
     }
 

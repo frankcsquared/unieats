@@ -3,26 +3,26 @@ package com.example.unieats
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.unieats.models.Location
-import com.example.unieats.models.User
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.GoogleMap.OnMapClickListener
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener
-import com.google.android.gms.maps.GoogleMap.OnMapClickListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import kotlin.math.log
+
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMarkerClickListener, OnMapClickListener {
 
@@ -139,11 +139,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMarkerClickListe
             }
 
             else {
-                Toast.makeText(
+                val toaster1 = Toast.makeText(
                     applicationContext,
                     "choose a location!",
                     Toast.LENGTH_SHORT
-                ).show()
+                )
+                toaster1.setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL, 0, 20)
+                toaster1.show()
             }
         }
 

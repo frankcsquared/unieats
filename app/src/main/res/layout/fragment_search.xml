@@ -15,6 +15,7 @@
             android:layout_height="247dp"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -53,16 +54,18 @@
 
             <ImageView
                 android:id="@+id/divider1"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="387dp"
+                android:layout_height="16dp"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="13dp"
+                android:layout_marginBottom="-8dp"
                 android:paddingLeft="5dp"
                 android:paddingTop="2dp"
                 android:paddingRight="5dp"
                 android:paddingBottom="2dp"
                 android:scaleType="fitXY"
-                android:src="@android:drawable/divider_horizontal_dark"
+                android:src="@drawable/bottom_border"
                 app:layout_constraintStart_toStartOf="@+id/textView2"
                 app:layout_constraintTop_toBottomOf="@+id/textView2" />
 

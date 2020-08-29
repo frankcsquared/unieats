@@ -4,48 +4,149 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="1dp"
+    android:layout_marginStart="1dp"
+    android:layout_marginLeft="1dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginEnd="1dp"
+    android:layout_marginRight="1dp"
+    android:layout_marginBottom="1dp"
     tools:context=".ui.search.FoodFragment">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/restaurant_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="3dp"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center|center_horizontal|center_vertical"
+            android:text="Text"
+            android:textColor="@color/darker_red"
+            android:textSize="32sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/backButton"
+            app:layout_constraintStart_toStartOf="@+id/backButton"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="49dp"
+            android:layout_height="49dp"
+            android:layout_margin="1dp"
+            android:layout_marginTop="10dp"
+            android:background="#00FFFFFF"
+            android:rotation="180"
+            android:src="@drawable/ic_forward_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/foodImage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher" />
-
-        <TextView
-            android:id="@+id/foodTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-
-        <TextView
-            android:id="@+id/foodCals"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-
-        <Button
-            android:id="@+id/foodButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Log" />
+            android:id="@+id/imageView"
+            android:layout_width="409dp"
+            android:layout_height="6dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/bottom_border"
+            app:layout_constraintBottom_toTopOf="@+id/foodImage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/restaurant_text" />
 
         <Button
             android:id="@+id/removeButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="REMOVE" />
+            android:layout_marginTop="10dp"
+            android:background="@color/darker_red"
+            android:text="REMOVE"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/foodCals" />
+
+        <Button
+            android:id="@+id/foodButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/darker_red"
+            android:text="Log"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            app:layout_constraintTop_toBottomOf="@+id/removeButton"
+            tools:layout_editor_absoluteX="-2dp" />
+
+        <ImageView
+            android:id="@+id/foodImage"
+            android:layout_width="404dp"
+            android:layout_height="134dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/restaurant_text"
+            app:layout_constraintVertical_bias="0.016" />
+
+        <TextView
+            android:id="@+id/foodTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="sans-serif"
+            android:text="TextView"
+            android:textColor="@color/darker_red"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/foodImage" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="409dp"
+            android:layout_height="6dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="1dp"
+            android:src="@drawable/bottom_border"
+            app:layout_constraintBottom_toBottomOf="@+id/todayTotal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/foodTitle" />
+
+        <TextView
+            android:id="@+id/foodCals"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="sans-serif"
+            android:text="TextView"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/todayTotal" />
 
         <TextView
             android:id="@+id/todayTotal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Today's Total:" />
-    </LinearLayout>
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="sans-serif"
+            android:text="Today's Total:"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/foodTitle" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

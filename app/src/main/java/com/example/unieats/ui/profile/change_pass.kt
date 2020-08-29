@@ -33,31 +33,23 @@ class change_pass : Fragment() {
 
         val ref = FirebaseDatabase.getInstance().reference.child("Users/${MainActivity.selectedUser.id}")
 
-        val editPass = root.findViewById<EditText>(R.id.oldPassword)
+        val oldPass = root.findViewById<EditText>(R.id.oldPassword)
+        val oldPassAgain = root.findViewById<EditText>(R.id.oldPasswordAgain)
+        val newPass = root.findViewById<EditText>(R.id.newPassword)
+        val newPassAgain = root.findViewById<EditText>(R.id.newPasswordAgain)
 
         root.changePasswordButton.setOnClickListener {
-            ref.child("password").setValue(editPass.text.toString())
+            if(oldPass.text.toString() == oldPassAgain.text.toString() && oldPass.text.toString() == MainActivity.selectedUser.password){
+                if(newPass.text.toString() == newPassAgain.text.toString()){
+                    ref.child("password").setValue(newPass.text.toString())
+                }
+            }
+
 
             Toast.makeText(requireContext(), "Password Changed", Toast.LENGTH_SHORT).show()
 
         }
 
-        ref.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-
-                MainActivity.selectedUser = dataSnapshot.getValue(User::class.java)!!
-
-                editPass.setText(MainActivity.selectedUser.password)
-
-
-
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                // Failed to read value
-                //Toast.makeText(this@SearchFragment, "error error", Toast.LENGTH_LONG).show()
-            }
-        })
 
         return root
     }

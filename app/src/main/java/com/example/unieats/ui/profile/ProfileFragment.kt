@@ -39,7 +39,6 @@ class ProfileFragment : Fragment() {
 
         val editEmail = root.findViewById<EditText>(R.id.editEmail)
         val editUni = root.findViewById<EditText>(R.id.editUni)
-//        val editPass = root.findViewById<EditText>(R.id.editPassword)
 
         val ref = FirebaseDatabase.getInstance().reference.child("Users/${MainActivity.selectedUser.id}")
 
@@ -52,12 +51,15 @@ class ProfileFragment : Fragment() {
 
             ref.child("email").setValue(editEmail.text.toString())
             ref.child("uni").setValue(editUni.text.toString())
-//            ref.child("password").setValue(editPass.text.toString())
 
-
-
+            Toast.makeText(requireContext(), "Updated!", Toast.LENGTH_SHORT).show()
 
         }
+
+        root.changePasswordButton.setOnClickListener {
+
+        }
+
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
@@ -67,11 +69,9 @@ class ProfileFragment : Fragment() {
                 editLast.setText(selectedUser.last_name)
                 editEmail.setText(selectedUser.email)
                 editUni.setText(selectedUser.uni)
-//                editPass.setText("")
-
 
                 editGoal.setText(selectedUser.goal.toString())
-                Toast.makeText(requireContext(), "Updated!", Toast.LENGTH_SHORT).show()
+
 
             }
 

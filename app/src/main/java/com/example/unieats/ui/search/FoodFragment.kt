@@ -84,6 +84,8 @@ class FoodFragment : Fragment() {
             val formatted = current.format(formatter)
 
             MainActivity.cart.add(clickedFood)
+            Toast.makeText(requireContext(), "Added to cart!", Toast.LENGTH_SHORT)
+                .show()
             Log.e("CART:", MainActivity.cart.size.toString())
             /*
             ref.push().setValue(History(formatted.toInt(),clickedFood.id)).addOnCompleteListener{
@@ -99,8 +101,12 @@ class FoodFragment : Fragment() {
             val formatter = DateTimeFormatter.BASIC_ISO_DATE
             val formatted = current.format(formatter)
 
-            MainActivity.cart.remove(clickedFood)
-
+            if(MainActivity.cart.remove(clickedFood)) {
+                Toast.makeText(requireContext(), "Removed!", Toast.LENGTH_SHORT)
+                    .show()
+            }else{
+                Toast.makeText(requireContext(), "Food not in cart!", Toast.LENGTH_SHORT).show()
+            }
             /*
             ref.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {

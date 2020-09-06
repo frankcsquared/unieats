@@ -189,9 +189,6 @@ class SearchFragment : Fragment() {
                     }
                 }
 
-               // MainActivity.cart = mutableListOf<Food>();
-                Log.e("CARTSIZE", MainActivity.cart.size.toString())
-
                 popupWindow.dismiss()
 
                 activity?.finish()

@@ -196,6 +196,8 @@ class SearchFragment : Fragment() {
                // MainActivity.cart = mutableListOf<Food>();
                 Log.e("CARTSIZE", MainActivity.cart.size.toString())
 
+                popupWindow.dismiss()
+
                 activity?.finish()
                 activity?.let {
                     val intent = Intent (it, MainActivity::class.java)

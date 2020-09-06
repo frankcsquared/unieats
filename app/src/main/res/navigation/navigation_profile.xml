@@ -5,14 +5,7 @@
     android:id="@+id/navigation_profile"
     app:startDestination="@id/profileFragment">
 
-    <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.example.unieats.ui.profile.ProfileFragment"
-        android:label="ProfileFragment">
-        <action
-            android:id="@+id/action_profileFragment_to_change_pass"
-            app:destination="@id/change_pass" />
-    </fragment>
+
     <fragment
         android:id="@+id/change_pass"
         android:name="com.example.unieats.ui.profile.change_pass"
@@ -20,5 +13,13 @@
         <action
             android:id="@+id/action_change_pass_to_profileFragment"
             app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.unieats.ui.profile.ProfileFragment"
+        android:label="ProfileFragment" >
+        <action
+            android:id="@+id/action_profileFragment_to_change_pass"
+            app:destination="@id/change_pass" />
     </fragment>
 </navigation>

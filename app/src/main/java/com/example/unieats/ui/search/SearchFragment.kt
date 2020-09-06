@@ -13,10 +13,12 @@ import android.util.Log
 import android.view.*
 import android.widget.Button
 import android.widget.PopupWindow
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
 import com.example.unieats.LogActivity.Companion.locationId
 import com.example.unieats.MainActivity
@@ -24,12 +26,15 @@ import com.example.unieats.MapsActivity
 import com.example.unieats.R
 import com.example.unieats.databinding.FragmentSearchBinding
 import com.example.unieats.models.Food
+import com.example.unieats.models.History
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_checkout.*
 import kotlinx.android.synthetic.main.fragment_search.*
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 class SearchFragment : Fragment() {
@@ -137,6 +142,9 @@ class SearchFragment : Fragment() {
 
         binding.fab.setOnClickListener{
 
+            //INJECT LIST OF FOODS HERE
+            //
+
             // inflate the layout of the popup window
             val inflater =
                 context?.getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -168,13 +176,28 @@ class SearchFragment : Fragment() {
             }*/
 
             popupView.findViewById<Button>(R.id.confirmbtn).setOnClickListener{
+                var ref = FirebaseDatabase.getInstance().getReference("Users/"+"${MainActivity.selectedUser.id}"+"/history")
+                Log.e("ASDF BUTTON", "CONFIRM")
                 //this is where we will confirm logging like logAll();
+                val current = LocalDateTime.now()
+
+                val formatter = DateTimeFormatter.BASIC_ISO_DATE
+                val formatted = current.format(formatter)
+
+                for (i in MainActivity.cart) {
+                    ref.push().setValue(History(formatted.toInt(), i.id))
+                }
+                MainActivity.cart = mutableListOf<Food>();
+                Log.e("CARTSIZE", MainActivity.cart.size.toString())
+
                 popupWindow.dismiss()
+
                 activity?.finish()
                 activity?.let {
                     val intent = Intent (it, MainActivity::class.java)
                     it.startActivity(intent)
                 }
+
             }
 
         }

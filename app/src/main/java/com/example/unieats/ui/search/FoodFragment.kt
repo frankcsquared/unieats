@@ -82,10 +82,15 @@ class FoodFragment : Fragment() {
 
             val formatter = DateTimeFormatter.BASIC_ISO_DATE
             val formatted = current.format(formatter)
-            Log.e(formatted, formatted)
+
+            MainActivity.cart.add(clickedFood)
+            Log.e("CART:", MainActivity.cart.size.toString())
+            /*
             ref.push().setValue(History(formatted.toInt(),clickedFood.id)).addOnCompleteListener{
                 Toast.makeText(requireContext(), "Food logged successfully", Toast.LENGTH_SHORT).show()
             }
+            */
+
         }
 
         root.removeButton.setOnClickListener { view: View ->
@@ -93,7 +98,10 @@ class FoodFragment : Fragment() {
 
             val formatter = DateTimeFormatter.BASIC_ISO_DATE
             val formatted = current.format(formatter)
-            Log.e(formatted, formatted)
+
+            MainActivity.cart.remove(clickedFood)
+
+            /*
             ref.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     for (childSnapshot in dataSnapshot.children) {
@@ -112,6 +120,8 @@ class FoodFragment : Fragment() {
                     //Toast.makeText(this@SearchFragment, "error error", Toast.LENGTH_LONG).show()
                 }
             })
+
+             */
 
         }
 
@@ -188,6 +198,7 @@ class FoodFragment : Fragment() {
 
             // show the popup window
             // which view you pass in doesn't matter, it is only used for the window tolken
+
             popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0)
 
             /*popupView.setOnTouchListener { v, event ->

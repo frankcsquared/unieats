@@ -141,7 +141,7 @@ class SearchFragment : Fragment() {
         })
 
         binding.fab.setOnClickListener{
-            var ref = FirebaseDatabase.getInstance().getReference("Users/"+"${MainActivity.selectedUser.id}"+"/history")
+
             //INJECT LIST OF FOODS HERE
             //
 
@@ -176,21 +176,26 @@ class SearchFragment : Fragment() {
             }*/
 
             popupView.findViewById<Button>(R.id.confirmbtn).setOnClickListener{
+                var ref = FirebaseDatabase.getInstance().getReference("Users/"+"${MainActivity.selectedUser.id}"+"/history")
+                Log.e("ASDF BUTTON", "CONFIRM")
                 //this is where we will confirm logging like logAll();
-                activity?.finish()
-                activity?.let {
-                    val intent = Intent (it, MainActivity::class.java)
-                    it.startActivity(intent)
-                }
                 val current = LocalDateTime.now()
 
                 val formatter = DateTimeFormatter.BASIC_ISO_DATE
                 val formatted = current.format(formatter)
+
                 for (i in MainActivity.cart) {
                     ref.push().setValue(History(formatted.toInt(), i.id))
                 }
                 MainActivity.cart = mutableListOf<Food>();
                 Log.e("CARTSIZE", MainActivity.cart.size.toString())
+
+                activity?.finish()
+                activity?.let {
+                    val intent = Intent (it, MainActivity::class.java)
+                    it.startActivity(intent)
+                }
+
             }
 
         }

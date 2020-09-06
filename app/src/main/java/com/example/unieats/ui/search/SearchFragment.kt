@@ -204,7 +204,6 @@ class SearchFragment : Fragment() {
         return binding.root
     }
 
-
 }
 
 fun toImage(inString: String) : Bitmap?{

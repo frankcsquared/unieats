@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
 import com.example.unieats.MainActivity
 import com.example.unieats.MainActivity.Companion.selectedUser
@@ -19,7 +20,9 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlinx.android.synthetic.main.change_pass_fragment.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
+import kotlinx.android.synthetic.main.fragment_profile.view.changePasswordButton
 
 class ProfileFragment : Fragment() {
 
@@ -57,8 +60,8 @@ class ProfileFragment : Fragment() {
 
         }
 
-        root.changePasswordButton.setOnClickListener {
-            root.findNavController().navigate(R.id.action_profileFragment_to_change_pass)
+        root.changePasswordButton.setOnClickListener {view: View->
+            view.findNavController().navigate(R.id.action_profileFragment_to_change_pass)
         }
 
         ref.addValueEventListener(object : ValueEventListener {
@@ -72,7 +75,6 @@ class ProfileFragment : Fragment() {
                 editUni.setText(selectedUser.uni)
 
                 editGoal.setText(selectedUser.goal.toString())
-
 
             }
 

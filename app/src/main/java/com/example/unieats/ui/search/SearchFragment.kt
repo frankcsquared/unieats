@@ -169,6 +169,7 @@ class SearchFragment : Fragment() {
 
             popupView.findViewById<Button>(R.id.confirmbtn).setOnClickListener{
                 //this is where we will confirm logging like logAll();
+                popupWindow.dismiss()
                 activity?.finish()
                 activity?.let {
                     val intent = Intent (it, MainActivity::class.java)

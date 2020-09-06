@@ -90,6 +90,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="Total calories:"
+        app:layout_constraintBottom_toTopOf="@+id/confirmbtn"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
         tools:layout_editor_absoluteX="165dp">
 

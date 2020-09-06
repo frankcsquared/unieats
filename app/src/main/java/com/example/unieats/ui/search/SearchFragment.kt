@@ -185,9 +185,15 @@ class SearchFragment : Fragment() {
                 val formatted = current.format(formatter)
 
                 for (i in MainActivity.cart) {
-                    ref.push().setValue(History(formatted.toInt(), i.id))
+                    ref.push().setValue(History(formatted.toInt(), i.id)).addOnCompleteListener{
+                        MainActivity.cart.remove(i)
+                        if(MainActivity.cart.size == 0){
+                            break
+                        }
+                    }
                 }
-                MainActivity.cart = mutableListOf<Food>();
+
+               // MainActivity.cart = mutableListOf<Food>();
                 Log.e("CARTSIZE", MainActivity.cart.size.toString())
 
                 activity?.finish()

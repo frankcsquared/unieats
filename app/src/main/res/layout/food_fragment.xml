@@ -59,6 +59,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/rounded_corners_red"
+            android:textAllCaps="false"
             android:text="Remove"
             android:textColor="@android:color/white"
             android:textSize="17sp"

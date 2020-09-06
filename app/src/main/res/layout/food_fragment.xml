@@ -4,17 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="1dp"
     android:layout_marginStart="1dp"
     android:layout_marginLeft="1dp"
     android:layout_marginTop="5dp"
-    android:layout_marginEnd="1dp"
     android:layout_marginRight="1dp"
-    android:layout_marginBottom="1dp"
     tools:context=".ui.search.FoodFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -43,9 +39,9 @@
             android:layout_marginTop="10dp"
             android:background="#00FFFFFF"
             android:rotation="180"
+            android:src="@drawable/ic_forward_icon"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_forward_icon" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imageView"
@@ -59,38 +55,42 @@
 
         <Button
             android:id="@+id/removeButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_width="384dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/rounded_corners_red"
-            android:text="Remove"
             android:textAllCaps="false"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            app:layout_constraintTop_toBottomOf="@+id/foodButton"
-            tools:layout_editor_absoluteX="-2dp" />
+            android:text="Remove"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/foodButton" />
+
 
         <Button
             android:id="@+id/foodButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_width="384dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/rounded_corners_red"
             android:text="Add"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:textSize="17sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/foodCals" />
+
 
         <ImageView
             android:id="@+id/foodImage"
             android:layout_width="404dp"
             android:layout_height="134dp"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="2dp"
             android:scaleType="centerCrop"
             android:src="@mipmap/ic_launcher"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -110,20 +110,22 @@
             android:text="TextView"
             android:textColor="@color/darker_red"
             android:textSize="25sp"
+            app:layout_constraintBottom_toTopOf="@+id/imageView4"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/foodImage" />
 
         <ImageView
             android:id="@+id/imageView4"
             android:layout_width="409dp"
-            android:layout_height="6dp"
-            android:layout_marginTop="7dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
             android:layout_marginBottom="1dp"
             android:src="@drawable/bottom_border"
             app:layout_constraintBottom_toBottomOf="@+id/todayTotal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/foodTitle" />
+            app:layout_constraintTop_toBottomOf="@+id/foodTitle" />
 
         <TextView
             android:id="@+id/foodCals"
@@ -148,7 +150,7 @@
             android:textColor="#000000"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/foodTitle" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
@@ -170,7 +172,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:text="X already in your meal"
+            android:text="0 already in your meal"
+            android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"

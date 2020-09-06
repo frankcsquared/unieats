@@ -6,19 +6,19 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Point
 import android.os.Build
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
 import android.view.*
-import androidx.fragment.app.Fragment
 import android.widget.*
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
-import com.example.unieats.LogActivity
 import com.example.unieats.MainActivity
-import com.example.unieats.MapsActivity
 import com.example.unieats.R
+import com.example.unieats.models.Food
+import com.example.unieats.models.FoodList
 import com.example.unieats.models.History
 import com.example.unieats.models.User
 import com.example.unieats.ui.search.SearchFragment.Companion.clickedFood
@@ -27,13 +27,9 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import kotlinx.android.synthetic.main.food_fragment.*
 import kotlinx.android.synthetic.main.food_fragment.view.*
-import kotlinx.android.synthetic.main.food_fragment.view.backButton
-import kotlinx.android.synthetic.main.fragment_search.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
 
 class FoodFragment : Fragment() {
 
@@ -68,6 +64,18 @@ class FoodFragment : Fragment() {
         cals.text = "Calories: " + clickedFood.calories.toString()
         img.setImageBitmap(toImage(clickedFood.image))
 
+
+        var amt = 0;
+        for (i in MainActivity.cart){
+            if (i.id == clickedFood.id){
+                amt += 1;
+            }
+        }
+
+        val textView = root.findViewById(R.id.textView3) as TextView
+        textView.text = "$amt already in your meal"
+
+
         backbutton.setOnClickListener {
             Log.e("yay","yay")
             backbutton.findNavController().navigate(R.id.action_foodFragment_to_searchFragment)
@@ -84,7 +92,19 @@ class FoodFragment : Fragment() {
             val formatted = current.format(formatter)
 
             MainActivity.cart.add(clickedFood)
+            Toast.makeText(requireContext(), "Added to cart!", Toast.LENGTH_SHORT)
+                .show()
             Log.e("CART:", MainActivity.cart.size.toString())
+
+            var amt = 0;
+            for (i in MainActivity.cart){
+                if (i.id == clickedFood.id){
+                    amt += 1;
+                }
+            }
+
+            val textView = activity?.findViewById(R.id.textView3) as TextView
+            textView.text = "$amt already in your meal"
             /*
             ref.push().setValue(History(formatted.toInt(),clickedFood.id)).addOnCompleteListener{
                 Toast.makeText(requireContext(), "Food logged successfully", Toast.LENGTH_SHORT).show()
@@ -100,7 +120,24 @@ class FoodFragment : Fragment() {
             val formatted = current.format(formatter)
 
             MainActivity.cart.remove(clickedFood)
+            Log.e("CART:", MainActivity.cart.size.toString())
 
+            var amt = 0;
+            for (i in MainActivity.cart){
+                if (i.id == clickedFood.id){
+                    amt += 1;
+                }
+            }
+
+            val textView = activity?.findViewById(R.id.textView3) as TextView
+            textView.text = "$amt already in your meal"
+
+            if(MainActivity.cart.remove(clickedFood)) {
+                Toast.makeText(requireContext(), "Removed!", Toast.LENGTH_SHORT)
+                    .show()
+            }else{
+                Toast.makeText(requireContext(), "Food not in cart!", Toast.LENGTH_SHORT).show()
+            }
             /*
             ref.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -206,8 +243,44 @@ class FoodFragment : Fragment() {
                 true
             }*/
 
+            var foodList = mutableListOf<FoodList>();
+            var cart = MainActivity.cart.toMutableList();
+            var dupes = mutableListOf<Food>();
+            for (item in cart){
+                if (!dupes.contains(item)){
+                    var amount = 0
+                    dupes.add(item)
+                    for (item2 in cart){
+                        if (item2.name == item.name){
+                            amount += 1;
+                        }
+                    }
+                    val check : FoodList = FoodList(item.name, item.calories, amount)
+                    foodList.add(check)
+                }
+            }
+
+            var items : ListView = popupView.findViewById(R.id.listView)
+            var adapter : ItemAdapter = ItemAdapter(requireContext(), R.layout.checkout_row, foodList)
+            items.adapter = adapter
+
             popupView.findViewById<Button>(R.id.confirmbtn).setOnClickListener{
                 //this is where we will confirm logging like logAll();
+                var ref = FirebaseDatabase.getInstance().getReference("Users/"+"${MainActivity.selectedUser.id}"+"/history")
+                Log.e("ASDF BUTTON", "CONFIRM")
+                //this is where we will confirm logging like logAll();
+                val current = LocalDateTime.now()
+
+                val formatter = DateTimeFormatter.BASIC_ISO_DATE
+                val formatted = current.format(formatter)
+
+                for (i in MainActivity.cart) {
+                    ref.push().setValue(History(formatted.toInt(), i.id))
+                }
+                MainActivity.cart = mutableListOf<Food>();
+                Log.e("CARTSIZE", MainActivity.cart.size.toString())
+
+                popupWindow.dismiss()
                 activity?.finish()
                 activity?.let {
                     val intent = Intent (it, MainActivity::class.java)

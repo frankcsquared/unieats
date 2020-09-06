@@ -61,7 +61,7 @@ class ProfileFragment : Fragment() {
         }
 
         root.changePasswordButton.setOnClickListener {view: View->
-            view.findNavController().navigate(R.id.action_profileFragment_to_change_pass)
+            view.findNavController().navigate(R.id.action_navigation_profile_to_change_pass)
         }
 
         ref.addValueEventListener(object : ValueEventListener {

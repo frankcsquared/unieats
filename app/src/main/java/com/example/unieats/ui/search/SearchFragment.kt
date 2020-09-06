@@ -177,7 +177,6 @@ class SearchFragment : Fragment() {
 
             popupView.findViewById<Button>(R.id.confirmbtn).setOnClickListener{
                 var ref = FirebaseDatabase.getInstance().getReference("Users/"+"${MainActivity.selectedUser.id}"+"/history")
-                Log.e("ASDF BUTTON", "CONFIRM")
                 //this is where we will confirm logging like logAll();
                 val current = LocalDateTime.now()
 
@@ -187,9 +186,6 @@ class SearchFragment : Fragment() {
                 for (i in MainActivity.cart) {
                     ref.push().setValue(History(formatted.toInt(), i.id)).addOnCompleteListener{
                         MainActivity.cart.remove(i)
-                        if(MainActivity.cart.size == 0){
-                            break
-                        }
                     }
                 }
 

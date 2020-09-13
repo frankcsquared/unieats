@@ -63,10 +63,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMarkerClickListe
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (childSnapshot in dataSnapshot.children) {
-                    Log.e("ASD", "ASD")
                     var asd = childSnapshot.getValue(Location::class.java)
-                    Log.e("MAPS", asd!!.id.toString())
-                    ////val select = childSnapshot.getValue(User::class.java)
+                    //val select = childSnapshot.getValue(User::class.java)
                     val tempId = asd!!.id.removePrefix("loc")
 
                     val ll = LatLng(asd.lat,asd.lon)
@@ -134,7 +132,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMarkerClickListe
             if (restaurantBtn.text != "Nothing selected") {
                 val intent = Intent (this, LogActivity::class.java)
                 intent.putExtra("chosenId", selectedId)
-
                 startActivity(intent)
             }
 
@@ -155,8 +152,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMarkerClickListe
 
         restaurantBtn.text = marker.title
         selectedId = marker.tag as Int
-        Log.e("ID", selectedId.toString())
-
         return false
     }
 

@@ -201,7 +201,6 @@ class HomeFragment : Fragment() {
                     }
                 }
                 override fun onCancelled(error: DatabaseError) {
-                    Log.e("Error:", "Failed to read value")
                 }
             })
 

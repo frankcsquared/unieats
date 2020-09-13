@@ -81,16 +81,6 @@
                 android:rotation="180"
                 app:srcCompat="@drawable/ic_forward_icon"
                 android:contentDescription="TODO" />
-
-            <!--            <Button-->
-            <!--                android:id="@+id/proceedButton"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:gravity="left"-->
-            <!--                android:text="Cancel"-->
-            <!--                app:layout_constraintStart_toStartOf="parent"-->
-            <!--                app:layout_constraintTop_toTopOf="@+id/textView2" />-->
-
         </RelativeLayout>
 
         <LinearLayout

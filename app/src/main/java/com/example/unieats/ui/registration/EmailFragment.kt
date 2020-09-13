@@ -20,7 +20,7 @@ import com.example.unieats.databinding.FragmentTitleBinding
 
 class EmailFragment : Fragment() {
 
-    private val hint = "dywanethecock@cock.co.ck"
+    private val hint = "jsmith272@mcmaster.ca"
 
     /*override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +54,6 @@ class EmailFragment : Fragment() {
         binding.imageButton4.setOnClickListener{
             view?.findNavController()?.navigate(R.id.action_emailFragment_to_uniFragment)
             MainActivity.email = binding.emailInput.text.toString()
-            Log.e("a", MainActivity.email)
         }
 
         /*binding.emailInput.requestFocus()*/

@@ -18,7 +18,7 @@ import com.example.unieats.databinding.FragmentPassBinding
 
 class PassFragment : Fragment() {
 
-    private val hint = "cockerjohn"
+    private val hint = "abc123!!!"
 
     /*override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +50,6 @@ class PassFragment : Fragment() {
         binding.imageButton4.setOnClickListener{
             view?.findNavController()?.navigate(R.id.action_passFragment_to_emailFragment)
             MainActivity.password = binding.nameInput.text.toString()
-            Log.e("a", MainActivity.password)
         }
 
         /*binding.nameInput.requestFocus()*/

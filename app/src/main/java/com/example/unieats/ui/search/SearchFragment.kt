@@ -76,18 +76,10 @@ class SearchFragment : Fragment() {
         })
 
         binding.proceedButton.setOnClickListener {
-            Log.e("yay","yay")
             activity?.let {
                 val intent = Intent (it, MapsActivity::class.java)
                 it.startActivity(intent)
             }
-        }
-
-        if (locationId != null) {
-            Log.e("LOCATION", locationId.toString())
-        }
-        else {
-            Log.e("RIP", "cock")
         }
 
         searchViewModel =

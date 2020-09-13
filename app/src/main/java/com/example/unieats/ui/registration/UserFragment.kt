@@ -25,7 +25,7 @@ import com.google.firebase.database.ValueEventListener
 
 class UserFragment : Fragment() {
 
-    private val hint = "dwyncock6969"
+    private val hint = "j_smith1001"
 
     /*override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,14 +67,12 @@ class UserFragment : Fragment() {
 
                         if(childSnapshot.child("username").getValue(String::class.java) == MainActivity.username){
                             noMatch = false
-                            Log.e("FAIL", "user match")
                             break;
                         }
 
                     }
                     if(noMatch){
                         view?.findNavController()?.navigate(R.id.action_userFragment_to_passFragment)
-                        Log.e("a", MainActivity.username)
                     }else{
                         Toast.makeText(requireContext(), "Username already exists!", Toast.LENGTH_SHORT).show()
                     }

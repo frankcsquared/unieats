@@ -20,7 +20,7 @@ import com.example.unieats.databinding.FragmentUniBinding
 
 class UniFragment : Fragment() {
 
-    private val hint = "mcdicks uni"
+    private val hint = "McMaster University"
 
     /*override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -18,7 +18,7 @@ import com.example.unieats.databinding.FragmentNameBinding
 
 class LastNameFragment : Fragment() {
 
-    private val hint = "hard Johnson"
+    private val hint = "Smith"
 
     /*override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +50,6 @@ class LastNameFragment : Fragment() {
         binding.imageButton4.setOnClickListener{
             view?.findNavController()?.navigate(R.id.action_lastNameFragment_to_userFragment)
             MainActivity.lastName = binding.nameInput.text.toString()
-            Log.e("a", MainActivity.lastName)
         }
 
         /*binding.nameInput.requestFocus()*/

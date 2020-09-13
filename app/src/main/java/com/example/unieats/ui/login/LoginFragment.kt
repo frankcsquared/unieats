@@ -96,8 +96,6 @@ class LoginFragment : Fragment() {
                 //Log.e("LOGIN USERS")
                 var foundUser = false
                 for (i in 0 until users.size){
-                    Log.i("FOUND USER", users[i].username)
-                    Log.i("FOUND pwd", users[i].password)
                     if(usernameText.text.trim().toString() == users[i].username && passwordText.text.trim().toString() == users[i].password){
 
                         foundUser = true
@@ -114,8 +112,6 @@ class LoginFragment : Fragment() {
                 if(foundUser == false){
                     errorMsg.visibility = View.VISIBLE
                 }
-
-
             }
         }
 
@@ -125,7 +121,6 @@ class LoginFragment : Fragment() {
 
         root.usernameText.onFocusChangeListener = OnFocusChangeListener { v, hasFocus ->
             if (!hasFocus) {
-                Log.e("detected", "detected")
                 hideKeyboard(v)
             }
         }

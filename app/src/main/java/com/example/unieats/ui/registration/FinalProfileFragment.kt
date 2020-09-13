@@ -61,7 +61,6 @@ class FinalProfileFragment : Fragment() {
 
                         if(childSnapshot.child("username").getValue(String::class.java) == MainActivity.username){
                             noMatch = false
-                            Log.e("FAIL", "user match")
                             break;
                         }
 

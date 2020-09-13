@@ -77,7 +77,6 @@ class FoodFragment : Fragment() {
 
 
         backbutton.setOnClickListener {
-            Log.e("yay","yay")
             backbutton.findNavController().navigate(R.id.action_foodFragment_to_searchFragment)
 //            activity?.let {
 //                val intent = Intent (it, MapsActivity::class.java)
@@ -94,6 +93,7 @@ class FoodFragment : Fragment() {
             MainActivity.cart.add(clickedFood)
             Toast.makeText(requireContext(), "Added to cart!", Toast.LENGTH_SHORT)
                 .show()
+
             Log.e("CART:", MainActivity.cart.size.toString())
 
             var amt = 0;
@@ -166,22 +166,17 @@ class FoodFragment : Fragment() {
         rootRef.addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                Log.e("ASDF", "AFAFAFF")
                 totalCnt = 0
                 MainActivity.selectedUser = dataSnapshot.child("Users/" + "${MainActivity.selectedUser.id}" ).getValue(User::class.java)!!
                 for (childSnapshot in dataSnapshot.child("Users/" + "${MainActivity.selectedUser.id}" + "/history").children) {
                     try {
-                        Log.e("ASDF", "poops")
                         val id = childSnapshot.child("foodId").getValue(String::class.java)!!
-                        Log.e("poopsajf", id)
                         totalCnt += dataSnapshot.child("Food").child(id).child("calories").getValue(Int::class.java)!!
                     }catch(e: Exception){
-                        Log.e("ASDF", "error")
                         totalCnt = 0
                     }
                     //val addition = childSnapshot.child("cals").getValue(Long::class.java)!!
                    // totalCnt += addition.toInt()
-                    Log.e("ASDF", "totcnt here")
                     total.text = "Today's Total: " + totalCnt
                 }
             }

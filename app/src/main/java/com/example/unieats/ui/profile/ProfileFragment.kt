@@ -58,6 +58,10 @@ class ProfileFragment : Fragment() {
 
             Toast.makeText(requireContext(), "Updated!", Toast.LENGTH_SHORT).show()
 
+            MainActivity.selectedUser.goal = editGoal.text.toString()
+            MainActivity.selectedUser.first_name = editFirst.text.toString()
+            MainActivity.selectedUser.last_name = editLast.text.toString()
+
         }
 
         root.changePasswordButton.setOnClickListener {view: View->
@@ -75,6 +79,7 @@ class ProfileFragment : Fragment() {
                 editUni.setText(selectedUser.uni)
 
                 editGoal.setText(selectedUser.goal.toString())
+
 
             }
 

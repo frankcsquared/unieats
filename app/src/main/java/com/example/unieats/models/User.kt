@@ -7,12 +7,12 @@ data class History(
 
 data class User(
     val id: String ="",
-    val first_name: String ="",
-    val last_name: String ="",
+    var first_name: String ="",
+    var last_name: String ="",
     val history: Map<String, History> = mapOf<String, History>("" to History(0,"")),
     val username: String ="",
     val password: String ="",
-    val goal: String = "",
+    var goal: String = "",
     val email: String = "",
     val uni: String = ""
 )

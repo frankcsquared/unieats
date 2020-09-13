@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:foregroundTint="#EC1926">
 
     <RelativeLayout
         android:id="@+id/rellay2"
@@ -82,6 +83,7 @@
                         app:srcCompat="@drawable/ic_baseline_account_circle_24" />
 
                     <TextView
+                        android:id="@+id/profName"
                         android:layout_width="113dp"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
@@ -95,10 +97,12 @@
 
                 <ImageButton
                     android:id="@+id/imageButton7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="48dp"
+                    android:layout_height="0dp"
                     android:layout_marginStart="7dp"
                     android:layout_marginBottom="70dp"
+                    android:backgroundTint="#F9F9F9"
+                    android:tint="#EC1926"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
                     app:layout_constraintHorizontal_bias="0.033"
@@ -261,14 +265,6 @@
         </ScrollView>
 
     </RelativeLayout>
-
-
-
-
-
-
-
-
 
 
 </RelativeLayout>

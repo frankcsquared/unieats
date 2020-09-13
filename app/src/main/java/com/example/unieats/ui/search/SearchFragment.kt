@@ -12,6 +12,7 @@ import android.util.Base64
 import android.util.Log
 import android.view.*
 import android.widget.Button
+import android.widget.ListView
 import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -26,6 +27,7 @@ import com.example.unieats.MapsActivity
 import com.example.unieats.R
 import com.example.unieats.databinding.FragmentSearchBinding
 import com.example.unieats.models.Food
+import com.example.unieats.models.FoodList
 import com.example.unieats.models.History
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -166,6 +168,26 @@ class SearchFragment : Fragment() {
                 popupWindow.dismiss()
                 true
             }*/
+            var foodList = mutableListOf<FoodList>();
+            var cart = MainActivity.cart.toMutableList();
+            var dupes = mutableListOf<Food>();
+            for (item in cart){
+                if (!dupes.contains(item)){
+                    var amount = 0
+                    dupes.add(item)
+                    for (item2 in cart){
+                        if (item2.name == item.name){
+                            amount += 1;
+                        }
+                    }
+                    val check : FoodList = FoodList(item.name, item.calories, amount)
+                    foodList.add(check)
+                }
+            }
+
+            var items : ListView = popupView.findViewById(R.id.listView)
+            var adapter : ItemAdapter = ItemAdapter(requireContext(), R.layout.checkout_row, foodList)
+            items.adapter = adapter
 
             popupView.findViewById<Button>(R.id.confirmbtn).setOnClickListener{
                 var ref = FirebaseDatabase.getInstance().getReference("Users/"+"${MainActivity.selectedUser.id}"+"/history")
